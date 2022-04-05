@@ -1,0 +1,1 @@
+moduł odpowiedzialny za funkcjonalność węzła obliczeniowego

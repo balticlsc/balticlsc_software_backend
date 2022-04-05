@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+
+import "Protos/Common.proto";
+
+option csharp_namespace = "Baltic.Types.Protos";
+
+service BalticServerServiceApi {
+	rpc PutTokenMessage(Common.XTokenMessage) returns (Common.ResponseStatus);
+	rpc AckMessages(Common.XAckRequest) returns (Common.ResponseStatus);
+	rpc ConfirmBatchStart(Common.XConfirmBatchRequest) returns (Common.ResponseStatus);
+	rpc ConfirmJobStart(Common.XConfirmJobRequest) returns (Common.ResponseStatus);
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.NetworkManager</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.CreateCluster(Baltic.NetworkManager.Models.XCluster)">
+            <summary>
+            [CreateCluster] Create a new CCluster record.
+            </summary>
+            <param name="cluster">Data of the new CCluster record.</param>
+            <returns>New CCluster Uid.</returns>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.UpdateCluster(Baltic.NetworkManager.Models.XCluster)">
+            <summary>
+            [UpdateCluster] Update an existing CCluster with changed data.
+            </summary>
+            <param name="cluster">Data of the CCluster to be updated.</param>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.UpdateClusterStatus(System.String,System.String)">
+            <summary>
+            [UpdateClusterStatus] Update an existing CCLuster with new ClusterStatus.
+            </summary>
+            <param name="clusterUid">The Uid of an existing CCluster.</param>
+            <param name="status">The new ClusterStatus of the CCLuster.</param>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.FindClusters(Baltic.NetworkManager.Models.XClusterQuery)">
+            <summary>
+            [FindClusters] Get data of CCluster-s according to a ClusterQuery.
+            </summary>
+            <param name="query">Query parameters (ClusterQuery).</param>
+            <returns>A list of CCLuster records.</returns>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.GetUserClusters">
+            <summary>
+            [GetUserClusters] Get data of CClusters managed by the current user.
+            </summary>
+            <returns>A list of CCluster records.</returns>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.GetCluster(System.String)">
+            <summary>
+            [GetCluster] Get data of a given CCluster.
+            </summary>
+            <param name="clusterUid">The Uid of a CCluster.</param>
+            <returns>A single CCluster record.</returns>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.GetMachine(System.String)">
+            <summary>
+            [GetMachine] Get data of a given CMachine.
+            </summary>
+            <param name="machineUid">The Uid af a CMachine.</param>
+            <returns>A single CMachine record.</returns>
+        </member>
+        <member name="M:Baltic.NetworkManager.Controllers.NetworkManagerController.GetBatchesForResource(Baltic.NetworkManager.Models.XClusterBatchQuery)">
+            <summary>
+            [GetBatchesForResource] Get data of CBatchExecution-s run on a given CCluster.
+            </summary>
+            <param name="query">Query parameters (ClusterBatchQuery).</param>
+            <returns>A list of CBatchExecution records.</returns>
+        </member>
+        <member name="P:Baltic.NetworkManager.Models.XCluster.AvailabilityLevel">
+            <summary>
+            Probability that the Cluster stays active (0-100%)
+            </summary>
+        </member>
+    </members>
+</doc>

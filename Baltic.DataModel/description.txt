@@ -1,0 +1,3 @@
+moduł zawierający wszelkiego rodzaju modele danych, dtos'y etc - do zrefaktorowania i podzielenia na moduły dziedzinowe
+
+docelowe Baltic.Language

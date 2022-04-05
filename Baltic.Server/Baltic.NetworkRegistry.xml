@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.NetworkRegistry</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkBrokerageDaoImpl.GetMatchingClusters(Baltic.DataModel.Execution.ResourceReservationRange)">
+            
+            <param name="range"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkBrokerageDaoImplMock.GetMatchingClusters(Baltic.DataModel.Execution.ResourceReservationRange)">
+            
+            <param name="range"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.CreateCluster(Baltic.DataModel.Resources.CCluster)">
+            <summary>
+            returns clusterUid
+            </summary>
+            <param name="cluster"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.UpdateCluster(Baltic.DataModel.Resources.CCluster)">
+            
+            <param name="cluster"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.UpdateClusterStatus(System.String,Baltic.DataModel.Types.ClusterStatus)">
+            
+            <param name="clusterUid"></param>
+            <param name="status"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.FindClusters(Baltic.DataModel.Resources.ClusterQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.GetUserClusters(System.String)">
+            
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.GetCluster(System.String)">
+            
+            <param name="clusterUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.GetMachine(System.String)">
+            
+            <param name="machineUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImpl.GetBatchesForResource(Baltic.DataModel.Resources.ClusterBatchQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.CreateCluster(Baltic.DataModel.Resources.CCluster)">
+            <summary>
+            returns clusterUid
+            </summary>
+            <param name="cluster"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.UpdateCluster(Baltic.DataModel.Resources.CCluster)">
+            
+            <param name="cluster"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.UpdateClusterStatus(System.String,Baltic.DataModel.Types.ClusterStatus)">
+            
+            <param name="clusterUid"></param>
+            <param name="status"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.FindClusters(Baltic.DataModel.Resources.ClusterQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.GetUserClusters(System.String)">
+            
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.GetCluster(System.String)">
+            
+            <param name="clusterUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.GetMachine(System.String)">
+            
+            <param name="machineUid"></param>
+        </member>
+        <member name="M:Baltic.NetworkRegistry.DataAccess.NetworkManagementDaoImplMock.GetBatchesForResource(Baltic.DataModel.Resources.ClusterBatchQuery)">
+            
+            <param name="query"></param>
+        </member>
+    </members>
+</doc>

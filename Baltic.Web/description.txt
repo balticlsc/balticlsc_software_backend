@@ -1,0 +1,1 @@
+moduł przeznaczony na kod wspólny - odpowiednik Baltic.Core dla funkcjonalności Web

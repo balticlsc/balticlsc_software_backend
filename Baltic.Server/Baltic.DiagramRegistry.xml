@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.DiagramRegistry</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.DiagramRegistry.DataAccess.DiagramDaoImpl.GetDiagram(System.String)">
+            
+            <param name="diagramUid"></param>
+        </member>
+        <member name="M:Baltic.DiagramRegistry.DataAccess.DiagramDaoImpl.CopyDiagram(System.String)">
+            
+            <param name="diagramUid"></param>
+        </member>
+        <member name="M:Baltic.DiagramRegistry.DataAccess.DiagramDaoImplMock.GetDiagram(System.String)">
+            
+            <param name="diagramUid"></param>
+        </member>
+        <member name="M:Baltic.DiagramRegistry.DataAccess.DiagramDaoImplMock.CopyDiagram(System.String)">
+            
+            <param name="diagramUid"></param>
+        </member>
+    </members>
+</doc>

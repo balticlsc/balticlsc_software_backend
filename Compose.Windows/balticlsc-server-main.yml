@@ -1,0 +1,34 @@
+﻿version: '3.7'
+
+services:
+  balticlsc-server:
+    hostname: balticlsc-server
+    image: balticlsc/balticlsc-server:local
+    ports:
+      - 5000:5000
+      - 5001:5001
+    environment:
+      - ConnectionStrings:DefaultConnection=User ID=baltic;Password=somepass;Host=postgresql;Port=5432;Database=baltic;Pooling=true;
+      - tmpMongoDbConnectionString=mongodb://someuser:somepass@host.docker.internal:27017
+      - tmpFtpUser=someuser
+      - tmpFtpPass=somepass
+      - tmpFtpHost=host.docker.internal
+    networks:
+      balticlsc-server:
+        aliases:
+          - balticlsc-server
+          - balticlsc-server.balticlsc-server
+      balticlsc-node:
+        aliases:
+          - balticlsc-server
+          - balticlsc-server.balticlsc-server
+    volumes:
+      - type: bind
+        source: ./logs/balticlsc-server
+        target: /app/logs
+
+networks:
+  balticlsc-server:
+    external: true
+  balticlsc-node:
+    external: true

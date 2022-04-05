@@ -1,0 +1,1533 @@
+﻿###
+GET https://127.0.0.1:5001/editor/diagram/30cc58d6-2e6c-458d-92ce-531cb2fd26e9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+POST https://127.0.0.1:5001/editor/diagram
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+    {
+	"Id": "30CC58D6-2E6C-458D-92CE-531CB2FD26E9",
+    "name": "diagram name",
+    "data": "some data",
+    "boxes": [
+        {
+            "id": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "type": 0,
+            "elementTypeId": "type id",
+            "data": "",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+		    "Id": "1e515d68221645b8870c74ef38a19dd0", 
+                    "elementId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+                    "input": "cmpr1",
+                    "value": "value",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+                    "input": "fhcd2",
+                    "value": "compartment 2",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+            "type": 0,
+            "elementTypeId": "element type id",
+            "data": "",
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "elementId": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+                    "input": "cmpr1",
+                    "value": "value 1",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+                    "input": "fhcd2",
+                    "value": "comparmtent",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        }
+    ],
+    "lines": [
+        {
+            "id": "18D47E64-125E-458D-80CA-A396F8738DC1",
+            "startElement": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "endElement": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+            "points": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+            ],
+            "elementTypeId": "type id",
+            "type": 1,
+            "data": "",
+            "compartments": [
+                {
+                    "elementId": "18D47E64-125E-458D-80CA-A396F8738DC1",
+                    "input": "cmpr1",
+                    "value": "compartment 1 for line 1",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "18D47E64-125E-458D-80CA-A396F8738DC1",
+                    "input": "cmpr1",
+                    "value": "compartment 2 for line 1",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ],
+            "style": {
+                "lineType": "line style",
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                },
+                "endShapeStyle": {
+                    "shape": "end shape",
+                    "stroke": "end shape",
+                    "strokeWidth": 10,
+                    "radius": 20,
+                    "height": 30,
+                    "width": 40,
+                    "fill": "fill",
+                    "perfectDrawEnabled": true,
+                    "listening": true
+                },
+                "startShapeStyle": {
+                    "shape": "start shape",
+                    "stroke": "start shape",
+                    "strokeWidth": 40,
+                    "radius": 30,
+                    "height": 20,
+                    "width": 10,
+                    "fill": "fill",
+                    "perfectDrawEnabled": false,
+                    "listening": false
+                }
+            }
+        },
+        {
+            "id": "CB1B5B90-1E05-44C3-8774-FD3F01E12172",
+            "startElement": "9ab49f1836834ca68e11f89f0d150d9v",
+            "endElement": "9ab49f1836834ca68e11f89f0d150d93",
+            "points": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+            ],
+            "elementTypeId": "element type id",
+            "type": 1,
+            "data": "",
+            "compartments": [
+                {
+                    "elementId": "CB1B5B90-1E05-44C3-8774-FD3F01E12172",
+                    "input": "cmpr1",
+                    "value": "comparmtent",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "CB1B5B90-1E05-44C3-8774-FD3F01E12172",
+                    "input": "cmpr1",
+                    "value": "compartment",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ],
+            "style": {
+                "lineType": "line style",
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                },
+                "endShapeStyle": {
+                    "shape": "end shape",
+                    "stroke": "end shape",
+                    "strokeWidth": 10,
+                    "radius": 20,
+                    "height": 30,
+                    "width": 40,
+                    "fill": "fill",
+                    "perfectDrawEnabled": true,
+                    "listening": true
+                },
+                "startShapeStyle": {
+                    "shape": "start shape",
+                    "stroke": "start shape",
+                    "strokeWidth": 40,
+                    "radius": 30,
+                    "height": 20,
+                    "width": 10,
+                    "fill": "fill",
+                    "perfectDrawEnabled": false,
+                    "listening": false
+                }
+            }
+        }
+    ],
+    "ports": [
+        {
+            "id": "8AC9F293-CD32-4508-AA78-0AF57333BF61",
+            "type": 2,
+            "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "elementTypeId": "port 1 for box 1",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "elementId": "8AC9F293-CD32-4508-AA78-0AF57333BF61",
+                    "input": "cmpr1",
+                    "value": "compartment",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "8AC9F293-CD32-4508-AA78-0AF57333BF61",
+                    "input": "fhcd2",
+                    "value": "compartment",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "3C4A8729-2A86-4F08-A15D-E7CEE93CA291",
+            "type": 2,
+            "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "elementTypeId": "port",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "elementId": "3C4A8729-2A86-4F08-A15D-E7CEE93CA291",
+                    "input": "cmpr1",
+                    "value": "val",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "3C4A8729-2A86-4F08-A15D-E7CEE93CA291",
+                    "input": "fhcd2",
+                    "value": "val",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "A7559B62-EB2D-41B5-8A99-89DC8E3E1471",
+            "type": 2,
+            "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "elementTypeId": "port",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "elementId": "A7559B62-EB2D-41B5-8A99-89DC8E3E1471",
+                    "input": "cmpr1",
+                    "value": "compartment",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "elementId": "A7559B62-EB2D-41B5-8A99-89DC8E3E1471",
+                    "input": "fhcd2",
+                    "value": "compartment",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+
+###
+DELETE https://127.0.0.1:5001/editor/diagram/30cc58d6-2e6c-458d-92ce-531cb2fd26e9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+PUT https://127.0.0.1:5001/editor/diagram/30cc58d6-2e6c-458d-92ce-531cb2fd26e9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+	"name": "new name"
+}
+
+###
+POST https://127.0.0.1:5001/editor/box
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+            "type": 0,
+            "elementTypeId": "type id",
+            "data": "",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "input": "cmpr1",
+                    "value": "value",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "input": "fhcd2",
+                    "value": "compartment 2",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        }
+
+###
+PUT https://127.0.0.1:5001/editor/box/163CA5C5-7559-4972-AB17-F82F24BF98D1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+"data": "new data",
+            "location": {
+                "height": 180,
+                "width": 375,
+                "x": 150,
+                "y": 320
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDHH99",
+                    "opacity": 5,
+                    "stroke": "#ffffff",
+                    "strokeWidth": 5,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": true
+                }
+            }
+          
+        }
+
+###
+DELETE https://127.0.0.1:5001/editor/box/163CA5C5-7559-4972-AB17-F82F24BF98D1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+POST https://127.0.0.1:5001/editor/line
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "startElement": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "endElement": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+    "points": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+    ],
+    "elementTypeId": "type id",
+    "type": 1,
+    "data": "",
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment 1 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "cmpr1",
+            "value": "compartment 2 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ],
+    "style": {
+        "lineType": "line style",
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        },
+        "endShapeStyle": {
+            "shape": "end shape",
+            "stroke": "end shape",
+            "strokeWidth": 10,
+            "radius": 20,
+            "height": 30,
+            "width": 40,
+            "fill": "fill",
+            "perfectDrawEnabled": true,
+            "listening": true
+        },
+        "startShapeStyle": {
+            "shape": "start shape",
+            "stroke": "start shape",
+            "strokeWidth": 40,
+            "radius": 30,
+            "height": 20,
+            "width": 10,
+            "fill": "fill",
+            "perfectDrawEnabled": false,
+            "listening": false
+        }
+    }
+}
+
+###
+PUT https://127.0.0.1:5001/editor/line/18D47E64-125E-458D-80CA-A396F8738DC1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+    "points": [
+        1,
+        2,
+        8
+    ],
+    "elementTypeId": "new type id",
+    "type": 1,
+    "data": "data",
+    "style": {
+        "lineType": "new line style",
+        "elementStyle": {
+            "fill": "#ED",
+            "opacity": 0,
+            "stroke": "#fff",
+            "strokeWidth": 100,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        },
+        "endShapeStyle": {
+            "radius": 200,
+            "height": 300,
+            "width": 400
+        },
+        "startShapeStyle": {
+            "shape": "start",
+            "stroke": "start",
+            "perfectDrawEnabled": true,
+            "listening": true
+        }
+    }
+}
+
+###
+DELETE https://127.0.0.1:5001/editor/line/18D47E64-125E-458D-80CA-A396F8738DC1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+POST https://127.0.0.1:5001/editor/port
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "type": 2,
+    "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "elementTypeId": "port 1 for box 1",
+    "location": {
+        "height": 50,
+        "width": 260,
+        "x": 95,
+        "y": 100
+    },
+    "style": {
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        }
+    },
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "fhcd2",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "Output1: Hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ]
+}
+
+###
+PUT https://127.0.0.1:5001/editor/port/8AC9F293-CD32-4508-AA78-0AF57333BF61
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+    "elementTypeId": "new element type",
+    "location": {
+        "height": 500,
+        "width": 290,
+        "x": 9,
+        "y": 1000
+    },
+    "style": {
+        "elementStyle": {
+            "fill": "#fffff",
+            "opacity": 100,
+            "stroke": "#ffff0",
+            "strokeWidth": 12,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        }
+    }
+}
+
+###
+DELETE https://127.0.0.1:5001/editor/port/8AC9F293-CD32-4508-AA78-0AF57333BF61
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+PUT https://127.0.0.1:5001/editor/compartment/1e515d68221645b8870c74ef38a19dd0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+
+{
+            "input": "cmpr  1",
+            "value": "new value",
+            "style": {
+                "align": "left",
+                "fill": "#ffff1",
+                "fontSize": "32",
+                "strokeWidth": "10",
+                "visible": false,
+                "y": 30
+            }
+        }
+
+###
+POST https://127.0.0.1:5001/editor/element
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+[{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+            "type": 0,
+            "elementTypeId": "type id",
+            "data": "",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "input": "cmpr1",
+                    "value": "value",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "input": "fhcd2",
+                    "value": "compartment 2",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        },
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+            "type": 0,
+            "elementTypeId": "type id",
+            "data": "",
+            "location": {
+                "height": 50,
+                "width": 260,
+                "x": 95,
+                "y": 100
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDBB99 ",
+                    "opacity": 1,
+                    "stroke": "#000000",
+                    "strokeWidth": 1,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            },
+            "compartments": [
+                {
+                    "input": "cmpr1",
+                    "value": "value",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "bold",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "<<data input>> Input hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                },
+                {
+                    "input": "fhcd2",
+                    "value": "compartment 2",
+                    "style": {
+                        "align": "center",
+                        "fill": "#000000",
+                        "fontFamily": "Arial",
+                        "fontSize": "14",
+                        "fontStyle": "normal",
+                        "fontVariant": "normal",
+                        "strokeWidth": "1",
+                        "visible": true,
+                        "y": 0,
+                        "text": "Output1: Hull parameters",
+                        "listening": false,
+                        "perfectDrawEnabled": false,
+                        "width": "auto",
+                        "height": "auto"
+                    }
+                }
+            ]
+        },
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "type": 2,
+    "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "elementTypeId": "port 1 for box 1",
+    "location": {
+        "height": 50,
+        "width": 260,
+        "x": 95,
+        "y": 100
+    },
+    "style": {
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        }
+    },
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "fhcd2",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "Output1: Hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ]
+},
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "type": 2,
+    "parentId": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "elementTypeId": "port 1 for box 1",
+    "location": {
+        "height": 50,
+        "width": 260,
+        "x": 95,
+        "y": 100
+    },
+    "style": {
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        }
+    },
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "fhcd2",
+            "value": "compartment",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "Output1: Hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ]
+},
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "startElement": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "endElement": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+    "points": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+    ],
+    "elementTypeId": "type id",
+    "type": 1,
+    "data": "",
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment 1 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "cmpr1",
+            "value": "compartment 2 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ],
+    "style": {
+        "lineType": "line style",
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        },
+        "endShapeStyle": {
+            "shape": "end shape",
+            "stroke": "end shape",
+            "strokeWidth": 10,
+            "radius": 20,
+            "height": 30,
+            "width": 40,
+            "fill": "fill",
+            "perfectDrawEnabled": true,
+            "listening": true
+        },
+        "startShapeStyle": {
+            "shape": "start shape",
+            "stroke": "start shape",
+            "strokeWidth": 40,
+            "radius": 30,
+            "height": 20,
+            "width": 10,
+            "fill": "fill",
+            "perfectDrawEnabled": false,
+            "listening": false
+        }
+    }
+},
+{
+	"diagramId": "30cc58d6-2e6c-458d-92ce-531cb2fd26e9",
+    "startElement": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+    "endElement": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+    "points": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+    ],
+    "elementTypeId": "type id",
+    "type": 1,
+    "data": "",
+    "compartments": [
+        {
+            "input": "cmpr1",
+            "value": "compartment 1 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        {
+            "input": "cmpr1",
+            "value": "compartment 2 for line 1",
+            "style": {
+                "align": "center",
+                "fill": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": "14",
+                "fontStyle": "bold",
+                "fontVariant": "normal",
+                "strokeWidth": "1",
+                "visible": true,
+                "y": 0,
+                "text": "<<data input>> Input hull parameters",
+                "listening": false,
+                "perfectDrawEnabled": false,
+                "width": "auto",
+                "height": "auto"
+            }
+        }
+    ],
+    "style": {
+        "lineType": "line style",
+        "elementStyle": {
+            "fill": "#EDBB99 ",
+            "opacity": 1,
+            "stroke": "#000000",
+            "strokeWidth": 1,
+            "shape": "RoundRectangle",
+            "perfectDrawEnabled": false
+        },
+        "endShapeStyle": {
+            "shape": "end shape",
+            "stroke": "end shape",
+            "strokeWidth": 10,
+            "radius": 20,
+            "height": 30,
+            "width": 40,
+            "fill": "fill",
+            "perfectDrawEnabled": true,
+            "listening": true
+        },
+        "startShapeStyle": {
+            "shape": "start shape",
+            "stroke": "start shape",
+            "strokeWidth": 40,
+            "radius": 30,
+            "height": 20,
+            "width": 10,
+            "fill": "fill",
+            "perfectDrawEnabled": false,
+            "listening": false
+        }
+    }
+}]
+
+###
+PUT https://127.0.0.1:5001/editor/element
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+{
+    "boxes": [
+        {
+            "id": "163CA5C5-7559-4972-AB17-F82F24BF98D1",
+            "data": "new data 1",
+            "location": {
+                "height": 180,
+                "width": 375,
+                "x": 150,
+                "y": 320
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDHH99",
+                    "opacity": 5,
+                    "stroke": "#ffffff",
+                    "strokeWidth": 5,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": true
+                }
+            }
+        },
+        {
+            "id": "BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1",
+            "data": "new data 2",
+            "location": {
+                "height": 180,
+                "width": 375,
+                "x": 150,
+                "y": 320
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#EDHH99",
+                    "opacity": 5,
+                    "stroke": "#ffffff",
+                    "strokeWidth": 5,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": true
+                }
+            }
+        }
+    ],
+    "ports": [
+        {
+            "id": "8AC9F293-CD32-4508-AA78-0AF57333BF61",
+            "elementTypeId": "new element type",
+            "location": {
+                "height": 900,
+                "width": 290,
+                "x": 9,
+                "y": 1000
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#fffff",
+                    "opacity": 50,
+                    "stroke": "#ffff0",
+                    "strokeWidth": 12,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            }
+        },
+        {
+            "id": "3C4A8729-2A86-4F08-A15D-E7CEE93CA291",
+            "elementTypeId": "new element type 1",
+            "location": {
+                "height": 500,
+                "width": 290,
+                "x": 9,
+                "y": 1000
+            },
+            "style": {
+                "elementStyle": {
+                    "fill": "#fffff",
+                    "opacity": 100,
+                    "stroke": "#ffff0",
+                    "strokeWidth": 12,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                }
+            }
+        }
+    ],
+    "lines": [
+        {
+            "id": "18D47E64-125E-458D-80CA-A396F8738DC1",
+            "points": [
+                1,
+                2,
+                8,
+                9,
+                10
+            ],
+            "elementTypeId": "new type id",
+            "type": 1,
+            "data": "data",
+            "style": {
+                "lineType": "new line style",
+                "elementStyle": {
+                    "fill": "#ED",
+                    "opacity": 0,
+                    "stroke": "#fff",
+                    "strokeWidth": 100,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                },
+                "endShapeStyle": {
+                    "radius": 200,
+                    "height": 300,
+                    "width": 400
+                },
+                "startShapeStyle": {
+                    "shape": "start",
+                    "stroke": "start",
+                    "perfectDrawEnabled": true,
+                    "listening": true
+                }
+            }
+        },
+        {
+            "id": "CB1B5B90-1E05-44C3-8774-FD3F01E12172",
+            "points": [
+                1,
+                2,
+                8
+            ],
+            "elementTypeId": "new type id",
+            "type": 1,
+            "data": "data",
+            "style": {
+                "lineType": "new line style",
+                "elementStyle": {
+                    "fill": "#ED",
+                    "opacity": 0,
+                    "stroke": "#fff",
+                    "strokeWidth": 100,
+                    "shape": "RoundRectangle",
+                    "perfectDrawEnabled": false
+                },
+                "endShapeStyle": {
+                    "radius": 200,
+                    "height": 300,
+                    "width": 400
+                },
+                "startShapeStyle": {
+                    "shape": "start",
+                    "stroke": "start",
+                    "perfectDrawEnabled": true,
+                    "listening": true
+                }
+            }
+        }
+    ]
+}
+
+###
+DELETE https://127.0.0.1:5001/editor/element/BDE71A4C-AAA7-4107-B89B-4D7BA8E835E1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+
+#################################################################################33
+
+###
+POST https://127.0.0.1:5001/editor/element
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+Content-Type: application/json
+
+[{"_id":1592827325487,"diagramId":"de3f6325-c5d3-4575-9dc2-caa9cc40abeb","elementTypeId":"RequiredDataPin","type":0,"style":{"elementStyle":{"fill":"white","opacity":1,"stroke":"#000000","strokeWidth":1,"shape":"ComputedDataPinSingle","perfectDrawEnabled":false,"data":"M20,0 L90,45 L20,90 Z","lineJoin":"round"}},"compartments":[{"id":"15928273254880","_id":"15928273254880","input":"RDP","value":"RDP","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":true,"y":0,"text":"RDP","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"compartmentTypeId":"RequiredDataPinName","compartmentType":{"id":"RequiredDataPinName","name":"Name","inputType":{"type":"input","inputType":"text"},"defaultValue":"RDP","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":true,"y":0,"text":"RDP","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"}}},{"id":"15928273254881","_id":"15928273254881","input":"15928273254881","value":"15928273254881","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"compartmentTypeId":"RequiredDataPinDataType","compartmentType":{"id":"RequiredDataPinDataType","name":"Data Type","inputType":{"type":"input","inputType":"select"},"defaultValue":"","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"}}},{"id":"15928273254882","_id":"15928273254882","input":"15928273254882","value":"15928273254882","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"compartmentTypeId":"RequiredDataPinAccessType","compartmentType":{"id":"RequiredDataPinAccessType","name":"Access Type","inputType":{"type":"input","inputType":"select"},"defaultValue":"","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"}}},{"id":"15928273254883","_id":"15928273254883","input":"false","value":"false","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"compartmentTypeId":"RequiredDataPinMultiplicity","compartmentType":{"id":"RequiredDataPinMultiplicity","name":"Multiple","inputType":{"type":"input","inputType":"checkbox"},"defaultValue":"false","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"styleDeltas":[{"value":"true","elementStyle":{"shape":"DeclaredRequiredMultiplePin"}},{"value":"false","elementStyle":{"shape":"ComputedDataPinSingle"}}]}},{"id":"15928273254884","_id":"15928273254884","input":"true","value":"true","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"},"compartmentTypeId":"RequiredDataPinMandatory","compartmentType":{"id":"RequiredDataPinMandatory","name":"Mandatory","inputType":{"type":"input","inputType":"checkbox"},"defaultValue":"true","style":{"align":"center","fill":"#000000","fontFamily":"Arial","fontSize":14,"fontStyle":"bold","fontVariant":"normal","strokeWidth":1,"visible":false,"y":0,"text":"","listening":false,"perfectDrawEnabled":false,"width":"auto","height":"auto"}}}],"location":{"x":133,"y":71,"width":45,"height":35}}]

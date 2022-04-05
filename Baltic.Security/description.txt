@@ -1,0 +1,1 @@
+moduł przeznaczony do obsługi logowania, autoryzacji, etc... do przerobienia na module - w trakcie RR

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Baltic.Core\Baltic.Core.csproj" />
+      <ProjectReference Include="..\Baltic.Types\Baltic.Types.csproj" />
+      <ProjectReference Include="..\Libraries\Docker.DotNet\Docker.DotNet.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="logs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Local.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+    </ItemGroup>
+
+
+</Project>

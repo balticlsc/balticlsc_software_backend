@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "Baltic.Node.ClusterProxy.Swarm": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "projectPrefix": "balticlsc"
+      }
+    }
+  }
+}

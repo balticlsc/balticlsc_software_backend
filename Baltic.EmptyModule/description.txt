@@ -1,0 +1,1 @@
+moduł przeznaczony na interfejsy GRPC

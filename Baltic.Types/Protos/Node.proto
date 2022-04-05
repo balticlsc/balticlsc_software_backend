@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+import public "Protos/Common.proto";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Baltic.Types.Protos";
+
+service NodeServiceApi {
+	rpc GetNodeStatus(google.protobuf.Empty) returns (NodeStatus);
+	rpc RegisterNode(RegisterRequest) returns (Common.ResponseStatus);
+}
+
+message RegisterRequest {
+	string Id = 1;
+	string Name = 2;
+	string Url = 3;
+	string Ip = 4;
+}
+
+message NodeStatus {
+    string Id = 1;
+    string Name = 2;
+    string Url = 3;
+    string OsNameAndVersion = 4;
+    string UpTime = 5;
+}

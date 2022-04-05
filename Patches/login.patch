@@ -1,0 +1,56 @@
+Index: Baltic.Security/Controllers/LoginController.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Baltic.Security/Controllers/LoginController.cs	(revision 00b03891b2c3d5437f566fdfc0cb1b94557740f2)
++++ Baltic.Security/Controllers/LoginController.cs	(date 1601840023692)
+@@ -39,10 +39,32 @@
+             var roles = User.GetRoles();
+             return new JsonResult(new { Success = true, isAuthenticated, userName, roles });
+         }
++
++        [HttpGet("CreateUser")]
++        [Authorize]
++        public ActionResult CreateUser(string userName, string password, string FullName)
++        {
++            return Ok();
++        }
+         
++        [HttpGet("ChangePassword")]
++        [Authorize]
++        public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
++        {
++            return Ok();
++        }
++
++        [HttpGet("AddUserRole")]
++        [Authorize]
++        public ActionResult AddUserRole(string userName, string role)
++        {
++            return Ok();            
++        }
++
++
+         [AllowAnonymous]    
+         [HttpGet]    
+-        public IActionResult Login()    
++        public IActionResult Login(string userName, string password)    
+         {    
+             IActionResult response = Unauthorized();    
+             //var user = AuthenticateUser(login);
+Index: Baltic.Core/Baltic.Core.csproj
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Baltic.Core/Baltic.Core.csproj	(revision 00b03891b2c3d5437f566fdfc0cb1b94557740f2)
++++ Baltic.Core/Baltic.Core.csproj	(date 1600950306682)
+@@ -10,6 +10,7 @@
+ 
+   <ItemGroup>
+     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
++    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.8" />
+     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
+     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

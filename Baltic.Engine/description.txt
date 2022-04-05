@@ -1,0 +1,2 @@
+moduł odpowiedzialny za logikę biznesową - doecelowo nie powinien wykorzystywać żadnych innych modułów - powinien być
+używany przez inne

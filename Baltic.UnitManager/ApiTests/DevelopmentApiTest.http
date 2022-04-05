@@ -1,0 +1,215 @@
+﻿### CreateApp
+PUT https://localhost:5001/dev/app/?name=My+Second+App
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### CreateModule
+PUT https://localhost:5001/dev/module/?name=My+Second+Module
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### CreateAppRelease
+PUT https://localhost:5001/dev/apprelease?appuid=YetAnotherImageProcessor_001&version=0.2.5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+### CreateAppRelease (new app)
+PUT https://localhost:5001/dev/apprelease?version=0.2.7&appuid=b17bcfb6-5a22-4a45-9132-cf15f79d8dcb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+### CreateModuleRelease
+PUT https://localhost:5001/dev/modulerelease?moduleuid=nip_12345
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "version": "1.7.6",
+  "uid": "is001",
+  "description": "New version of the processor",
+  "openSource": true,
+  "YAML": "MY SHORTER YAML TEXT",
+  "pins": [
+    {
+      "uid": "image01",
+      "name": "image",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": "JPEG",
+      "accessType": "file2"
+    },
+    {
+      "uid": "imagep01",
+      "name": "imagep1",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    },
+    {
+      "uid": "imagep02",
+      "name": "imagep2",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    },
+    {
+      "uid": "imagep03",
+      "name": "imagep3",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    }
+  ]
+}
+
+### FindUnits
+POST https://localhost:5001/dev/unit/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "isApp": true,
+  "allUnits": true,
+  "authorUid": "",
+  "onlyLastRelease": false
+}
+
+### GetUserUnits
+GET https://localhost:5001/dev/shelf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### FindUnitReleases
+POST https://localhost:5001/dev/release/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "onlyApps": false,
+  "authorUid": ""
+}
+
+### GetUnit
+GET https://localhost:5001/dev/unit?unitUid=YetAnotherImageProcessor_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### GetUnit (new release)
+GET https://localhost:5001/dev/unit?unitUid=b17bcfb6-5a22-4a45-9132-cf15f79d8dcb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### GetUnitRelease
+GET https://localhost:5001/dev/release?releaseUid=YetAnotherImageProcessor_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### GetUnitRelease (new release)
+GET https://localhost:5001/dev/release?releaseUid=997c691e-354d-4d96-b46f-ee3fcd678561
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### GetToolboxUnits
+GET https://localhost:5001/dev/toolbox
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### UpdateUnit
+POST https://localhost:5001/dev/unit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "UpdateImageProcessor",
+  "uid": "YetAnotherImageProcessor_001",
+  "shortDescription": "Updated Short Description",
+  "longDescription": "Updated Long Description which should be long!"
+}
+
+### UpdateModuleRelease
+POST https://localhost:5001/dev/modulerelease
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "version": "3.7",
+  "uid": "is001",
+  "description": "New version of the splitter",
+  "openSource": true,
+  "YAML": "MY SHORT YAML TEXT",
+  "pins": [
+    {
+      "uid": "image01",
+      "name": "image",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": "JPEG",
+      "accessType": "file2"
+    },
+    {
+      "uid": "imagep01",
+      "name": "imagep1",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    },
+    {
+      "uid": "imagep02",
+      "name": "imagep2",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    },
+    {
+      "uid": "imagep03",
+      "name": "imagep3",
+      "binding": 0,
+      "multiplicity": 0,
+      "dataType": null,
+      "accessType": null
+    }
+  ]
+}
+
+### UpdateAppRelease
+POST https://localhost:5001/dev/apprelease
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "version": "0.2",
+  "uid": "YetAnotherImageProcessor_rel_001",
+  "description": "New version of the processor",
+  "openSource": true
+}
+
+### DeleteUnit
+DELETE https://localhost:5001/dev/unit?unituid=MyApp_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### DeleteUnitRelease
+DELETE https://localhost:5001/dev/release?releaseuid=YetAnotherImageProcessor_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### AddUnitToToolbox
+PUT https://localhost:5001/dev/toolbox?releaseUid=YetAnotherImageProcessor_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### AddUnitToToolbox (new)
+PUT https://localhost:5001/dev/toolbox?releaseUid=ftp2mongodb_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+###
+PUT https://localhost:5001/dev/toolbox?releaseUid=grey2edge_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+###
+
+PUT https://localhost:5001/dev/toolbox?releaseUid=rgb2gray-mongo_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+###
+
+PUT https://localhost:5001/dev/toolbox?releaseUid=mongodb2ftp_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### RemoveUnitFromToolbox
+DELETE https://localhost:5001/dev/toolbox?releaseUid=YetAnotherImageProcessor_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ

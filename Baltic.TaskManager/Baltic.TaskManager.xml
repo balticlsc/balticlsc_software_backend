@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.TaskManager</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InitiateTask(System.String,Baltic.TaskManager.Models.XTaskParameters)">
+            <summary>
+            [InitiateTask] Initiate a CTask for a given ComputationApplicationRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationApplicationRelease to be instantiated.</param>
+            <param name="par">The TaskParameters to control CTask execution.</param>
+            <returns>The Uid of the newly initiated CTask</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InjectDataSet(System.String,System.String,Baltic.TaskManager.Models.XTaskDataSet)">
+            <summary>
+            [InjectDataSet] Inject a TaskDataSet into a specific DeclaredPin of an initiated CTask.
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+            <param name="pinUid">The Uid of the DeclaredPin to inject the TaskDataSet.</param>
+            <param name="ds">The actual TaskDataSet record.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InitiateAppTestTask(System.String,Baltic.TaskManager.Models.XTaskParameters)">
+            <summary>
+            [InitiateAppTestTask] Initiate a CTask for a given ComputationApplication in test mode.
+            </summary>
+            <param name="appUid">The Uid of the ComputationApplication to be instantiated.</param>
+            <param name="par">The TaskParameters to control CTask execution.</param>
+            <returns>The Uid of the newly initiated CTask.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.FindTasks(Baltic.TaskManager.Models.XTaskQuery)">
+            <summary>
+            [FindTasks] Get data of CTask-s according to a TaskQuery.
+            </summary>
+            <param name="query">Query parameters (TaskQuery).</param>
+            <returns>A list of CTask records.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.AbortTask(System.String)">
+            <summary>
+            [AbortTask] Change the ComputationStatus of CTask to "Aborted".
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetTask(System.String)">
+            <summary>
+            [GetTask] Get data of a given CTask.
+            </summary>
+            <param name="taskUid">The Uid of a CTask.</param>
+            <returns>A single CTask record with all contained CJobBatches and CJobs.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetBatch(System.String)">
+            <summary>
+            [GetBatch] Get data of a given CJobBatch.
+            </summary>
+            <param name="batchUid">The Uid of a CJobBatch.</param>
+            <returns>A single CJobBatch record with all contained CJobs.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetJob(System.String)">
+            <summary>
+            [GetJob] Get data of a given CJob.
+            </summary>
+            <param name="jobUid">The Uid of a CJob.</param>
+            <returns>A single CJob record.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetResourceUsage(Baltic.TaskManager.Models.XUsageQuery)">
+            <summary>
+            [GetResourceUsage] Get data of ResourceUsage-s for a given CCluster and UsageQuery. 
+            </summary>
+            <param name="query">Query parameters (UsageQuery) including the Uid of the CCluster.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetSupportedResourceRange(System.String)">
+            <summary>
+            [GetSupportedResourceRange] Get ResourceRange for the given ComputationRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationRelease</param>
+            <returns>A single ResourceRange record.</returns>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XBatch.Uid">
+            <summary>
+            from: CJobBatch
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XBatch.SerialNo">
+            <summary>
+            from: ExecutionRecord
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XBatch.Status">
+            <summary>
+            from: ExecutionRecord
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XBatch.MsgUid">
+            <summary>
+            from: BatchExecution
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XJob.Uid">
+            <summary>
+            from: CJob
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XJob.Status">
+            <summary>
+            from: ExecutionRecord
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XJob.MsgUid">
+            <summary>
+            from: JobExecution
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XTask.Uid">
+            <summary>
+            from: CTask
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XTask.Status">
+            <summary>
+            from: ExecutionRecord
+            </summary>
+        </member>
+        <member name="P:Baltic.TaskManager.Models.XTask.ConsumedCredits">
+            <summary>
+            from: TaskExecution
+            </summary>
+        </member>
+        <member name="M:Baltic.TaskManager.Proxies.BatchesProxy.BatchMessageReceived(Baltic.DataModel.CALExecutable.BatchMessage)">
+            
+            <param name="bm"></param>
+        </member>
+    </members>
+</doc>

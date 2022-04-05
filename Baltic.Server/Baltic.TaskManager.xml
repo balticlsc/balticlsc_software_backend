@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.TaskManager</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.AddDataSetToShelf(Baltic.TaskManager.Models.XTaskDataSet)">
+            <summary>
+            [AddDataSetToShelf] Adds a new TaskDataSet to the Data Shelf of the current user.
+            </summary>
+            <param name="dataSet">The TaskData set to be added.</param>
+            <returns>THe Uid of the newly created TaskDataSet.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.DeleteDataSet(System.String)">
+            <summary>
+            [DeleteDataSet] Deletes the TaskDataSet with the given Uid.
+            </summary>
+            <param name="dataSetUid">The Uid of the TaskDataSet to be removed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.UpdateDataSet(Baltic.TaskManager.Models.XTaskDataSet)">
+            <summary>
+            [UpdateDataSet] Updates the given TaskDataSet.
+            </summary>
+            <param name="dataSet">The TaskDataSet data to be updated.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetDataSet(System.String)">
+            <summary>
+            [GetDataSet] Get the TaskDataSet with the given Uid.
+            </summary>
+            <param name="dataSetUid">The Uid of the TaskDataSet to be retrieved.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetDataShelf">
+            <summary>
+            [GetDataShelf] Get a list of TaskDataSet-s in the Data Shelf of the current user.
+            </summary>
+            <returns>The list of TaskDataSets.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetAvailableDataTypes">
+            <summary>
+            [GetAvailableDataTypes] Get the list of all DataTypes available to the current user.
+            </summary>
+            <returns>The list of available DataTypes.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetDataType(System.String)">
+            <summary>
+            [GetDataType] Get the DataType with the given Uid.
+            </summary>
+            <param name="uid">The Uid of the specific DataType.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetAvailableDataStructures">
+            <summary>
+            [GetAvailableDataStructures] Get the list of all DataStructures available to the current user.
+            </summary>
+            <returns>The list of available DataStructures.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetDataStructure(System.String)">
+            <summary>
+            [GetDataStructure] Get the DataStructure with the given Uid.
+            </summary>
+            <param name="uid">The Uid of the specific DataStructure.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetAvailableAccessTypes">
+            <summary>
+            [GetAvailableAccessTypes] Get the list of all AccessTypes available to the current user.
+            </summary>
+            <returns>The list of available AccessTypes.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.DataShelfController.GetAccessType(System.String)">
+            <summary>
+            [GetDataType] Get the AccessType with the given Uid.
+            </summary>
+            <param name="uid">The Uid of the specific AccessType.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InitiateTask(System.String,Baltic.TaskManager.Models.XTaskParameters)">
+            <summary>
+            [InitiateTask] Initiate a CTask for a given ComputationApplicationRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationApplicationRelease to be instantiated.</param>
+            <param name="par">The TaskParameters to control CTask execution.</param>
+            <returns>The Uid of the newly initiated CTask</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InjectDataSet(System.String,System.String,Baltic.TaskManager.Models.XTaskDataSet)">
+            <summary>
+            [InjectDataSet] Inject a TaskDataSet into a specific DeclaredPin of an initiated CTask.
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+            <param name="pinUid">The Uid of the DeclaredPin to inject the TaskDataSet.</param>
+            <param name="ds">The actual TaskDataSet record.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InjectDataSet(System.String,System.String,System.String)">
+            <summary>
+            [InjectDataSet] Inject a TaskDataSet into a specific DeclaredPin of an initiated CTask.
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+            <param name="pinUid">The Uid of the DeclaredPin to inject the TaskDataSet.</param>
+            <param name="dataSetUid">The Uid of an existing TaskDataSet record.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.InitiateAppTestTask(System.String,Baltic.TaskManager.Models.XTaskParameters)">
+            <summary>
+            [InitiateAppTestTask] Initiate a CTask for a given ComputationApplication in test mode.
+            </summary>
+            <param name="appUid">The Uid of the ComputationApplication to be instantiated.</param>
+            <param name="par">The TaskParameters to control CTask execution.</param>
+            <returns>The Uid of the newly initiated CTask.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.FindTasks(Baltic.TaskManager.Models.XTaskQuery)">
+            <summary>
+            [FindTasks] Get data of CTask-s according to a TaskQuery.
+            </summary>
+            <param name="query">Query parameters (TaskQuery).</param>
+            <returns>A list of CTask records.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.AbortTask(System.String)">
+            <summary>
+            [AbortTask] Change the ComputationStatus of CTask to "Aborted".
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetTask(System.String)">
+            <summary>
+            [GetTask] Get data of a given CTask.
+            </summary>
+            <param name="taskUid">The Uid of a CTask.</param>
+            <returns>A single CTask record with all contained CJobBatches and CJobs.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetBatch(System.String)">
+            <summary>
+            [GetBatch] Get data of a given CJobBatch.
+            </summary>
+            <param name="batchUid">The Uid of a CJobBatch.</param>
+            <returns>A list of BatchExecution records for the given CJobBatch with all contained JobExecutions.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetJob(System.String)">
+            <summary>
+            [GetJob] Get data of a given CJob.
+            </summary>
+            <param name="jobUid">The Uid of a CJob.</param>
+            <returns>A list of JobExecution records for the given CJob.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetResourceUsage(Baltic.TaskManager.Models.XUsageQuery)">
+            <summary>
+            [GetResourceUsage] Get data of ResourceUsage-s for a given CCluster and UsageQuery. 
+            </summary>
+            <param name="query">Query parameters (UsageQuery) including the Uid of the CCluster.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetSupportedResourceRange(System.String)">
+            <summary>
+            [GetSupportedResourceRange] Get ResourceRange for the given ComputationRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationRelease</param>
+            <returns>A single ResourceRange record.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetPinsForTask(System.String)">
+            <summary>
+            [GetPinsForTask] Get Pins that need to be initiated with TaskDataSets.
+            </summary>
+            <param name="taskUid">The Uid of the Task.</param>
+            <returns>A list of Pin records.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.GetCompatibleClusters(System.String)">
+            <summary>
+            [GetCompatibleClusters] Get Clusters that can run the given ComputationApplication.
+            </summary>
+            <param name="appReleaseUid">The Uid of the ComputationApplication.</param>
+            <returns>A list of Clusters - just basic data.</returns>
+        </member>
+        <member name="M:Baltic.TaskManager.Proxies.ClusterNodeAccessFactory.CreateClusterNodeAccess(Baltic.DataModel.Resources.CCluster)">
+            
+            <param name="cluster"></param>
+        </member>
+        <member name="M:Baltic.TaskManager.Proxies.ClusterNodeAccessFactory.CreateQueueConsumerAccess(Baltic.DataModel.Resources.CCluster)">
+            
+            <param name="cluster"></param>
+        </member>
+    </members>
+</doc>

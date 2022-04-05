@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.UnitRegistry</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImpl.GetUnitRelease(System.String)">
+            
+            <param name="releaseUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImpl.GetUnit(System.String)">
+            
+            <param name="unitUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImpl.GetDataType(System.String)">
+            
+            <param name="dtUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImpl.GetDataStructure(System.String)">
+            
+            <param name="dsUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImpl.GetAccessType(System.String)">
+            
+            <param name="atUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImplMock.GetUnitRelease(System.String)">
+            
+            <param name="releaseUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImplMock.GetUnit(System.String)">
+            
+            <param name="unitUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImplMock.GetDataType(System.String)">
+            
+            <param name="dtUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitGeneralDaoImplMock.GetAccessType(System.String)">
+            
+            <param name="atUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.CreateApp(System.String,System.String,System.String)">
+            
+            <param name="appName"></param>
+            <param name="diagramUid"></param>
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease)">
+            
+            <param name="unitUid"></param>
+            <param name="release"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.CreateModule(System.String,System.String)">
+            
+            <param name="moduleName"></param>
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.FindUnits(Baltic.DataModel.Accounts.UnitQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.FindUnitReleases(Baltic.DataModel.Accounts.UnitQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.UpdateUnit(Baltic.DataModel.CAL.ComputationUnit)">
+            
+            <param name="unit"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.UpdateUnitRelease(Baltic.DataModel.CAL.ComputationUnitRelease)">
+            
+            <param name="release"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.DeleteUnit(System.String)">
+            
+            <param name="unitUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.DeleteUnitRelease(System.String)">
+            
+            <param name="unitRelUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.AddUnitToShelf(System.String,System.String,System.Boolean)">
+            
+            <param name="releaseUid"></param>
+            <param name="userUid"></param>
+            <param name="toToolbox"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.CreateApp(System.String,System.String,System.String)">
+            
+            <param name="appName"></param>
+            <param name="diagramUid"></param>
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.CreateModule(System.String,System.String)">
+            
+            <param name="moduleName"></param>
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease)">
+            
+            <param name="unitUid"></param>
+            <param name="release"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.FindUnits(Baltic.DataModel.Accounts.UnitQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.FindUnitReleases(Baltic.DataModel.Accounts.UnitQuery)">
+            
+            <param name="query"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.UpdateUnit(Baltic.DataModel.CAL.ComputationUnit)">
+            
+            <param name="unit"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.UpdateUnitRelease(Baltic.DataModel.CAL.ComputationUnitRelease)">
+            
+            <param name="release"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.DeleteUnit(System.String)">
+            
+            <param name="unitUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.DeleteUnitRelease(System.String)">
+            
+            <param name="unitRelUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.AddUnitToShelf(System.String,System.String,System.Boolean)">
+            
+            <param name="releaseUid"></param>
+            <param name="userUid"></param>
+            <param name="toToolbox"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.RemoveUnitFromShelf(System.String,System.String,System.Boolean)">
+            
+            <param name="releaseUid"></param>
+            <param name="userUid"></param>
+            <param name="fromToolbox"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImpl.AddDataSetToShelf(Baltic.DataModel.Accounts.TaskDataSet)">
+            
+            <param name="dataSet"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImpl.DeleteDataSet(System.String)">
+            
+            <param name="dataSetUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImpl.UpdateDataSet(Baltic.DataModel.Accounts.TaskDataSet)">
+            
+            <param name="dataSet"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImpl.GetDataSet(System.String)">
+            
+            <param name="dataSetUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImpl.GetDataShelf(System.String)">
+            
+            <param name="userUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease)">
+            
+            <param name="unitUid"></param>
+            <param name="release"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.AddDataSetToShelf(Baltic.DataModel.Accounts.TaskDataSet)">
+            
+            <param name="dataSet"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.DeleteDataSet(System.String)">
+            
+            <param name="dataSetUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.UpdateDataSet(Baltic.DataModel.Accounts.TaskDataSet)">
+            
+            <param name="dataSet"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.GetDataSet(System.String)">
+            
+            <param name="dataSetUid"></param>
+        </member>
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitProcessingDaoImplMock.GetDataShelf(System.String)">
+            
+            <param name="userUid"></param>
+        </member>
+    </members>
+</doc>

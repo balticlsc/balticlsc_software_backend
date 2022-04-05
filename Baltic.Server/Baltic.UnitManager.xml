@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.UnitManager</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.GetShelfApps">
+            <summary>
+            [GetShelfApps] Get data of ComputationApplicationRelease-s for a given user.
+            </summary>
+            <returns>A list of ComputationApplicationRelease records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.AddAppToShelf(System.String)">
+            <summary>
+            [AddAppToShelf] Adds a selected ComputationApplicationRelease to the AppShelf of a given user.
+            </summary>
+            <param name="releaseUid">The Uid of the selected ComputationApplicationRelease.</param>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.RemoveAppFromShelf(System.String)">
+            <summary>
+            [RemoveAppFromShelf] Removes a selected ComputationApplicationRelease from the AppShelf of a given user.
+            </summary>
+            <param name="releaseUid">The Uid of the selected ComputationApplicationRelease.</param>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.FindApps(Baltic.UnitManager.Models.XUnitQuery)">
+            <summary>
+            [FindApps] Get data of ComputationApplication-s according to a UnitQuery.
+            </summary>
+            <param name="query">Query parameters (UnitQuery).</param>
+            <returns>A list of ComputationApplication records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.GetApp(System.String)">
+            <summary>
+            [GetApp] Get data of a given ComputationApplication.
+            </summary>
+            <param name="appUid">The Uid of the given ComputationApplication.</param>
+            <returns>A single ComputationApplication record.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.RateApp(System.String,System.Int32)">
+            <summary>
+            [RateApp] Update the ComputationApplication with a new rating value.
+            </summary>
+            <param name="appUid">The Uid of the given ComputationApplication.</param>
+            <param name="rate">The rating value.</param>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.AppStoreController.FindAppReleases(Baltic.UnitManager.Models.XUnitQuery)">
+            <summary>
+            [FindAppReleases] Get data of ComputationApplicationRelease-s according to a UnitQuery.
+            </summary>
+            <param name="query">Query parameters (UnitQuery).</param>
+            <returns>A list of ComputationApplicationRelease records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.CreateApp(System.String)">
+            <summary>
+            [CreateApp] Creates a new ComputationApplication with the given name.
+            </summary>
+            <param name="name">Name for the ComputationApplication to be created.</param>
+            <returns>The Uid of the newly created ComputationApplication.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.CreateModule(System.String)">
+            <summary>
+            [CreateModule] Creates a new ComputationModule with the given name.
+            </summary>
+            <param name="name">Name for the ComputationModule to be created.</param>
+            <returns>The Uid of the newly created ComputationModule.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.CreateAppRelease(System.String,System.String)">
+            <summary>
+            [CreateAppRelease] Creates a new ComputationApplicationRelease for a given ComputationApplication with the given version.
+            </summary>
+            <param name="appUid">The Uid of the ComputationApplication.</param>
+            <param name="version">The Version designation for the ComputationApplicationRelease.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.CreateModuleRelease(System.String,Baltic.UnitManager.Models.XModuleReleaseCrude)">
+            <summary>
+            [CreateModuleRelease] Creates a new ComputationModuleRelease for a given ComputationModule with the given data.
+            </summary>
+            <param name="moduleUid">The Uid of the ComputationModule.</param>
+            <param name="release">Data of the release to be added, with a list of DeclaredDataPins.</param>
+            <returns>The Uid of the newly created ComputationModuleRelease.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.FindUnits(Baltic.UnitManager.Models.XUnitQuery)">
+            <summary>
+            [FindUnits] Get data of ComputationUnit-s according to a UnitQuery.
+            </summary>
+            <param name="query">Query parameters (UnitQuery).</param>
+            <returns>A list of ComputationUnit records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.GetUserUnits">
+            <summary>
+            [GetUserUnits] Get data of ComputationUnit-s authored by the current user.
+            </summary>
+            <returns>A list of ComputationUnit records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.FindUnitReleases(Baltic.UnitManager.Models.XUnitQuery)">
+            <summary>
+            [FindUnitReleases] Get data of ComputationUnitRelease-s according to a UnitQuery.
+            </summary>
+            <returns>A list of ComputationUnitRelease records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.GetToolboxUnits">
+            <summary>
+            [GetToolboxUnits] Get data of ComputationUnitReleases-s in the Toolbox of the current user.
+            </summary>
+            <returns>A list of ComputationUnitRelease records.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.GetUnit(System.String)">
+            <summary>
+            [GetUnit] Get data of a given ComputationUnit.
+            </summary>
+            <param name="unitUid">The Uid of the ComputationUnit.</param>
+            <returns>A single ComputationUnit record.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.GetUnitRelease(System.String)">
+            <summary>
+            [GetUnitRelease] Get data of a given ComputationUnitRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationUnitRelease.</param>
+            <returns>A single ComputationUnitRelease record.</returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.UpdateUnit(Baltic.UnitManager.Models.XComputationUnitCrude)">
+            <summary>
+            [UpdateUnit] Update data for a given ComputationUnit.
+            </summary>
+            <param name="unit">The new ComputationUnit data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.UpdateAppRelease(Baltic.UnitManager.Models.XUnitReleaseCrude)">
+            <summary>
+            [UpdateAppRelease] Update data for a given ComputationApplicationRelease.
+            </summary>
+            <param name="release">The new ComputationApplicationRelease data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.UpdateModuleRelease(Baltic.UnitManager.Models.XModuleReleaseCrude)">
+            <summary>
+            [UpdateModuleRelease] Update data for a given ComputationModuleRelease.
+            </summary>
+            <param name="release">The new ComputationModuleRelease data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.DeleteUnit(System.String)">
+            <summary>
+            [DeleteUnit] Remove data of a given ComputationUnit.
+            </summary>
+            <param name="unitUid">The Uid of the ComputationUnit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.DeleteUnitRelease(System.String)">
+            <summary>
+            [DeleteUnitRelease] Remove data of a given ComputationUnitRelease.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationUnitRelease.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.AddUnitToToolbox(System.String)">
+            <summary>
+            [AddUnitToToolbox] Adds a selected ComputationUnitRelease to the Toolbox of a given user.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationUnitRelease.</param>
+        </member>
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.RemoveUnitFromToolbox(System.String)">
+            <summary>
+            [RemoveUnitFromToolbox] Removes a selected ComputationUnitRelease from the Toolbox of a given user.
+            </summary>
+            <param name="releaseUid">The Uid of the ComputationUnitRelease.</param>
+        </member>
+    </members>
+</doc>

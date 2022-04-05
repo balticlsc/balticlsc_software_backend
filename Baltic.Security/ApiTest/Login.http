@@ -1,0 +1,31 @@
+GET http://localhost:5000/login
+X-version: 1.0
+Accept: */*
+Accept: application/json
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:5000/login/checkauthentication
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:5000/login/checkauthentication
+
+###
+
+GET http://localhost:5000/Test
+
+###
+
+GET http://localhost:5000/Test/CheckAuth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM
+
+###
+
+GET http://localhost:5000/Test/CheckAdminRole
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjhmMWY0MmMwLTQ2MjgtNGRhYS05ZDdiLTI1NmJjYzQ4MzNlZSIsImV4cCI6MTU5MTkxNDM1NywiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.uAZJn416MvhJxO8Uo78q0mpEwASqodVKtEvXCH00dGM

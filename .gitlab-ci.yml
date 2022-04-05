@@ -1,0 +1,91 @@
+#.rollback_nightbuild: &rollback_nightbuild
+#- docker stop $(docker ps -a -q)
+#- docker rm $(docker ps -a -q)
+#- docker rmi $(docker images -a -q)
+#- docker pull balticlsc/balticserver:nightbuild
+#- docker run -d -p 8050:8050 balticlsc/balticserver:nightbuild ConnectionStrings:DefaultConnection="User ID=postgres;Password=BalticLSC.;Host=10.40.17.231;Port=5432;Database=baltic;Pooling=true;"
+#- rm /var/lib/gitlab-runner/.balticserversha.txt            
+#- docker inspect balticlsc/balticserver:nightbuild | grep -n -m1 -e "Id" | cut -f4 -d'"' > /var/lib/gitlab-runner/.balticserversha.txt
+
+
+stages: 
+  - create docs 
+  - push docs to repo
+  - publish nightly docker image
+
+build_docs:
+  stage: create docs
+  only:
+    - master@baltic_lsc/balticlsc-backend
+    #If you want to use automatic .proto files documentation creation, uncomment line below and fill it with your branch name. 
+    #- <YOUR_BRANCH_NAME>@baltic_lsc/balticlsc-backend
+  script:
+    - CONVERTED=${CI_COMMIT_REF_NAME//\//_}
+    - mkdir .tmp
+    - FILE_PATH=/docs/$CI_PROJECT_NAME/$CONVERTED
+    - mkdir -p "$FILE_PATH"
+    - touch /var/lib/gitlab-runner/.tmp_path-$CONVERTED
+    - echo "$FILE_PATH" > /var/lib/gitlab-runner/.tmp_path-$CONVERTED
+    - cp /var/lib/gitlab-runner/docs_maker/* .tmp
+    - find . -name \*.proto -exec cp  {} .tmp \;
+    - cd .tmp
+    - ./protoc --plugin=protoc-gen-doc=protoc-gen-doc --doc_out="$FILE_PATH" --doc_opt=proto_doc_template.tmpl,proto_files_documentation.html *.proto || true
+    - cd ..
+    - rm -rf .tmp
+
+
+push_docs_to_repo: 
+  stage: push docs to repo
+  only:
+    - master@baltic_lsc/balticlsc-backend
+    #If you want to use automatic .proto files documentation creation, uncomment line below and fill it with your branch name. 
+    #- <YOUR_BRANCH_NAME>@baltic_lsc/balticlsc-backend
+  script: 
+    - CONVERTED=${CI_COMMIT_REF_NAME//\//_}
+    - git config --global user.name gitlab-ci
+    - git config --global user.email 299237@pw.edu.pl
+    - git config core.sshCommand 'ssh -i /var/lib/gitlab-runner/.ssh/id_rsa'
+    - git clone git@www.balticlsc.eu:baltic_lsc/balticlsc-backend.git
+    - cd balticlsc-backend
+    - git checkout $CI_COMMIT_REF_NAME
+    - cp "$(cat /var/lib/gitlab-runner/.tmp_path-$CONVERTED)"/* docs/
+    - rm /var/lib/gitlab-runner/.tmp_path-$CONVERTED
+    - git add docs/
+    - git commit -m "automatically built docs [skip ci]" || true
+    - git push
+    - cd ..
+    - rm -rf balticlsc-backend
+    
+publish nightly docker image:
+    stage: publish nightly docker image
+    only:
+        refs:
+            - schedules
+    script:
+        - git config --global user.name gitlab-ci
+        - git config --global user.email 299237@pw.edu.pl
+        - git config core.sshCommand 'ssh -i /var/lib/gitlab-runner/.ssh/id_rsa'
+        - git clone git@www.balticlsc.eu:baltic_lsc/balticlsc-backend.git
+        - cd balticlsc-backend
+        - SLN_PATH="$(pwd)"
+        - LAST_IMAGE_SHA="$(cat /var/lib/gitlab-runner/.balticserversha.txt | cut -c8-19)"
+        - rm /var/lib/gitlab-runner/.balticserversha.txt
+        - CONTAINER_ID="$(docker container ls | grep -n -m1 -e $LAST_IMAGE_SHA | tr ' ' '_' | cut -f1 -d'_' | cut -f2 -d':')"
+        - docker rm -f $CONTAINER_ID
+        - docker image rm -f $LAST_IMAGE_SHA
+        - cd Baltic.Server
+        - dotnet user-secrets set "ConnectionStrings:DefaultConnection" "User ID=postgres;Password=BalticLSC.;Host=localhost;Port=5432;Database=baltic;Pooling=true;"
+        - docker build -f Dockerfile --force-rm -t balticserver  --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Baltic.Server" "$SLN_PATH" --iidfile /var/lib/gitlab-runner/.balticserversha.txt
+        - IMAGE_SHA="$(cat /var/lib/gitlab-runner/.balticserversha.txt)"
+        - docker tag $IMAGE_SHA balticlsc/balticserver:nightbuild
+        - docker login --username=balticlsc --password=Tq37zGtv.
+        - docker push balticlsc/balticserver:nightbuild
+        - docker logout
+        - cd ..
+        - cd ..
+        - rm -rf balticlsc-backend
+        - docker run -d -p 8050:8050 $IMAGE_SHA ConnectionStrings:DefaultConnection="User ID=postgres;Password=BalticLSC.;Host=10.40.17.231;Port=5432;Database=baltic;Pooling=true;"
+#    after_script:
+#        when: on_failure
+#        script:
+#            <<: *rollback_nightbuild

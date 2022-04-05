@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.TaskRegistry</name>
+    </assembly>
+    <members>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskBrokerageDaoImpl.AddBatchExecution(System.String,Baltic.DataModel.Execution.BatchExecution)">
+            
+            <param name="batchUid"></param>
+            <param name="exec"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskBrokerageDaoImpl.UpdateTaskStatus(System.String,Baltic.DataModel.Types.ComputationStatus)">
+            
+            <param name="taskUid"></param>
+            <param name="status"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskBrokerageDaoImplMock.AddBatchExecution(System.String,Baltic.DataModel.Execution.BatchExecution)">
+            
+            <param name="batchUid"></param>
+            <param name="exec"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskBrokerageDaoImplMock.UpdateTaskStatus(System.String,Baltic.DataModel.Types.ComputationStatus)">
+            
+            <param name="taskUid"></param>
+            <param name="status"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImpl.StoreTask(Baltic.DataModel.CALExecutable.CTask)">
+            
+            <param name="task"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImpl.GetTask(System.String)">
+            
+            <param name="taskUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImpl.UpdateDataSet(Baltic.DataModel.CALExecutable.CDataSet,Baltic.DataModel.CALExecutable.CDataSet,System.String)">
+            
+            <param name="data"></param>
+            <param name="accessData"></param>
+            <param name="dataTokenUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImplMock.StoreTask(Baltic.DataModel.CALExecutable.CTask)">
+            
+            <param name="task"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImplMock.GetTask(System.String)">
+            
+            <param name="taskUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskManagementDaoImplMock.UpdateDataSet(Baltic.DataModel.CALExecutable.CDataSet,Baltic.DataModel.CALExecutable.CDataSet,System.String)">
+            
+            <param name="data"></param>
+            <param name="accessData"></param>
+            <param name="dataTokenUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.GetJobBatchForToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.GetJobBatchForRequiredToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.GetJobBatchForProvidedToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.GetJobForRequiredToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.GetJobBatchForJob(Baltic.DataModel.CALExecutable.CJob,System.String)">
+            
+            <param name="job"></param>
+            <param name="taskUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImpl.IsTaskProvidedToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobBatchForToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobBatchForRequiredToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobBatchForProvidedToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobForRequiredToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobForRequiredToken(System.String,System.Int64)">
+            
+            <param name="taskUid"></param>
+            <param name="tokenNo"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.GetJobBatchForJob(Baltic.DataModel.CALExecutable.CJob,System.String)">
+            
+            <param name="job"></param>
+            <param name="taskUid"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.IsTaskProvidedToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="M:Baltic.TaskRegistry.DataAccess.TaskProcessingDaoImplMock.IsTaskRequiredToken(Baltic.DataModel.CALMessages.TokenMessage)">
+            
+            <param name="tm"></param>
+        </member>
+        <member name="P:Baltic.TaskRegistry.DataAccess.TaskRegistryMock.EmptiedQueuesToJobs">
+            <summary>
+            string - queue name, string - job instance Uid
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,14 @@
+{
+  "datacenter": "dc-warsaw",
+  "data_dir": "/consul/data",
+  "log_level": "DEBUG",
+  "client_addr": "0.0.0.0",  
+  "server": true,
+  "bootstrap_expect": 1,
+  "node_name": "baltic-master",  
+  "ui" : true,
+  "acl_datacenter": "dc-warsaw",  
+  "acl_master_token": "75a1e9a2-f01d-4c85-bfd5-3161e56a94ad",
+  "acl_default_policy": "allow",
+  "acl_down_policy": "extend-cache"
+}

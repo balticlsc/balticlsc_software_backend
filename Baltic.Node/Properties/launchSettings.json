@@ -1,0 +1,27 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:54956/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "Baltic.Node": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "nodePort":	"7001",
+        "masterPort": "5001",
+        "masterHost": "localhost",
+        "ClusterProxyUrl": "https://localhost:6001",
+        "batchManagerUrl": "https://host.docker.internal",
+        "clusterProjectName": "balticlsc",
+        "tmpMongoDbConnectionString": "mongodb://someuser:somepass@host.docker.internal:27017"
+      },
+      "applicationUrl": "http://localhost:7001/;http://localhost:7000/"
+    }
+  }
+}

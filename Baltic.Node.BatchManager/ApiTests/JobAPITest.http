@@ -1,0 +1,44 @@
+﻿### 
+POST http://localhost:9101/token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "MsgUid": "abc123",
+  "PinName": "FTPDataReader",
+  "AccessType": "FTP Folder Name",
+  "Value": {}
+}
+
+### 
+POST http://localhost:9102/token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "MsgUid": "abc1234",
+  "PinName": "ImageReader",
+  "AccessType": "MongoDB Database",
+  "Value": {
+    "db_file_uid": "5ef1d9e75a0fbbf2940754d8"
+  }
+}
+
+### 
+POST http://localhost:9103/token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "MsgUid": "abc12345",
+  "PinName": "MongoDBFileReader",
+  "AccessType": "MongoDB Database",
+  "Value": {
+    "db_file_uid": "5ef1dab50451870a6db76c27"
+  }
+}
+
+### 
+GET http://localhost:9106/uid
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json

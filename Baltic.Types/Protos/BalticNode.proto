@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+import "Protos/Common.proto";
+
+option csharp_namespace = "Baltic.Types.Protos";
+
+service BalticNodeServiceApi {
+	rpc BatchInstanceMessageReceived(Common.XBatchInstanceMessage) returns (Common.ResponseStatus);
+	rpc BatchExecutionMessageReceived(Common.XBatchExecutionMessage) returns (Common.ResponseStatus);
+	rpc FinishJobInstance(Common.XJobInstanceRequest) returns (Common.ResponseStatus);
+	rpc FinishJobExecution(Common.XJobInstanceRequest) returns (Common.ResponseStatus);
+	rpc FinishJobBatch(Common.XBatchInstanceRequest) returns (Common.ResponseStatus);
+	rpc JobInstanceMessageReceived(Common.XJobInstanceMessage) returns (Common.ResponseStatus);
+	rpc JobExecutionMessageReceived(Common.XJobExecutionMessage) returns (Common.ResponseStatus);
+	rpc TokenMessageReceived(Common.XTokenMessage) returns (Common.ResponseStatus);
+	rpc GetBatchJobStatuses(Common.XBatchInstanceRequest) returns (Common.XJobInstanceStatusList);
+}

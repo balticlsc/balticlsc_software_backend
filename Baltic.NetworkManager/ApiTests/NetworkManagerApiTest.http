@@ -1,0 +1,128 @@
+﻿### Create Cluster
+PUT https://localhost:5001/resource
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "My First Cluster",
+  "country": "Poland",
+  "nodeUid": "01234567-908-435"
+}
+
+### Get Cluster
+GET https://localhost:5001/resource?clusterUid=de685ced-230d-4dfc-90ad-9a7ebbaa7cfc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+### InjectDataSet (Film) - change to current taskUid
+PUT https://localhost:5001/task/injectData?pinUid=d6234567-1234-1234-1234-1234567890ab&taskUid=8b2fedc3-11d1-465b-92bb-81392092250d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "my_set_name",
+  "values": "my_data"
+}
+
+### InjectDataSet (Images) - change to current taskUid
+PUT https://localhost:5001/task/injectData?pinUid=11234567-1234-1234-1234-1234567890ab&taskUid=e9bf0312-817f-4909-aac0-08b908df5cae
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "my_images_ftp",
+  "values": ""
+}
+
+
+### InjectDataSet (Proc_Film) - change to current taskUid
+PUT https://localhost:5001/task/injectData?pinUid=06234567-1234-1234-1234-1234567890ab&taskUid=7849ee7f-fcf0-4370-a71e-069e47c977bd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "my_set_name2",
+  "values": "my_data2"
+}
+
+
+### InitiateTask (some release added in the Development API)
+PUT https://localhost:5001/task/initiate?releaseUid=3605c977-12c3-4883-a9ad-d2ca47936f19
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "taskName": "my second task",
+  "priority": 10,
+  "clusterAllocation": "Weak",
+  "reservedCredits": 12.5,
+  "isPrivate": true
+}
+
+### InitiateAppTestTask (YetAnother... release)
+PUT https://localhost:5001/task/initiatetest?appUid=YetAnotherImageProcessor_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "taskName": "my task",
+  "priority": 10,
+  "clusterAllocation": "Weak",
+  "reservedCredits": 12.5,
+  "isPrivate": true
+}
+
+### GetTask
+GET https://localhost:5001/task?taskUid=b63395f7-67ae-4f7e-931b-7c51d4badf9e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+### FindTasks
+POST https://localhost:5001/task/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "appUid": "YetAnotherImageProcessor_rel_001"
+}
+
+### FindTasks (all)
+POST https://localhost:5001/task/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "appUid": ""
+}
+
+
+### GetBatch
+GET https://localhost:5001/task/batch?batchUid=b1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+###
+PUT https://localhost:5001/task/injectData?pinUid=e9672917-99d0-41cd-b0c6-e9eba4d7ff4d&taskUid=fe8b1c8e-36cd-4542-b804-591c19e898de
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "my_set_name3",
+  "values": "my_data2"
+}
+
+###
+PUT https://localhost:5001/task/injectData?pinUid=4fe99e55-f0ca-4df1-9d2b-6a6bb31ee609&taskUid=fe8b1c8e-36cd-4542-b804-591c19e898de
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+Content-Type: application/json
+
+{
+  "name": "my_set_name4",
+  "values": "my_data2"
+}
+
+###
+GET https://localhost:5001/task/range?releaseUid=YetAnotherImageProcessor_rel_001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ
+
+###
+GET https://localhost:5001/task/pins?taskUid=b63395f7-67ae-4f7e-931b-7c51d4badf9e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJycm9zemN6eWsiLCJlbWFpbCI6InJhZG9zbGF3LnJvc3pjenlrQGVlLnB3LmVkdS5wbCIsImp0aSI6IjJmY2YwZmU5LTk5YTItNGRhYy1iNjMwLWFhZTViZTU2NzM1YSIsImV4cCI6MTU5NjM5ODkxNCwiaXNzIjoid3V0LmJhbHRpY2xzYy5ldSIsImF1ZCI6Ind1dC5iYWx0aWNsc2MuZXUifQ.r7ZBEBG_i-V-a6t90kj53ogH4w5OclpTBny9GkRYlLQ

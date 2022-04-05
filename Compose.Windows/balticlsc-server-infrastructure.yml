@@ -1,0 +1,78 @@
+﻿version: '3.7'
+
+services:
+
+  consul:
+    hostname: consul
+    image: consul
+    command: ["agent", "-dev", "-enable-local-script-checks", "-config-file=/etc/consul.json", "-config-dir=/etc/consul.d"]
+    ports:
+      - 8400:8400
+      - 8500:8500
+      - 8502:8502
+      - 8600:53
+    networks:
+      - balticlsc-server
+    volumes:
+      - consul:/consul/data
+    configs:
+      - source: consul_postgresql
+        target: /etc/consul.d/postgresql.json
+      - source: consul_json
+        target: /etc/consul.json
+
+#  fabio:
+#    hostname: fabio
+#    image: fabiolb/fabio
+#    environment:
+#      - FABIO_REGISTRY_CONSUL_ADDR=consul:8500
+#      - FABIO_REGISTRY_CONSUL_REGISTER_ADDR=fabio:9998
+#    networks:
+#      - balticlsc-server
+#    ports:
+#      - 9998:9998
+#      - 9999:9999
+#    depends_on:
+#      - consul
+
+  postgresql:
+    hostname: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-baltic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-somepass}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - balticlsc-server
+
+  pgadmin:
+    hostname: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-somepass}
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - 5050:80
+    networks:
+      - balticlsc-server
+
+configs:
+  consul_postgresql:
+    file: ./configs/consul/postgresql.json
+  consul_json:
+    file: ./configs/consul/consul.json
+
+networks:
+  balticlsc-server:
+    external: true
+
+volumes:
+  postgres:
+  pgadmin:
+  consul:

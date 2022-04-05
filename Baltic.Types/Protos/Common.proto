@@ -1,0 +1,137 @@
+﻿syntax = "proto3";
+
+import "Protos/ClusterProxy.proto";
+
+package Common;
+
+option csharp_namespace = "Baltic.Types.Protos";
+
+message XAckRequest {
+	repeated StringStringPair msgUids = 1;
+	XFullJobStatus status = 2;
+	bool IsFinal = 3;
+	bool IsFailed = 4;
+	string Note = 5;
+}
+
+message XConfirmJobRequest {
+	string InstanceUid = 1;
+	repeated string RequiredPinQueues = 2;
+	bool IsNewInstance = 3;
+}
+
+message XConfirmBatchRequest {
+	string BatchMsgUid = 1;
+	repeated string RequiredJobQueues = 2;
+}
+
+message XBatchInstanceRequest {
+	string jobsQueueUid = 1;
+}
+
+message XJobInstanceRequest {
+	string jobMsgUid = 1;
+}
+
+message XBatchInstanceMessage {
+	string TaskUid = 1;
+	string MsgUid = 2;
+	sint32 DepthLevel = 3;
+	string BatchUid = 4;
+	repeated string JobQueueIds = 5;
+	repeated XSeqToken QueueSeqStack = 7;
+	repeated BalticProtoServices.XBalticModuleBuild ServiceBuilds = 16;
+	BalticProtoServices.XWorkspaceQuota Quota = 17;
+}
+
+message XBatchExecutionMessage {
+	string TaskUid = 1;
+	string MsgUid = 2;
+	string BatchUid = 4;
+	repeated string JobQueueIds = 5;
+	repeated XSeqToken QueueSeqStack = 7;
+}
+
+message XJobInstanceMessage {
+	string TaskUid = 1;
+	string MsgUid = 2;
+	string BatchUid = 4;
+	BalticProtoServices.XBalticModuleBuild Build = 6;
+	repeated XSeqToken QueueSeqStack = 7;
+	string JobUid = 8;
+	repeated StringStringPair RequiredPinQueues = 9;
+  repeated StringLongPair ProvidedPinTokens = 10;
+	bool IsMerger = 11;
+	bool IsSplitter = 12;
+	bool IsSimple = 13;
+  repeated string RequiredAccessTypes = 14;
+  bool IsMultitasking = 15;
+}
+
+message XJobExecutionMessage {
+	string TaskUid = 1;
+	string MsgUid = 2;
+	string BatchUid = 5;
+	repeated XSeqToken QueueSeqStack = 7;
+	string JobUid = 8;
+	repeated StringStringPair RequiredPinQueues = 9;
+}
+
+message XTokenMessage {
+	string TaskUid = 1;
+	string MsgUid = 2;
+	repeated XSeqToken QueueSeqStack = 7;
+	sint64 TokenNo = 16;
+  string PinName = 17;
+	string SenderUid = 18;
+	string Values = 19;
+	repeated XSeqToken TokenSeqStack = 20;
+	string AccessType = 21;
+	string TargetAccessType = 22;
+}
+
+message XSeqToken {
+	string SeqUid = 1;
+	sint64 No = 2;
+  bool IsFinal = 3;
+}
+
+message XJobInstanceStatusList{
+	repeated XFullJobStatus Statuses = 1;
+}
+
+message XFullJobStatus{
+	string JobInstanceUid = 1;
+	sint64 TokensReceived = 2;
+	sint64 TokensProcessed = 3;
+	sint64 JobProgress = 4;
+	sint32 Status = 5;
+}
+
+message StringStringPair {
+	string Key = 1;
+	string Value = 2;
+}
+
+message StringLongPair {
+	string Key = 1;
+	sint64 Value = 2;
+}
+
+message ResponseStatus {
+  enum Codes {
+	OK			= 0;	// Return on Success
+	CANCELLED	= 1;	// The operation was cancelled, typically by the caller.
+	UNKNOWN		= 2;	// For example, this error may be returned when a Status value received from another address space 
+						// belongs to an error-space that is not known in this address space. Also errors raised by APIs that 
+						// do not return enough error information may be converted to this error.
+  }
+  // The status code, which should be an enum 
+  Codes code = 1;
+
+  // A developer-facing error message, which should be in English. 
+  string message = 2;
+
+  // A list of messages that carry the error details. 
+  repeated string details = 3;
+} 
