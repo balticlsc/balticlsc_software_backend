@@ -39,5 +39,9 @@ namespace Baltic.Types.DataAccess
         /// 
         /// <param name="query"></param>
         IEnumerable<CTask> FindTasks(TaskQuery query);
+
+        /// 
+        /// <param name="taskUid"></param>
+        short ArchiveTask(string taskUid);
     }
 }

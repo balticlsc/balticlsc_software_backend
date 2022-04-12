@@ -53,6 +53,7 @@ namespace Baltic.Engine.JobBroker
 
 		/// 
 		/// <param name="taskUid"></param>
-		short AbortTask(string taskUid);
+		/// <param name="onFailed"></param>
+		short AbortTask(string taskUid, bool onFailed = false);
 	}
 }

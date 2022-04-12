@@ -32,10 +32,11 @@ namespace Baltic.Node.BatchManager.Proxies
 			_endpoint = endpoint;
 			_moduleId = moduleId;
 		}
-		
+
 		/// 
 		/// <param name="tm"></param>
-		public short ProcessTokenMessage(TokenMessage tm)
+		/// <param name="responseMessage"></param>
+		public short ProcessTokenMessage(TokenMessage tm, out string responseMessage)
 		{
 			XInputTokenMessage msg = new XInputTokenMessage()
 			{
@@ -62,7 +63,18 @@ namespace Baltic.Node.BatchManager.Proxies
 			};
 			var taskResult = Client.SendAsync(request).Result;
 			Log.Debug("JobProxy "+_endpoint+" return code "+taskResult.StatusCode);
-			return (short) (taskResult.IsSuccessStatusCode ? 0 : -1);
+			responseMessage = taskResult.Content.ReadAsStringAsync().Result;
+			if (taskResult.IsSuccessStatusCode)
+				return 0;
+			switch (taskResult.StatusCode)
+			{
+				case HttpStatusCode.NotFound: return -1;
+				case HttpStatusCode.Unauthorized: return -2;
+				case HttpStatusCode.BadRequest: return -3;
+				case HttpStatusCode.GatewayTimeout: return -4;
+				case HttpStatusCode.InternalServerError: return -5;
+				default: return -6;
+			}
 		}
 
 		public JobStatus GetStatus()

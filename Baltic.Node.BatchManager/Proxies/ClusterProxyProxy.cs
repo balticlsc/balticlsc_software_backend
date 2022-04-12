@@ -91,9 +91,10 @@ namespace Baltic.Node.BatchManager.Proxies
 				Thread.Sleep(1000);
 				Log.Debug($"{ConsoleString()} Waiting for Job Instance ({xBuild.ModuleId}) to be active... [{k++}]");
 				response = Cluster.CheckBalticModuleStatus(id);
-				if (ClusterStatusResponse.Types.StatusCode.Error == response.Status || k > 120)
+				if (ClusterStatusResponse.Types.StatusCode.Error == response.Status && "Deployment does not have minimum availability." != response.Message || k > 120)
 				{
-					Log.Error($"{ConsoleString()} Job Instance {xBuild.ModuleId} could not be started properly");
+					Log.Error($"{ConsoleString()} Job Instance {xBuild.ModuleId} could not be started properly " +
+					          (k>120 ? "(Timeout)" : $"(Message: {response.Message})"));
 					Cluster.DisposeBalticModule(id);
 					Log.Debug($"{ConsoleString()} Workspace {batchInstanceUid} purged (or was not created)");
 					return null;
@@ -134,7 +135,8 @@ namespace Baltic.Node.BatchManager.Proxies
 				response = Cluster.CheckWorkspaceStatus(new BatchId() {Id = batchInstanceUid});
 				if (ClusterStatusResponse.Types.StatusCode.Error == response.Status || k > 120)
 				{
-					Log.Error($"{ConsoleString()} Cluster cannot prepare Batch Instance {batchInstanceUid}");
+					Log.Error($"{ConsoleString()} Cluster cannot prepare Batch Instance {batchInstanceUid} " +
+					          (k>120 ? "(Timeout)" : $"(Message: {response.Message})"));
 					Cluster.PurgeWorkspace(new BatchId() {Id = batchInstanceUid});
 					Log.Debug($"{ConsoleString()} Batch Instance {batchInstanceUid} purged (or was not created)");
 					return -1;
@@ -145,7 +147,7 @@ namespace Baltic.Node.BatchManager.Proxies
 			if (0 != serviceBuilds.Count)
 				Log.Debug($"{ConsoleString()} Activating services for Batch Instance {batchInstanceUid}");
 
-			foreach (BalticModuleBuild build in serviceBuilds)
+			foreach (BalticModuleBuild build in serviceBuilds) // TODO - start the service's jobs (and module manager - see below) asynchronously (in parallel)
 				StartJob(build, batchInstanceUid);
 
 			// Start a ModuleManager in the just started BatchInstance

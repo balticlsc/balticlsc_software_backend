@@ -75,15 +75,13 @@ namespace Baltic.Types.Entities
             set => _batch = value;
         }
         
-        public override BalticModuleBuild Build
+        public override BalticModuleBuild GetBuild(string pinsConfigMountPath)
         {
-            get
-            {
-                BalticModuleBuild ret = base.Build;
-                List<PinsConfig> pinConfigs = Tokens.Select(t => new PinsConfig(t)).ToList();
-                ret.FinalizePinConfigFile(pinConfigs);
-                return ret;
-            }
+           BalticModuleBuild ret = GetBaseBuild();
+           List<PinsConfig> pinConfigs = Tokens.Select(t => new PinsConfig(t)).ToList();
+           ret.FinalizePinConfigFile(pinConfigs,pinsConfigMountPath);
+
+           return ret;
         }
 
         public override string ToString()

@@ -11,6 +11,8 @@ namespace Baltic.DataModel.CAL
         public override CMultiplicity DataMultiplicity { get; set; }
         public override CMultiplicity TokenMultiplicity { get; set; }
         public override AccessType Access { get; set; }
+
+        public long PrecedingTokenNo { get; set; } = -1;
         
         public DeclaredDataPin(DataPin pin = null)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using Baltic.Core.Utils;
 using Baltic.DataModel.CALExecutable;
 using Baltic.DataModel.CALMessages;
@@ -66,16 +67,16 @@ namespace Baltic.Node.Engine.BatchManager
 			// TODO: remove -> quota set for testing k8s
 			bim.Quota = new ResourceReservation()
 			{
-				Cpus = 2000, //msec
-				Memory = 2048, // MB
+				Cpus = 4000, //msec
+				Memory = 8192, // MB
 				Gpus = 0, // no
-				Storage = 1 // GB
+				Storage = 4 // GB
 			};
 
 			for (int k = 0; k < bim.ServiceBuilds.Count; k++)
 			{
-				bim.ServiceBuilds[k].Resources.Cpus = 250;
-				bim.ServiceBuilds[k].Resources.Memory = 256;
+				bim.ServiceBuilds[k].Resources.Cpus = 500;
+				bim.ServiceBuilds[k].Resources.Memory = 1024;
 				bim.ServiceBuilds[k].Resources.Gpus = new GpuRequest()
 				{
 					Quantity = 0,
@@ -115,6 +116,8 @@ namespace Baltic.Node.Engine.BatchManager
 		public short TokenMessageReceived(TokenMessage tm)
 		{
 			QueueId id = new QueueId(tm);
+
+			bool badDataSetLock = false;
 
 			//*test* 
 			Log.Debug(ConsoleString() + "TokenMessage received from Queue " + id.ToString());
@@ -169,15 +172,29 @@ namespace Baltic.Node.Engine.BatchManager
 				Log.Debug(ConsoleString() + "Token SENT TO Job: " + bi.BatchInstanceMessage.MsgUid +
 				          "\n==> " + tm);
 				//*test*
+
+				string responseMessage;
 				
-				short result = (short) (10 * ji.Handle.ProcessTokenMessage(tm));
-				if (0 == result)
+				// ***** Send token to Job *****
+				short result = (short) (10 * ji.Handle.ProcessTokenMessage(tm, out responseMessage));
+				
+				if (-10 != result && -40 != result) // result == OK, Unauthorised, BadRequest, other
 				{
 					ji.TokensReceived++; // TODO persist in a DB
 					if (ji.JobInstanceMessage.IsSimple)
 						_server.ConfirmJobStart(ji.JobInstanceMessage.MsgUid, new List<QueueId>(), false);
+					if (0 != result) // result != OK
+					{
+						LockJobInstanceAccess(tm.MsgUid, "BadDataSet", 1, "TokenMessageReceived");
+						badDataSetLock = true;
+						// Send an ACK (failed) message to the server that should stop the Job (as failed)
+						var task = new Task(() => AckMessagesAsync(this,tm.MsgUid,
+							ji.JobInstanceMessage.MsgUid,responseMessage));
+						task.Start();
+						return 0;
+					}
 				}
-				else
+				else // result == NotFound
 				{
 					bi.TokenMessages.Remove(tm.MsgUid);
 					if (ji.JobInstanceMessage.IsSimple && !ji.JobInstanceMessage.IsMultitasking)
@@ -211,8 +228,23 @@ namespace Baltic.Node.Engine.BatchManager
 			}
 			finally
 			{
+				if (badDataSetLock)
+					LockJobInstanceAccess(tm.MsgUid, "BadDataSet", -1, "TokenMessageReceived");
 				if (ji.JobInstanceMessage.IsSimple)
 					LockJobInstanceAccess(ji.JobInstanceMessage.MsgUid, "AcceptsJobs", -1, "TokenMessageReceived");
+			}
+		}
+
+		private static void AckMessagesAsync(BatchManager bm, string msgUid, string senderUid, string note)
+		{
+			bm.LockJobInstanceAccess(msgUid, "BadDataSet", 1, "AcMessagesAsync");
+			try
+			{
+				bm.AckTokenMessages(new List<string>() {msgUid}, senderUid,false,true,note,false);
+			}
+			finally
+			{
+				bm.LockJobInstanceAccess(msgUid, "BadDataSet", -1, "AckMessagesAsync");
 			}
 		}
 		
@@ -265,12 +297,12 @@ namespace Baltic.Node.Engine.BatchManager
 							bi.BatchInstanceMessage.MsgUid, selectedAccess,_configuration["clusterProjectName"]);
 						// TODO: remove -> resource set for k8s test
 						// this do noting ??
-						build.Resources.Cpus = 250;
-						build.Resources.Memory = 256;
+						build.Resources.Cpus = 500;
+						build.Resources.Memory = 1024;
 						build.Resources.Gpus = new GpuRequest()
 						{
-							Quantity = 0,
-							Type = "none"
+							Quantity = 1,
+							Type = "nvidia-gtx-2080ti"
 						};
 						jii.Handle = _cluster.StartJob(build, bi.BatchInstanceMessage.MsgUid, jim.MsgUid);
 						if (null == jii.Handle)
@@ -491,7 +523,10 @@ namespace Baltic.Node.Engine.BatchManager
 			
 			if (null == bi)
 				return -1;
-
+			
+			Log.Debug(ConsoleString() + "Token RECEIVED FROM Batch: " + bi.BatchInstanceMessage.MsgUid +
+			          "\nToken ==> " + tm);
+			
 			JobInstanceMessage jm = bi.JobInfos[tm.SenderUid].JobInstanceMessage;
 			LockJobInstanceAccess(jm.MsgUid,"Tokens",1, "PutTokenMessage");
 
@@ -520,14 +555,11 @@ namespace Baltic.Node.Engine.BatchManager
 				tm.TaskUid = bi.TokenMessages[requiredMsgUid].TaskUid;
 				tm.TokenNo = jm.ProvidedPinTokens[tm.PinName];
 
-				//*test*s
-				Log.Debug(ConsoleString() + "Token RECEIVED FROM Batch: " + bi.BatchInstanceMessage.MsgUid +
-				          "\n==> " + tm);
-				//*test*
-
 				if (tm.SenderUid != jm.MsgUid)
 					tm.SenderUid = jm.MsgUid;
-
+				
+				Log.Debug(ConsoleString() + "Token is sent to server ==> " + tm);
+				
 				short result = _server.PutTokenMessage(tm);
 				return (short) (0 == result ? 0 : result - 4);
 			}
@@ -537,6 +569,12 @@ namespace Baltic.Node.Engine.BatchManager
 			}
 		}
 
+		public short AckTokenMessages(List<string> msgUids, string senderUid, bool isFinal, bool isFailed, string note)
+		{
+			return AckTokenMessages(msgUids, senderUid, isFinal, isFailed, note, true);
+		}
+
+
 		/// <summary>
 		/// Acknowledge tokens after the Job has finished their processing
 		/// </summary>
@@ -545,16 +583,26 @@ namespace Baltic.Node.Engine.BatchManager
 		/// <param name="isFinal"></param>
 		/// <param name="isFailed"></param>
 		/// <param name="note"></param>
+		/// <param name="fromJob"></param>
 		/// <returns></returns>
-		public short AckTokenMessages(List<string> msgUids, string senderUid, bool isFinal, bool isFailed, string note)
+		public short AckTokenMessages(List<string> msgUids, string senderUid, bool isFinal, bool isFailed, string note, bool fromJob)
 		{
+			
+			// TODO - use all msgUids for the given job when 'isFailed'
+			
 			if (null == senderUid) return -1;
 			if (null == msgUids || 0 == msgUids.Count) return -2;
 
 			BatchInstanceInfo bi = _batchInfos.Values.ToList().Find(info => info.JobInfos.ContainsKey(senderUid));
 			if (null == bi)
 				return -1;
+			
 			JobInstanceInfo ji = bi.JobInfos[senderUid];
+			
+			Log.Debug($"{ConsoleString()} " + (fromJob ? "Ack RECEIVED FROM " : "BadRequest RECEIVED FROM ") +
+			          $"Job Instance: {ji.JobInstanceMessage.MsgUid} ({ji.JobInstanceMessage.Build.Image}), Batch Instance: {bi.BatchInstanceMessage.MsgUid}" +
+			          $"\nSending Ack ==> MsgUids={string.Join(", ", msgUids)}, SenderUid={senderUid}, IsFinal={isFinal}, IsFailed={isFailed}, Note={note}");
+			
 			LockJobInstanceAccess(ji.JobInstanceMessage.MsgUid, "Tokens", 1, "AckTokenMessages");
 			LockJobInstanceAccess(ji.JobInstanceMessage.MsgUid, "Status", 1, "AckTokenMessages");
 			
@@ -585,6 +633,9 @@ namespace Baltic.Node.Engine.BatchManager
 					fStatus.JobProgress = status.JobProgress;
 					fStatus.Status = status.Status;
 				}
+				
+				Log.Debug($"{ConsoleString()} Ack sent to server ==> " + 
+				          $"MsgUids={string.Join(", ", msgUids)}, SenderUid={senderUid}, IsFinal={isFinal}, IsFailed={isFailed}, Note={note}");
 
 				short ret = _server.AckMessages(qMsgUids, fStatus, isFinal, isFailed, note);
 
@@ -594,13 +645,14 @@ namespace Baltic.Node.Engine.BatchManager
 					foreach (string msg in msgUids)
 						bi.TokenMessages.Remove(msg);
 					
-					Log.Debug($"{ConsoleString()} Ack RECEIVED FROM Batch: {bi.BatchInstanceMessage.MsgUid}, " +
-					          $"Job Instance: {ji.JobInstanceMessage.MsgUid} ({ji.JobInstanceMessage.Build.Image})" +
-					          $"\n==> {string.Join(", ", msgUids)}");
-					//*test*
-					
+					Log.Debug($"{ConsoleString()} Messages acknowledged ==> " +
+					          $"{string.Join(", ", msgUids)}");
+
 					return 0;
 				}
+				
+				Log.Error($"{ConsoleString()} Some messages NOT acknowledged ==> " +
+				          $"SenderUid={senderUid}, MsgUids={string.Join(", ", msgUids)}");
 
 				return (short) (ret - 2);
 			}

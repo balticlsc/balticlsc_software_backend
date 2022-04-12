@@ -45,12 +45,9 @@ namespace Baltic.Node.Engine.BatchManager {
 		{
 			build.EnvironmentVariables.Add("SYS_MODULE_INSTANCE_UID",jobInstanceUid);
 			build.EnvironmentVariables.Add("SYS_BATCH_MANAGER_TOKEN_ENDPOINT",
-					$"http://{ModuleManagerId}{batchInstanceUid}.{clusterProjectName}-{batchInstanceUid}:{ModuleManagerPort}/token");
-				// "http://" + ModuleManagerId + batchInstanceUid + ":" + ModuleManagerPort + "/token");
-				build.EnvironmentVariables.Add("SYS_BATCH_MANAGER_ACK_ENDPOINT",
-					$"http://{ModuleManagerId}{batchInstanceUid}.{clusterProjectName}-{batchInstanceUid}:{ModuleManagerPort}/ack");
-				// "http://" + ModuleManagerId + batchInstanceUid + ":" + ModuleManagerPort + "/ack");
-			build.EnvironmentVariables.Add("SYS_PIN_CONFIG_FILE_PATH","./configs/pins_config.json");
+				$"http://{ModuleManagerId}{batchInstanceUid}.{clusterProjectName}-{batchInstanceUid}:{ModuleManagerPort}/token");
+			build.EnvironmentVariables.Add("SYS_BATCH_MANAGER_ACK_ENDPOINT",
+				$"http://{ModuleManagerId}{batchInstanceUid}.{clusterProjectName}-{batchInstanceUid}:{ModuleManagerPort}/ack");
 
 			// TODO - clean - remove "Inject the config file into the build"
 			/* ConfigFileDescription pinsConfigFile = build.ConfigFiles.Find(f => PinsConfig.PinsConfigMountPath == f.MountPath);

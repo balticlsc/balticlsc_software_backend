@@ -18,14 +18,38 @@ namespace Baltic.NetworkRegistry.DataAccess
                     NodeUid = "00155D9519AB-3154C0B8-A2691D20"
                 }
             );
-            /* Clusters.Add(
+            Clusters.Add(
                 new CCluster()
                 {
-                    Name = "LocalHost2",
+                    Name = "LocalHost Alternative",
                     Uid = Guid.NewGuid().ToString(),
                     NodeUid = "00155D9519AB-3154C0B8-A2691D20"
                 }
-            ); */
+            );
+            Clusters.Add(
+                new CCluster()
+                {
+                    Name = "Lulea, Sweden (RISE)",
+                    Uid = Guid.NewGuid().ToString(),
+                    NodeUid = "TEST01234567-NODE1234-RISE1234"
+                }
+            );
+            Clusters.Add(
+                new CCluster()
+                {
+                    Name = "Turku, Finland (MTC)",
+                    Uid = Guid.NewGuid().ToString(),
+                    NodeUid = "TEST01234567-NODE1234-TURKU123"
+                }
+            );
+            Clusters.Add(
+                new CCluster()
+                {
+                    Name = "Warsaw, Poland (WUT)",
+                    Uid = Guid.NewGuid().ToString(),
+                    NodeUid = "TEST01234567-NODE1234-PWEE1234"
+                }
+            );
         }
     }
 }

@@ -56,13 +56,14 @@ namespace Baltic.Node.Engine.Job
 
 		/// 
 		/// <param name="tm"></param>
-		public short ProcessTokenMessage(TokenMessage tm)
+		public short ProcessTokenMessage(TokenMessage tm, out string responseMessage)
 		{
 			_semaphore.Wait();
 			try
 			{
 				_messages.TryAdd(tm.PinName, new List<TokenMessage>());
 				_messages[tm.PinName].Add(tm);
+				responseMessage = "";
 				return 0;
 			}
 			finally

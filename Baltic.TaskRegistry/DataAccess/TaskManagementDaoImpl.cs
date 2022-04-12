@@ -93,5 +93,10 @@ namespace Baltic.TaskRegistry.DataAccess
         {
             throw new System.NotImplementedException();
         }
+
+        public short ArchiveTask(string taskUid)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

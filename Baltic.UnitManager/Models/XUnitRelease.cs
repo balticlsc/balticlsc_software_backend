@@ -1,9 +1,10 @@
+using System;
 using Baltic.DataModel.CAL;
 using Baltic.Types.DataAccess;
 
 namespace Baltic.UnitManager.Models
 {
-    public abstract class XUnitRelease : XUnitReleaseCrude
+    public abstract class XUnitRelease : XUnitReleaseCrude, IComparable<XUnitRelease>
     {
 		public XComputationUnitCrude Unit { get; set; }
         
@@ -18,6 +19,11 @@ namespace Baltic.UnitManager.Models
             base.ToModelObject(release, unitRegistry);
             release.Unit = Unit.ToModelObject();
             return release;
+        }
+
+        public int CompareTo(XUnitRelease other)
+        {
+            return Unit?.CompareTo(other?.Unit) ?? -1;
         }
     }
 }

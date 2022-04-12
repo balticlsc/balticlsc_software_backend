@@ -1,3 +1,4 @@
+using System;
 using Baltic.Core.Utils;
 using Baltic.DataModel.CAL;
 using Baltic.DataModel.Types;
@@ -5,7 +6,7 @@ using Baltic.Types.DataAccess;
 
 namespace Baltic.UnitManager.Models
 {
-    public class XDeclaredPin
+    public class XDeclaredPin : IComparable<XDeclaredPin>
     {
         public string Uid { get; set; }
         public string Name { get; set; }
@@ -33,13 +34,20 @@ namespace Baltic.UnitManager.Models
 
         public DeclaredDataPin ToModelObject(IUnitManagement unitRegistry)
         {
-            return DBMapper.Map<DeclaredDataPin>(this, new DeclaredDataPin()
+            DeclaredDataPin ret = DBMapper.Map<DeclaredDataPin>(this, new DeclaredDataPin()
             {
                 Access = unitRegistry.GetAccessType(AccessTypeUid),
                 Type = unitRegistry.GetDataType(DataTypeUid),
                 Structure = unitRegistry.GetDataStructure(DataStructureUid)
             });
+            if (string.IsNullOrEmpty(Uid))
+                ret.Uid = Guid.NewGuid().ToString();
+            return ret;
         }
-        
+
+        public int CompareTo(XDeclaredPin other)
+        {
+            return String.Compare(Name, other?.Name, StringComparison.Ordinal);
+        }
     }
 }

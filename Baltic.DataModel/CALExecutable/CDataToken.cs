@@ -25,8 +25,8 @@ namespace Baltic.DataModel.CALExecutable
         }
 		
         public override string ToString() {
-            string ret = "DataToken " + PinName + " " + PinUid + " " + TokenNo + " " + Binding + " " + TokenMultiplicity +
-                         " dir=" + Direct + " acc=" + AccessType;
+            string ret = "DataToken " + PinName + " " + PinUid + " " + TokenNo + " " + Binding + " t=" + TokenMultiplicity +
+                         " d=" + DataMultiplicity + " dir=" + Direct + " acc=" + AccessType;
             foreach (int i in Depths)
                 ret += (0 == Depths.IndexOf(i) ? " #depths: " : ",") + i;
             return ret + "\n";

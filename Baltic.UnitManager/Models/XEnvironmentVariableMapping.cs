@@ -7,9 +7,9 @@ namespace Baltic.UnitManager.Models
     {
         public string EnvironmentVariableName { get; set; }
 
-        public string AccessVariableName { get; set; }
+        public string AccessCredentialName { get; set; }
 
-        public string DefaultVariableValue { get; set; }
+        public string DefaultCredentialValue { get; set; }
 
         public XEnvironmentVariableMapping(CredentialParameter parameter = null)
         {

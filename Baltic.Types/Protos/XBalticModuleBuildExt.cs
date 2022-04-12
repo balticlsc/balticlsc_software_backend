@@ -12,13 +12,18 @@ namespace Baltic.Types.Protos
             DBMapper.Map<XBalticModuleBuild>(build, this);
             Scope = (Types.NetworkScope) build.Scope;
             EnvironmentVariables.AddRange(
-                build.EnvironmentVariables.Select(v => new XEnvironmentVariable()
+                build.EnvironmentVariables.ToList().FindAll(v => null != v.Key).
+                    Select(v => new XEnvironmentVariable()
                 {
-                    Key = v.Key, Value = v.Value
+                    Key = v.Key, Value = v.Value ?? ""
                 }));
             Resources = DBMapper.Map<XResourceRequest>(build.Resources, new XResourceRequest()
             {
-                Gpus = DBMapper.Map<XGpuRequest>(build.Resources.Gpus, new XGpuRequest())
+                Gpus = new XGpuRequest()
+                {
+                    Quantity = build.Resources.Gpus.Quantity,
+                    Type = build.Resources.Gpus.Type
+                }
             });
             Volumes.AddRange(build.Volumes.Select(v => 
                 DBMapper.Map<XVolumeDescription>(v, new XVolumeDescription())));

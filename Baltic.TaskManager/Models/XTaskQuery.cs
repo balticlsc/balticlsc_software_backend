@@ -11,6 +11,7 @@ namespace Baltic.TaskManager.Models
         //from: TaskExecution
         public int Priority { get; set; }
         public bool IsPrivate { get; set; }
+        public bool IncludeArchived { get; set; }
 
         //from: ExecutionRecord
         public ComputationStatus Status { get; set; }

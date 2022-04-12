@@ -1,0 +1,1 @@
+docker build -f ./fluentd-docker-build/fluentbit-gelf.dockerfile -t fluentd:gelf ./fluentd-docker-build

@@ -1,0 +1,1 @@
+@dotnet publish -r "win10-x64" -f "netcoreapp3.0"

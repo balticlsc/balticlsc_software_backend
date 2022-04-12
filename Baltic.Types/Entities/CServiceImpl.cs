@@ -38,27 +38,26 @@ namespace Baltic.Types.Entities
             return ret;
         }
 
-        public override BalticModuleBuild Build
+        public override BalticModuleBuild GetBuild()
         {
-            get
+            BalticModuleBuild ret = GetBaseBuild();
+            // TODO - perhaps use the service execution Uid
+            ret.ModuleId = Uid;
+            if (!CredentialParameters.Exists(cp => "Host" == cp.AccessCredentialName))
             {
-                BalticModuleBuild ret = base.Build;
-                // TODO - perhaps use the service execution Uid
-                ret.ModuleId = Uid;
-                if (!CredentialParameters.Exists(cp => "Host" == cp.AccessCredentialName))
+                CredentialParameters.Add(new CredentialParameter()
                 {
-                    CredentialParameters.Add(new CredentialParameter()
-                    {
-                        AccessCredentialName = "Host",
-                        DefaultCredentialValue = Uid
-                    });
-                }
-                foreach (CredentialParameter credential in CredentialParameters)
-                    // Add an environment variable based on a credential parameter (if not already added from unit parameters)
-                    if (null != credential.EnvironmentVariableName && !ret.EnvironmentVariables.ContainsKey(credential.EnvironmentVariableName))
-                        ret.EnvironmentVariables.Add(credential.EnvironmentVariableName,credential.DefaultCredentialValue);
-                return ret;
+                    AccessCredentialName = "Host",
+                    DefaultCredentialValue = Uid
+                });
             }
+
+            foreach (CredentialParameter credential in CredentialParameters)
+                // Add an environment variable based on a credential parameter (if not already added from unit parameters)
+                if (null != credential.EnvironmentVariableName &&
+                    !ret.EnvironmentVariables.ContainsKey(credential.EnvironmentVariableName))
+                    ret.EnvironmentVariables.Add(credential.EnvironmentVariableName, credential.DefaultCredentialValue);
+            return ret;
         }
         
         public override string GetCredentials()

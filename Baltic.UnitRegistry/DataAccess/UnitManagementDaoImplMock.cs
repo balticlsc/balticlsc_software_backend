@@ -56,11 +56,12 @@ namespace Baltic.UnitRegistry.DataAccess
             _cms.Add(module);
             return module.Uid;
         }
-        
+
         /// 
         /// <param name="unitUid"></param>
         /// <param name="release"></param>
-        public string AddReleaseToUnit(string unitUid, ComputationUnitRelease release)
+        /// <param name="releaseUid"></param>
+        public string AddReleaseToUnit(string unitUid, ComputationUnitRelease release, string releaseUid = null)
         {
             ComputationUnit unit;
             if (release is ComputationApplicationRelease)
@@ -92,7 +93,7 @@ namespace Baltic.UnitRegistry.DataAccess
             if (query.AllUnits || query.IsApp) 
                 result.AddRange(_cas);
             if (query.AllUnits || !query.IsApp)
-                result.AddRange(_cms);
+                result.AddRange(_cms.FindAll(m => "system" != m.AuthorUid));
             if (!string.IsNullOrEmpty(query.AuthorUid))
                 result = result.FindAll(r => r.AuthorUid == query.AuthorUid);
             if (!query.OnlyLastRelease)
@@ -148,7 +149,11 @@ namespace Baltic.UnitRegistry.DataAccess
             ComputationUnit currUnit = GetUnit(unit.Uid);
             if (null == currUnit) return -1;
             if ((unit is ComputationApplication) != (currUnit is ComputationApplication)) return -2;
-            DBMapper.Map<ComputationUnit>(unit, currUnit);
+            
+            currUnit.Name = unit.Name;
+            currUnit.Class = unit.Class;
+            if (currUnit is ComputationModule cm)
+                cm.IsService = ((ComputationModule) unit).IsService;
             DBMapper.Map<UnitDescriptor>(unit.Descriptor, currUnit.Descriptor);
             return 0;
         }

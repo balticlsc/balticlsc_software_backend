@@ -58,14 +58,13 @@ namespace Baltic.Engine.JobBroker
 			if (!isNewTokenSet)
 				return 0;
 			
-			//*test*
 			Log.Debug(ConsoleString() +  " ActivateJobBatch START: " + bm.MsgUid + "\n## " + batch);
-			//*test*
-
+			
 			// create and register (as "scheduled") a new batch execution
 			BatchExecution be = _factory.CreateBatchExecution();
 			be.BatchMsgUid = bm.MsgUid;
-			be.SeqStack = bm.JobQueueIds[0].QueueSeqStack.Copy();
+			be.SeqStack = 0 != bm.JobQueueIds.Count ? bm.JobQueueIds.First().QueueSeqStack.Copy() :
+					new SeqTokenStack();
 			be.Status = ComputationStatus.Scheduled;
 			_taskRegistry.AddBatchExecution(batch.Uid, be);
 
@@ -103,7 +102,7 @@ namespace Baltic.Engine.JobBroker
 			ResourceReservationRange reservationRange = _taskRegistry.GetReservationRange(bm.BatchUid);
 			string forcedClusterUid = _taskRegistry.GetTaskExecution(bm.TaskUid).Parameters.ClusterUid;
 			CCluster forcedCluster = null;
-			if (String.IsNullOrEmpty(forcedClusterUid))
+			if (!String.IsNullOrEmpty(forcedClusterUid))
 				forcedCluster = _networkRegistry.GetCluster(forcedClusterUid);
 
 			List<CCluster> lc;
@@ -145,14 +144,14 @@ namespace Baltic.Engine.JobBroker
 				else
 					_taskRegistry.UpdateBatchExecution(be);
 
-				Log.Debug($"{ConsoleString()} Trying to submit BatchMessage {bm.MsgUid} to Node {cl.NodeUid}");
+				Log.Debug($"{ConsoleString()} Trying to submit BatchMessage {bm.MsgUid} to Node {cl.NodeUid} ({cl.Name})");
 				// try to run the Batch Execution on the selected Cluster node
 				IQueueConsumer consumer = _accessFactory.CreateQueueConsumerAccess(cl);
 				short clusterResponse = consumer.MessageReceived(bm);
 				
 				if (0 == clusterResponse) // the Cluster has accepted the Batch Execution?
 				{  // yes - finish
-					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} ACCEPTED BatchMessage {bm.MsgUid}");
+					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} ({cl.Name}) ACCEPTED BatchMessage {bm.MsgUid}");
 					return 0; // JobBatch accepted - finish, otherwise repeat for the next Cluster
 				}
 				if (-2 != clusterResponse) // the Cluster node has rejected the Batch Execution ?
@@ -160,10 +159,10 @@ namespace Baltic.Engine.JobBroker
 					be.Status = ComputationStatus.Rejected;
 					_taskRegistry.UpdateBatchExecution(be);
 					wasTried = true;
-					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} REJECTED BatchMessage {bm.MsgUid}");
+					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} ({cl.Name}) REJECTED BatchMessage {bm.MsgUid}");
 				}
 				else // the Cluster node has not responded or otherwise something has failed
-					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} NOT RESPONDED to BatchMessage {bm.MsgUid}");
+					Log.Debug($"{ConsoleString()} Node {cl.NodeUid} ({cl.Name}) NOT RESPONDED to BatchMessage {bm.MsgUid}");
 
 			}
 			
@@ -176,7 +175,7 @@ namespace Baltic.Engine.JobBroker
 		{
 			List<CCluster> clusters = _networkRegistry.GetMatchingClusters(reservationRange);
 			// return all clusters matching the reservation range and are also currently registered in the NodeManager (active)
-			return clusters.FindAll(c => _nodeManager.ContainsKey(c.NodeUid));
+			return clusters.FindAll(c => null != c.NodeUid && _nodeManager.ContainsKey(c.NodeUid));
 		}
 
 		/// 
@@ -199,6 +198,7 @@ namespace Baltic.Engine.JobBroker
 			if (null == be)
 				return -1; // should not happen
 			
+			// TODO - do not create job executions for jobs with only "weak" pins, if they already exist
 			// Add a new JobExecution to the TaskRegistry
 			JobExecution je = _factory.CreateJobExecution();
 			je.JobMsgUid = jim.MsgUid;
@@ -516,8 +516,10 @@ namespace Baltic.Engine.JobBroker
 			}
 		}
 
-		public short AbortTask(string taskUid)
+		public short AbortTask(string taskUid, bool onFailed = false)
 		{
+			if (onFailed)
+				Log.Debug($"{ConsoleString()} Task {taskUid} aborted due to job failure.");
 			foreach (BatchExecution be in _taskRegistry.GetBatchExecutions(taskUid)
 				.FindAll(e => e.Finish == DateTime.MinValue))
 			{
@@ -528,14 +530,14 @@ namespace Baltic.Engine.JobBroker
 				_taskRegistry.UpdateBatchExecution(be);
 				foreach (JobInstance ji in be.JobInstances)
 					_taskRegistry.CloseJobInstance(ji.InstanceUid);
-				foreach (JobExecution je in be.JobExecutions)
+				foreach (JobExecution je in be.JobExecutions.FindAll(e => e.Finish == DateTime.MinValue))
 				{
 					je.Status = ComputationStatus.Aborted;
 					je.Finish = be.Finish;
 					_taskRegistry.UpdateJobExecution(je);
 				}
 			}
-			_taskRegistry.UpdateTaskStatus(taskUid,ComputationStatus.Aborted);
+			_taskRegistry.UpdateTaskStatus(taskUid,onFailed?ComputationStatus.Failed:ComputationStatus.Aborted);
 			_queue.ClearTask(taskUid);
 			return 0;
 		}
@@ -546,6 +548,8 @@ namespace Baltic.Engine.JobBroker
 		/// <param name="note"></param>
 		private short UpdateJobInstanceStatus(FullJobStatus status, bool isFailed = false, string note = null)
 		{
+			// TODO - correct for refreshing, when a JobInstance fails (isFailed is not set properly)
+			
 			JobInstance ji = _taskRegistry.GetJobInstance(status.JobInstanceUid);
 			if (null == ji)
 				return -2; // this should not happen
@@ -586,7 +590,8 @@ namespace Baltic.Engine.JobBroker
 		/// <param name="lc"></param>
 		private List<CCluster> SortClusters(Dictionary<CCluster,ResourceReservation> lc){
 			// MOCK - sort the list randomly (based on random Guids)
-			return lc.Keys.ToList().OrderBy(x => Guid.NewGuid()).ToList();
+			Random rand = new Random();
+			return lc.Keys.ToList().OrderBy(x => rand.NextDouble()).ToList();
 		}
 
 		/// 

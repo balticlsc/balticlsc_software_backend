@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Baltic.DataModel.CALMessages;
 using Baltic.DataModel.Execution;
 
 namespace Baltic.DataModel.CALExecutable
@@ -11,5 +12,7 @@ namespace Baltic.DataModel.CALExecutable
         public abstract CJobBatch Batch { get; set; }
         public abstract List<JobExecution> JobExecutions { get; set; }
         public abstract List<JobInstance> JobInstances { get; set; }
+        public abstract BalticModuleBuild GetBuild(string pinsConfigMountPath);
+
     }
 }

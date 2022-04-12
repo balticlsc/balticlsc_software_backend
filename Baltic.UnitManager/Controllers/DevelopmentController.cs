@@ -242,8 +242,8 @@ namespace Baltic.UnitManager.Controllers
                 if (unit == null)
                     return HandleError("Unit not found", HttpStatusCode.BadRequest);
                 var userUid = UserName;
-                if (!CheckUnitOwnership(unit, userUid))
-                    return HandleError("Unit not available to the user.", HttpStatusCode.Unauthorized);
+                //if (!CheckUnitOwnership(unit, userUid))
+                //    return HandleError("Unit not available to the user.", HttpStatusCode.Unauthorized);
                 
                 return Ok(MapUnit(unit));
             }
@@ -268,8 +268,8 @@ namespace Baltic.UnitManager.Controllers
                 if (release == null)
                     return HandleError("Unit Release not found", HttpStatusCode.BadRequest);
                 var userUid = UserName;
-                if (!CheckUnitOwnership(release.Unit, userUid))
-                    return HandleError("Unit Release not available to the user.", HttpStatusCode.Unauthorized);
+                //if (!CheckUnitOwnership(release.Unit, userUid))
+                //    return HandleError("Unit Release not available to the user.", HttpStatusCode.Unauthorized);
                 
                 return Ok(MapUnitRelease(release));
             }
@@ -312,7 +312,7 @@ namespace Baltic.UnitManager.Controllers
         /// <param name="release">The new ComputationApplicationRelease data.</param>
         /// <returns></returns>
         [HttpPost("appRelease")]
-        public IActionResult UpdateAppRelease([FromBody,Required] XUnitReleaseCrude release)
+        public IActionResult UpdateAppRelease([FromBody,Required] XApplicationReleaseCrude release)
         {
             try
             {
@@ -329,6 +329,9 @@ namespace Baltic.UnitManager.Controllers
 
                 ComputationApplicationRelease updRelease =
                     (ComputationApplicationRelease) release.ToModelObject(_unitRegistry, currRelease.Unit);
+
+                if (currRelease.Descriptor.Date > updRelease.Descriptor.Date)
+                    updRelease.Descriptor.Date = currRelease.Descriptor.Date;
                 
                 if (0 != _unitRegistry.UpdateUnitRelease(updRelease))
                     return HandleError("App Release could not be updated", HttpStatusCode.InternalServerError);
@@ -360,6 +363,9 @@ namespace Baltic.UnitManager.Controllers
                 var userUid = UserName;
                 if (!CheckUnitOwnership(currRelease.Unit, userUid))
                     return HandleError("Module Release not available to the user.", HttpStatusCode.Unauthorized);
+                
+                if (currRelease.Descriptor.Date > release.Date)
+                    release.Date = currRelease.Descriptor.Date;
                 
                 if (0 != _unitRegistry.UpdateUnitRelease(release.ToModelObject(_unitRegistry,currRelease.Unit)))
                     return HandleError("Unit Release could not be updated", HttpStatusCode.InternalServerError);

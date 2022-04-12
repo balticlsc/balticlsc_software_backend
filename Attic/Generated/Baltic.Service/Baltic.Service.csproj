@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{DCA1BA2A-9E52-4E88-819E-4064E4B7B0E2}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Baltic.Service</RootNamespace>
+    <AssemblyName>Baltic.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AppStoreController.cs" />
+    <Compile Include="Controllers\CALTranslationController.cs" />
+    <Compile Include="Controllers\DevelopmentController.cs" />
+    <Compile Include="Controllers\JobRequestMQAckController.cs" />
+    <Compile Include="Controllers\NetworkManagementController.cs" />
+    <Compile Include="Controllers\TaskManagerController.cs" />
+    <Compile Include="Controllers\TokenMQController.cs" />
+    <Compile Include="Controllers\TokensController.cs" />
+    <Compile Include="Models\XApplicationRelease.cs" />
+    <Compile Include="Models\XBatch.cs" />
+    <Compile Include="Models\XCluster.cs" />
+    <Compile Include="Models\XClusterBatchQuery.cs" />
+    <Compile Include="Models\XClusterQuery.cs" />
+    <Compile Include="Models\XComputationApplication.cs" />
+    <Compile Include="Models\XComputationModule.cs" />
+    <Compile Include="Models\XComputationUnit.cs" />
+    <Compile Include="Models\XDataSet.cs" />
+    <Compile Include="Models\XInputTokenMessage.cs" />
+    <Compile Include="Models\XJob.cs" />
+    <Compile Include="Models\XMachine.cs" />
+    <Compile Include="Models\XModuleRelease.cs" />
+    <Compile Include="Models\XOutputTokenMessage.cs" />
+    <Compile Include="Models\XSeqToken.cs" />
+    <Compile Include="Models\XTask.cs" />
+    <Compile Include="Models\XTaskQuery.cs" />
+    <Compile Include="Models\XTokenMessage.cs" />
+    <Compile Include="Models\XUnitQuery.cs" />
+    <Compile Include="Models\XUnitRelease.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models" />
+    <Folder Include="Controllers" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Baltic.Database\Baltic.Database.csproj">
+      <Project>{f515eef8-47c9-441e-a4cf-fb5d2e1f1007}</Project>
+      <Name>Baltic.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baltic.DataModel\Baltic.DataModel.csproj">
+      <Project>{8f369788-5baa-4862-9238-c3a5178fee88}</Project>
+      <Name>Baltic.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baltic.Engine\Baltic.Engine.csproj">
+      <Project>{b2738024-85cb-4cb3-ad5a-f8fc17863147}</Project>
+      <Name>Baltic.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

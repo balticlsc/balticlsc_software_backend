@@ -80,11 +80,11 @@ namespace Baltic.UnitRegistry.DataAccess {
 		private RequiredServiceTable _reqServiceTable = null;
 		protected RequiredServiceTable ReqServiceTable =>
 			_reqServiceTable ??= new RequiredServiceTable();
-
-		public UnitGeneralDaoImpl(){
-
-		}
 		
+		private TaskDataSetTable _dataSetTable = null;
+		protected TaskDataSetTable DataSetTable =>
+			_dataSetTable ??= new TaskDataSetTable();
+
 		/// 
 		/// <param name="releaseUid"></param>
 		public ComputationUnitRelease GetUnitRelease(string releaseUid)
@@ -153,10 +153,10 @@ namespace Baltic.UnitRegistry.DataAccess {
 				return null;
 			
 			// TODO - handle ForkParentUid
-			var module = CModuleTable.Single(new {computationunitid = unit.Id});
+			var module = CModuleTable.Single(new {computationunitid = unit.id});
 			if (null == module)
 				return null;
-			var mReleases = CModuleRelTable.All(new {unitid = unit.id});
+			var mReleases = CUnitRelTable.All(new {unitid = unit.id});
 			ComputationModule mRet = new ComputationModule()
 			{
 				Name = unit.name,
@@ -186,7 +186,7 @@ namespace Baltic.UnitRegistry.DataAccess {
 			var app = CAppTable.Single(new {computationunitid = unit.id});
 			if (null == app)
 				return null;
-			var aReleases = CAppRelTable.All(new {unitid = unit.id});
+			var aReleases = CUnitRelTable.All(new {unitid = unit.id});
 			ComputationApplication aRet = new ComputationApplication()
 			{
 				Name = unit.name,
@@ -219,7 +219,7 @@ namespace Baltic.UnitRegistry.DataAccess {
 				})),
 				Version = uRelease.version,
 				Uid = uRelease.uid,
-				Status = uRelease.status,
+				Status = (UnitReleaseStatus)uRelease.status,
 				Descriptor = descriptor,
 				DeclaredPins = GetDeclaredDataPins(uRelease.id),
 				Parameters = GetUnitParameters(uRelease.id),
@@ -249,7 +249,7 @@ namespace Baltic.UnitRegistry.DataAccess {
 				})),
 				Version = uRelease.version,
 				Uid = uRelease.uid,
-				Status = uRelease.status,
+				Status = (UnitReleaseStatus)uRelease.status,
 				Descriptor = descriptor,
 				DeclaredPins = GetDeclaredDataPins(uRelease.id),
 				Parameters = GetUnitParameters(uRelease.id),
@@ -275,7 +275,7 @@ namespace Baltic.UnitRegistry.DataAccess {
 			if (null == serviceModule)
 				return null;
 			var serviceUnit = CUnitRelTable.Single(new {id = serviceModule.computationunitreleaseid});
-			return serviceUnit?.Uid;
+			return serviceUnit?.uid;
 		}
 
 		protected List<DeclaredDataPin> GetDeclaredDataPins(int releaseId)
@@ -285,9 +285,9 @@ namespace Baltic.UnitRegistry.DataAccess {
 			{
 				Name = p.name,
 				Uid = p.uid,
-				Binding = p.binding,
-				DataMultiplicity = p.datamultiplicity,
-				TokenMultiplicity = p.tokenmultiplicity,
+				Binding = (DataBinding)p.binding,
+				DataMultiplicity = (CMultiplicity)p.datamultiplicity,
+				TokenMultiplicity = (CMultiplicity)p.tokenmultiplicity,
 				Access = null != p.accessid ? MapAccessType(ATypeTable.Single(new {id = p.accessid})) : null,
 				Type =  MapDataType(DTypeTable.Single(new {id = p.typeid})),
 				Structure = null != p.structureid ? MapDataStructure(DStructTable.Single(new {id = p.structureid})) : null
@@ -301,10 +301,10 @@ namespace Baltic.UnitRegistry.DataAccess {
 			{
 				NameOrPath = p.nameorpath,
 				DefaultValue = p.defaultvalue,
-				Type = p.type,
+				Type = (UnitParamType)p.type,
 				IsMandatory = p.ismandatory,
 				Uid = p.uid,
-				TargetParameterUid = null != p.targetparameteruid ? UParamTable.Single(new{id = p.targetparameterid})?.uid : null
+				TargetParameterUid = null != p.targetparameterid ? UParamTable.Single(new{id = p.targetparameterid})?.uid : null
 			}).ToList();
 		}
 		

@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS ComputationModule (
 
 CREATE TABLE IF NOT EXISTS ComputationModuleRelease ( 
 	Image text,
-	Command text,
+	Command text NOT NULL,
 	IsMultitasking boolean,
 	Id serial PRIMARY KEY NOT NULL,
 	ComputationUnitReleaseId integer NOT NULL
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS UnitParameter (
 	NameOrPath text,
 	DefaultValue text,
 	Type smallint,
-	IsManadatory boolean,
+	IsMandatory boolean,
 	Uid text,
 	Id serial PRIMARY KEY NOT NULL,
 	ComputationUnitReleaseId integer,

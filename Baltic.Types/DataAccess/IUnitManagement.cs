@@ -20,7 +20,8 @@ namespace Baltic.Types.DataAccess
         /// 
         /// <param name="unitUid"></param>
         /// <param name="release"></param>
-        string AddReleaseToUnit(string unitUid, ComputationUnitRelease release);
+        /// <param name="releaseUid"></param>
+        string AddReleaseToUnit(string unitUid, ComputationUnitRelease release, string releaseUid = null);
 
         /// 
         /// <param name="query"></param>

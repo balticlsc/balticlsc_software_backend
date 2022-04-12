@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Baltic.DataModel.CAL;
+using Baltic.DataModel.CALMessages;
 
 namespace Baltic.DataModel.CALExecutable {
 	public abstract class CService : CJobBatchElement {
@@ -12,6 +13,9 @@ namespace Baltic.DataModel.CALExecutable {
 		}
 
 		public abstract string GetCredentials();
+
+		public abstract BalticModuleBuild GetBuild();
+
 
 	}
 }

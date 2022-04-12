@@ -57,19 +57,21 @@ namespace Baltic.DataModel.CALMessages
                 }
         }
 
-        public void FinalizePinConfigFile(List<PinsConfig> pinConfigs)
+        public void FinalizePinConfigFile(List<PinsConfig> pinConfigs, string pinsConfigMountPath)
         {
             string pinConfigContents = null;
             pinConfigContents = string.Join(",\n",pinConfigs);
             if (string.IsNullOrEmpty(pinConfigContents))
                 return;
             ConfigFiles.Remove(ConfigFiles.Find(
-                cf => cf.MountPath == PinsConfig.PinsConfigMountPath));
+                cf => cf.MountPath == pinsConfigMountPath));
             ConfigFiles.Add(new ConfigFileDescription()
             {
-                MountPath = PinsConfig.PinsConfigMountPath,
+                MountPath = pinsConfigMountPath,
                 Data = "[\n" + pinConfigContents + "]"
             });
+            if (!EnvironmentVariables.ContainsKey("SYS_PIN_CONFIG_FILE_PATH")) 
+                EnvironmentVariables.Add("SYS_PIN_CONFIG_FILE_PATH",pinsConfigMountPath);
         }
         
         public new string ToString()

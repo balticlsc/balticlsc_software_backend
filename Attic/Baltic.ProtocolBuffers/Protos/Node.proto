@@ -1,0 +1,33 @@
+﻿syntax = "proto3";
+
+//package Internal;
+
+option csharp_namespace = "Baltic.ProtocolBuffers";
+
+service NodeServiceApi {
+	rpc RegisterNode(RegisterRequest) returns (ResponseStatus);
+}
+
+message RegisterRequest {
+	string Id = 1;
+	string Name = 2;
+	string Url = 3;
+}
+
+message ResponseStatus {
+  enum Codes {
+	OK			= 0;	// Return on Success
+	CANCELLED	= 1;	// The operation was cancelled, typically by the caller.
+	UNKNOWN		= 2;	// For example, this error may be returned when a Status value received from another address space 
+						// belongs to an error-space that is not known in this address space. Also errors raised by APIs that 
+						// do not return enough error information may be converted to this error.
+  }
+  // The status code, which should be an enum 
+  Codes code = 1;
+
+  // A developer-facing error message, which should be in English. 
+  string message = 2;
+
+  // A list of messages that carry the error details. 
+  repeated string details = 3;
+} 

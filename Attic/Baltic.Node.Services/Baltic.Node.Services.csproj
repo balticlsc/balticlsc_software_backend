@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Baltic.Core\Baltic.Core.csproj" />
+    <ProjectReference Include="..\Baltic.ProtocolBuffers\Baltic.ProtocolBuffers.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,1 @@
+docker service rm balticlsc-server_balticlsc-server

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Baltic.DataModel.CALExecutable;
 using Baltic.DataModel.CALMessages;
+using Baltic.DataModel.Types;
 
 namespace Baltic.Types.DataAccess
 {
@@ -65,6 +66,10 @@ namespace Baltic.Types.DataAccess
         /// 
         /// <param name="taskUid"></param>
         bool IsTaskWorking(string taskUid);
+
+        /// 
+        /// <param name="taskUid"></param>
+        FailureHandlingPolicy GetTaskFHPolicy(string taskUid);
 
     }
 }

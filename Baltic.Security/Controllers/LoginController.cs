@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Organisation = Baltic.DataModel.Accounts.Organisation;
 
 namespace Baltic.Security.Controllers
 {
@@ -71,7 +70,7 @@ namespace Baltic.Security.Controllers
                     return Ok();                    
                 }
             }
-            else if (User.GetRoles().Contains(PoliciesLookup.RequireOrganisationAdmin)) // && user is from my organisation
+            else if (User.GetRoles().Contains(PoliciesLookup.RequireOrganisationOwner)) // && user is from my organisation
             {
                 if (_userRepository.ChangePassword(passwordModel.UserName, passwordModel.OldPassword, passwordModel.NewPassword))
                 {
@@ -88,20 +87,6 @@ namespace Baltic.Security.Controllers
             return Error($"You can't change password for user: {passwordModel.UserName}");
         }
 
-        [HttpGet("AssignUserToOrganisation")]
-        [Authorize]
-        public IActionResult AssignUserToOrganisation(string userName, int organisationId)
-        {
-            var id = _userRepository.GetUserId(userName);
-            if (id > 0)
-            {
-                _userRepository.AssignUserToOrganisation(id, organisationId);
-                return Ok();
-            }
-
-            return Error("Can't assign user to organisation");
-        }
-        
         [HttpGet("AddUserRole")]
         [Authorize]
         public IActionResult AddUserRole(string userName, string role)
@@ -113,6 +98,8 @@ namespace Baltic.Security.Controllers
         [Authorize]
         public IActionResult GetUsers(bool activeOrAll = false)
         {
+            UserEntity ue;
+
             var users = _userRepository.GetUserList(activeOrAll).ToList().Select(user => new
             {
                 user.Id,
@@ -123,21 +110,6 @@ namespace Baltic.Security.Controllers
             
             return Ok(users);
         } 
-        
-        [HttpGet("GetOrganisations")]
-        [Authorize]
-        public IActionResult GetOrganisations()
-        {
-            var organisations = _userRepository.GetOrganisationList().ToList().Select(o => new
-            {
-                o.Id,
-                o.Name,
-                o.Details
-            }).ToList();
-            
-            return Ok(organisations);
-        } 
-        
         
         [AllowAnonymous]    
         [HttpPost]    

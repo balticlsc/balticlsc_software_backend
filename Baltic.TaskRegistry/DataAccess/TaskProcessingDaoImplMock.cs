@@ -173,5 +173,11 @@ namespace Baltic.TaskRegistry.DataAccess
             CTask task = _storedTasks.Find(t => t.Uid == taskUid);
             return null != task && task.Execution.Finish == DateTime.MinValue;
         }
+
+        public FailureHandlingPolicy GetTaskFHPolicy(string taskUid)
+        {
+            CTask task = _storedTasks.Find(t => t.Uid == taskUid);
+            return task?.Execution.Parameters.FHPolicy ?? FailureHandlingPolicy.Break;
+        }
     }
 }

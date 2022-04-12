@@ -57,6 +57,17 @@ namespace Baltic.Database
             _internalTransaction?.Dispose();            
             _connection?.Dispose();
         }
+        
+        public int Delete(MightyOrm table, object item)
+        {
+            List<object> items = new List<object>() { item };
+            return table.Delete(_connection, items);
+        }
+        
+        public int Delete(MightyOrm table, IEnumerable<object> items)
+        {
+            return table.Delete(_connection, items);
+        }
 
         public int Delete(MightyOrm table, object[] items)
         {

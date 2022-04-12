@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using Baltic.Core.Utils;
 using Baltic.DataModel.Accounts;
 using Baltic.DataModel.CALExecutable;
@@ -66,6 +67,8 @@ namespace Baltic.TaskManager.Controllers {
 		[HttpDelete("dataSet")]
 		public IActionResult DeleteDataSet([FromQuery] string dataSetUid)
 		{
+			if (dataSetUid.StartsWith("DefaultDataSet_00"))
+				return HandleError("Cannot delete a default data set", HttpStatusCode.BadRequest);
 			try
 			{
 				string userUid = UserName;
@@ -89,10 +92,12 @@ namespace Baltic.TaskManager.Controllers {
 		[HttpPost("dataSet")]
 		public IActionResult UpdateDataSet([FromBody] XTaskDataSet dataSet)
 		{
+			if (null == dataSet)
+				return HandleError("Data Set is empty", HttpStatusCode.BadRequest);
+			if (dataSet.Uid.StartsWith("DefaultDataSet_00"))
+				return HandleError("Cannot modify a default data set", HttpStatusCode.BadRequest);
 			try
 			{
-				if (null == dataSet)
-					return HandleError("Data Set is empty", HttpStatusCode.BadRequest);
 				string userUid = UserName;
 				if (!CheckTaskDataSetOwnership(dataSet.Uid, userUid))
 					return HandleError("Data Set not available for the user", HttpStatusCode.Unauthorized);
@@ -153,6 +158,7 @@ namespace Baltic.TaskManager.Controllers {
 				string userUid = UserName;
 				IEnumerable<TaskDataSet> dataShelf = _unitRegistry.GetDataShelf(userUid);
 				var result = dataShelf.Select(MapTaskDataSet).ToList();
+				result.Sort();
 				return Ok(result);
 			}
 			catch (Exception e)
@@ -173,6 +179,7 @@ namespace Baltic.TaskManager.Controllers {
 				IEnumerable<DataType> dataTypes = _unitRegistry.GetDataTypes();
 				var result = dataTypes.Select(dt => DBMapper.Map<XDataType>(dt,
 					new XDataType())).ToList();
+				result.Sort();
 				return Ok(result);
 			}
 			catch (Exception e)
@@ -214,6 +221,7 @@ namespace Baltic.TaskManager.Controllers {
 				IEnumerable<DataStructure> dataStructures = _unitRegistry.GetDataStructures();
 				var result = dataStructures.Select(ds => DBMapper.Map<XDataStructure>(ds,
 					new XDataStructure())).ToList();
+				result.Sort();
 				return Ok(result);
 			}
 			catch (Exception e)
@@ -256,6 +264,7 @@ namespace Baltic.TaskManager.Controllers {
 				IEnumerable<AccessType> accessTypes = _unitRegistry.GetAccessTypes();
 				var result = accessTypes.Select(dt => DBMapper.Map<XAccessType>(dt,
 					new XAccessType())).ToList();
+				result.Sort();
 				return Ok(result);
 			}
 			catch (Exception e)
@@ -285,9 +294,18 @@ namespace Baltic.TaskManager.Controllers {
 				return HandleError(e);
 			}
 		}
-		
+
 		private XTaskDataSet MapTaskDataSet(TaskDataSet dataSet)
 		{
+			string newAccess = dataSet.AccessData?.Values;
+			Regex regex = new Regex(",\\s*\\\"(Password|connectionstring)\\\"\\s*:\\s*\\\"[^\\\"]*\\\"|\\s*\\\"(Password|connectionstring)\\\"\\s*:\\s*\\\"[^\\\"]*\\\",?");
+			if (null != newAccess) 
+				newAccess = regex.Replace(newAccess, "");
+
+			string newValues = dataSet.Data?.Values;
+			if (null != newValues)
+				newValues = regex.Replace(newValues, "");
+			
 			return DBMapper.Map<XTaskDataSet>(dataSet, new XTaskDataSet()
 				{
 					DataTypeUid = dataSet.Type?.Uid,
@@ -299,8 +317,8 @@ namespace Baltic.TaskManager.Controllers {
 					AccessTypeUid = dataSet.Access?.Uid,
 					AccessTypeName = dataSet.Access?.Name,
 					AccessTypeVersion = dataSet.Access?.Version,
-					Values = dataSet.Data?.Values,
-					AccessValues = dataSet.AccessData?.Values
+					Values = newValues,
+					AccessValues = newAccess
 				});
 		}
 		

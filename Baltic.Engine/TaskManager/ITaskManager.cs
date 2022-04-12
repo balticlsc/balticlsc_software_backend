@@ -35,8 +35,13 @@ namespace Baltic.Engine.TaskManager
 		/// <param name="taskUid"></param>
 		short AbortTask(string taskUid);
 
+		///
+		/// <param name="taskUid"></param>
+		short ArchiveTask(string taskUid);
+		
 		/// 
 		/// <param name="taskUid"></param>
 		List<CCluster> GetCompatibleClusters(string taskUid);
+
 	}
 }

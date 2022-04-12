@@ -51,4 +51,9 @@
   <ItemGroup>
     <Folder Include="logs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="Properties\launchSettings.balticlsc-gateway.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

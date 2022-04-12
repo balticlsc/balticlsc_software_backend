@@ -1,0 +1,42 @@
+﻿version: '3.7'
+
+services:
+  balticlsc-server:
+    hostname: balticlsc-server
+    image: balticlsc/balticlsc-server:local
+    ports:
+      - 5000:5000
+      - 5001:5001
+    environment:
+      - ConnectionStrings:DefaultConnection=User ID=baltic;Password=somepass;Host=postgresql;Port=5432;Database=baltic;Pooling=true;
+      - tmpFtpUser=balticlsc
+      - tmpFtpPass=PlaceToPutAllMyDogImages!
+      - tmpFtpHost=185.23.162.184
+    networks:
+      balticlsc-server:
+        aliases:
+          - balticlsc-server
+          - balticlsc-server.balticlsc-server
+      balticlsc-node:
+        aliases:
+          - balticlsc-server
+          - balticlsc-server.balticlsc-server
+    volumes:
+      - type: bind
+        source: ./logs/balticlsc-server
+        target: /app/logs
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    logging:
+      driver: fluentd
+      options:
+        tag: balticlsc-server
+
+networks:
+  balticlsc-server:
+    external: true
+  balticlsc-node:
+    external: true

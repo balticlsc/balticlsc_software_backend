@@ -26,4 +26,9 @@
       <ProjectReference Include="..\Baltic.Web\Baltic.Web.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Scripts\001_CreateUnitTables.sql" />
+      <EmbeddedResource Include="Scripts\001_CreateUnitTables.sql" />
+    </ItemGroup>
+
 </Project>

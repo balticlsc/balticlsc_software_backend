@@ -143,6 +143,10 @@ namespace Baltic.TaskRegistry.DataAccess
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public FailureHandlingPolicy GetTaskFHPolicy(string taskUid)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

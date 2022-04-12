@@ -91,8 +91,9 @@ namespace Baltic.Engine.TaskManager
 			// Prepare a list of the service's 'credentials'
 			// (except for the "Host" credential which is not allowed to be set by the developer)
 			service.CredentialParameters = serviceModule.CredentialParameters.FindAll(
-				cp => "Host" != cp.AccessCredentialName).Select(
+				cp => "Host - RevertBackToHost" != cp.AccessCredentialName).Select(
 				cp => new CredentialParameter(cp)).ToList();
+			// TODO - revert back to "Host" (mocked for temporary FTP service, that sets an external Host)
 
 			// Prepare a list of the service's 'parameters' (environment variables or config files)
 			service.Parameters = serviceModule.Parameters.Select(p => new CParameter(p)).ToList();
@@ -110,8 +111,13 @@ namespace Baltic.Engine.TaskManager
 			foreach (DeclaredDataPin copyPin in copyUnit.DeclaredPins)
 			{
 				CService service = "input" == copyPin.Name ? inputService : outputService;
+				// Consider the pin for which the copy module has to be generated
+				// If this is a "required" (input) pin...
 				if (null != pin.Incoming)
-					copyPin.TokenNo = "output" == copyPin.Name ? pin.TokenNo : pin.Incoming.Source.TokenNo;
+					copyPin.TokenNo = "output" == copyPin.Name ? pin.TokenNo : 
+						(pin.Incoming.Source is DeclaredDataPin dataPin ? dataPin.PrecedingTokenNo : 
+							pin.Incoming.Source.TokenNo);
+				// If this is a "provided" (output) pin...
 				else if (null != pin.Outgoing)
 					copyPin.TokenNo = "input" == copyPin.Name ? pin.TokenNo : pin.Outgoing.Target.TokenNo;
 				GenerateDataToken(copyPin, service,true, isCopyOut);

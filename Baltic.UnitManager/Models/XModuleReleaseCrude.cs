@@ -32,7 +32,7 @@ namespace Baltic.UnitManager.Models
 		{
 			ComputationModuleRelease release = (ComputationModuleRelease) ToModelObject(new ComputationModuleRelease(){Unit = unit}, unitRegistry);
 			release.Image = Image;
-			release.Command = Command;
+			release.Command = Command ?? "";
 			release.CommandArguments = CommandArguments.Select(a => new string(a)).ToList();
 			release.CredentialParameters = VariableMappings.Select(m => m.ToModelObject()).ToList();
 			release.RequiredServiceUids = RequiredServices.Select(s => new string(s)).ToList();

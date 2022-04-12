@@ -8,15 +8,19 @@ using Baltic.DataModel.CALExecutable;
 using Baltic.DataModel.Types;
 using Baltic.Types.DataAccess;
 using Baltic.UnitRegistry.Tables;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 
 namespace Baltic.UnitRegistry.DataAccess
 {
     public class UnitProcessingDaoImpl : UnitGeneralDaoImpl, IUnitProcessing
     {
-        private TaskDataSetTable _dataSetTable = null;
-        private TaskDataSetTable DataSetTable =>
-            _dataSetTable ??= new TaskDataSetTable();
+        private IConfiguration _configuration;
+
+        public UnitProcessingDaoImpl(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         
         /// 
         /// <param name="dataSet"></param>
@@ -36,14 +40,14 @@ namespace Baltic.UnitRegistry.DataAccess
                     {
                         uid = Guid.NewGuid().ToString(),
                         name = dataSet.Name,
-                        multiplicity = dataSet.Multiplicity,
+                        multiplicity = (int)dataSet.Multiplicity,
                         useruid = dataSet.OwnerUid,
                         data = dataSet.Data.Values,
                         accessdata = dataSet.AccessData.Values,
                         // TODO - typeid, structureid, accessid - check for nulls
                         typeid =  DTypeTable.Single(new {uid = dataSet.Type.Uid}).id,
-                        structureid = DStructTable.Single(new {uid = dataSet.Structure.Uid}).id,
-                        accessid = ATypeTable.Single(new {uid = dataSet.Access.Uid}).id
+                        structureid = null != dataSet.Structure ? DStructTable.Single(new {uid = dataSet.Structure.Uid}).id : null,
+                        accessid = null != dataSet.Access ? ATypeTable.Single(new {uid = dataSet.Access.Uid}).id : null
                     }).Single();
                     if (null == dSet) throw new Exception();
 
@@ -65,8 +69,7 @@ namespace Baltic.UnitRegistry.DataAccess
             var dSet = DataSetTable.Single(new {uid = dataSetUid});
             if (null == dSet)
                 return -1;
-            CUnitTable.Delete(dSet);
-            return 0;
+            return 1 == DataSetTable.Delete(dSet) ? (short)0 : (short)-2;
         }
         
         /// 
@@ -81,16 +84,16 @@ namespace Baltic.UnitRegistry.DataAccess
                 try
                 {
                     dSet.name = dataSet.Name;
-                    dSet.multiplicity = dataSet.Multiplicity;
+                    dSet.multiplicity = (int)dataSet.Multiplicity;
                     dSet.useruid = dataSet.OwnerUid;
                     dSet.data = dataSet.Data.Values;
                     dSet.accessdata = dataSet.AccessData.Values;
                     // TODO - typeid, structureid, accessid - check for nulls
                     dSet.typeid = DTypeTable.Single(new {uid = dataSet.Type.Uid}).id;
-                    dSet.structureid = DStructTable.Single(new {uid = dataSet.Structure.Uid}).id;
-                    dSet.accessid = ATypeTable.Single(new {uid = dataSet.Access.Uid}).id;
-                    dSet = trans.Update(DataSetTable,dSet);
-                    if (null == dSet) throw new Exception();
+                    dSet.structureid = null != dataSet.Structure ? DStructTable.Single(new {uid = dataSet.Structure.Uid}).id : null;
+                    dSet.accessid = null != dataSet.Access ? ATypeTable.Single(new {uid = dataSet.Access.Uid}).id : null;
+                    int uRes = trans.Update(DataSetTable,dSet);
+                    if (1 != uRes) throw new Exception();
 
                     trans.CommitTransaction();
                     return 0;
@@ -119,7 +122,7 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = dSet.uid,
                 Name = dSet.name,
-                Multiplicity = dSet.multiplicity,
+                Multiplicity = (CMultiplicity)dSet.multiplicity,
                 OwnerUid = dSet.useruid,
                 Data = new CDataSet(){Values = dSet.data},
                 AccessData = new CDataSet(){Values = dSet.accessdata},
@@ -145,7 +148,7 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     Uid = dSet.uid,
                     Name = dSet.name,
-                    Multiplicity = dSet.multiplicity,
+                    Multiplicity = (CMultiplicity)dSet.multiplicity,
                     OwnerUid = dSet.useruid,
                     Data = new CDataSet() {Values = dSet.data},
                     AccessData = new CDataSet() {Values = dSet.accessdata},
@@ -163,7 +166,8 @@ namespace Baltic.UnitRegistry.DataAccess
         public ComputationModuleRelease FindSystemUnit(string unitName, DataPin inputPin, DataPin outputPin)
         {
             var unit = CUnitTable.Single(new {name = unitName, authoruid = "system"});
-            return GetUnit(unit.uid);
+            var release = CUnitRelTable.Single(new {unitid = unit.id});
+            return MapModuleRelease(release);
         }
 
         private void ResetDataSets()
@@ -172,7 +176,8 @@ namespace Baltic.UnitRegistry.DataAccess
             foreach (var dataSet in dataSets)
                 DataSetTable.Delete(dataSet);
             
-            List<TaskDataSet> dSets = UnitRegistryInit.GetInitDataSets();
+            // TODO - adapt to use proper GUIDs in UnitRegistryInit for data/access types
+            List<TaskDataSet> dSets = (new UnitRegistryInit(_configuration)).GetInitDataSets();
             foreach (TaskDataSet dSet in dSets)
                 AddDataSetToShelf(dSet);
         }

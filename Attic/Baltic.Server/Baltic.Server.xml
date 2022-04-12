@@ -1,0 +1,379 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Baltic.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Baltic.Server.Controllers.ApplicationController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.GetShelfApps">
+            <summary>
+            [GetShelfApps] Returns list of computation applications from user's application shelf.
+            </summary>
+            <returns>Computation applications from user's shelf as an array.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.FindApps(Baltic.Server.Controllers.Models.ApplicationListRequest)">
+            <summary>
+            [FindApps] Return list of computation applications consistent with given application list request.
+            </summary>
+            <param name="request">Request dicribing criteria for computation applications.</param>
+            <returns>Computation applications consistent with request as an array.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.GetApp(System.String)">
+            <summary>
+            [GetApp] Return computation applications with given id.
+            </summary>
+            <param name="appId">Id of computation application.</param>
+            <returns>Single computation application with given id.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.AddAppToShelf(System.String)">
+            <summary>
+            [AddAppToShelf] Add computation application with given id to user's application shelf.
+            </summary>
+            <param name="appId">Id of computation application.</param>
+            <returns>Computation application shelf as an array after new position was added.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.RemoveAppFromShelf(System.String)">
+            <summary>
+            [RemoveAppFromShelf] Remove computation application with given id from user's application shelf.
+            </summary>
+            <param name="appId">Id of computation application.</param>
+            <returns>Computation application shelf as an array after one position was deleted.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.RateApp(System.String,System.Int32)">
+            <summary>
+            [RateApp] Set user's rating for computation application with given id.
+            </summary>
+            <param name="appId">Id of computation application.</param>
+            <param name="rate">New rate for computation application.</param>
+            <returns>Single computation application with new rating.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.PrepareComputationApplicationContextDefinition(System.String)">
+            <summary>
+            [PrepareComputationApplicationContextDefinition] Fetch list of parameter definitions required to run release of given computation application.
+            </summary>
+            <param name="appReleaseId">Id of computation application release.</param>
+            <returns>Form definition as a JSON.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.GetRequiredDataSourceDefinitions(System.String)">
+            <summary>
+            [GetRequiredDataSourceDefinitions] Fetch list of data source definitions required to run release of given computation application.
+            </summary>
+            <param name="appReleaseId">Id of computation application release.</param>
+            <returns>Data source definitions as JSON.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.RunApp(System.String,Baltic.Server.Controllers.Models.ComputationApplicationEnvironment)">
+            <summary>
+            [RunApp] Create new task for given computation application using provided environment data.
+            </summary>
+            <param name="appReleaseId">Id of computation application release.</param>
+            <param name="environment">Informations about evaluation, parameters and data sources needed to run a compuatation application.</param>
+            <returns>Id of computation task as a string.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.CreateRequestForApplication(Baltic.Server.Controllers.Models.ApplicationRequest)">
+            <summary>
+            [RunApp] Create new request for computation application using provided data.
+            </summary>
+            <param name="createApplicationRequest"></param>
+            <returns>Id of created computation aplication request as a string.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.GetApplicationRequestList(Baltic.Server.Controllers.Models.ApplicationRequestListRequest)">
+            <summary>
+            [GetApplicationRequestList] Return list of computation application requests consistent with given application request list request.
+            </summary>
+            <parameter name="request">Request dicribing criteria for computation application requests.</parameter>
+            <returns>Array of application requests consistent with request.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.ApplicationController.GetApplicationRequest(System.String)">
+            <summary>
+            [GetApplicationRequest] Return computation application request with given id.
+            </summary>
+            <param name="requestId">Id of computation application request.</param>
+            <returns>Single application request with given id.</returns>
+        </member>
+        <member name="T:Baltic.Server.Controllers.AssetsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Baltic.Server.Controllers.AssetsController.GetAsset(System.String)">
+            <summary>
+            [GetAsset] Return asset with given id.
+            </summary>
+            <param name="assetId">Id of asset.</param>
+            <returns>Single asset with given id.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.AssetsController.CreateAsset(Baltic.Server.Controllers.Models.Asset)">
+            <summary>
+            [CreateAsset] Upload a given asset.
+            </summary>
+            <param name="asset">Asset to upload.</param>
+            <returns>Id of created asset.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.AssetsController.UpdateAsset(System.String,Baltic.Server.Controllers.Models.Asset)">
+            <summary>
+            [UpdateAsset] Replace asset with given id.
+            </summary>
+            <param name="assetId">Id of asset.</param>
+            <param name="asset">New version of asset.</param>
+        </member>
+        <member name="M:Baltic.Server.Controllers.AssetsController.DeleteAsset(System.String)">
+            <summary>
+            [DeleteAsset] Remove asset with given id.
+            </summary>
+            <param name="assetId">Id of asset.</param>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ApplicationRequestListRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ComputationApplicationEnvironment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationApplicationEnvironment.Context">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationApplicationEnvironment.ComputationValuation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationApplicationEnvironment.DataSourceDefinition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ComputationJob">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.ComputationTaskId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.Status">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.StartTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.EndTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.EstimatedCredits">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.UsedCredits">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.ClusterId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationJob.ResourceUsageMetrics">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ComputationTask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationTask.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationTask.ComputationApplicationReleaseId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationTask.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationTask.JobList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ComputationTask.Status">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ErrorDetails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ErrorDetails.StatusCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ErrorDetails.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Baltic.Server.Controllers.Models.ErrorDetails.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.ResourceUsageMetric">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ResourceUsageMetric.ResourceType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ResourceUsageMetric.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.ResourceUsageMetric.MchineId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.TaskListRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.TaskListRequest.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.Models.UserInteractionRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.UserInteractionRequest.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.UserInteractionRequest.taskId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.UserInteractionRequest.jobId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Baltic.Server.Controllers.Models.UserInteractionRequest.contexDefinition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Baltic.Server.Controllers.TaskController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.GetTasks(Baltic.Server.Controllers.Models.TaskListRequest)">
+            <summary>
+            [GetTasks] Return list of computation tasks consistent with given task list request.
+            </summary>
+            <param name="request">Request dicribing criteria for computation tasks.</param>
+            <returns>Computation tasks consistent with request as an array.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.ActivateTask(System.String)">
+            <summary>
+            [ActivateTask] Begins to execute next stage of computation task with given id
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>Single task with updated status.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.PauseTask(System.String)">
+            <summary>
+            [PauseTask] Pause computation task with given id.
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>Single task with updated status.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.AbortTask(System.String)">
+            <summary>
+            [AbortTask] Abort computation task with given id.
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>Single task with updated status.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.GetTaskJobs(System.String)">
+            <summary>
+            [GetTaskJobs] Returns list of computation jobs for a task with given id.
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>Computations Jobs for computation task with given id as a array.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.GetTask(System.String)">
+            <summary>
+            [GetTask] Returns computation task with given id.
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>Single computation task with given id.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.GetTaskContextDefinitionUpdates(System.String)">
+            <summary>
+            [GetTaskContextDefinitionUpdates] Returns definitions of complementary parameters needed for further progress of computation.
+            </summary>
+            <param name="computationTaskId">Id of computation task.</param>
+            <returns>User interaction requests for a computation task with given id as a array.</returns>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.UpdateTaskContext(System.String,System.String)">
+            <summary>
+             [UpdateTaskContext] Allows to enter values of complementary parameters needed for further progress of computation.
+            </summary>
+            <param name="UserInteractionId">Id of user interaction.</param>
+            <param name="contextUpdateJSON">Values of parameters as JSON.</param>
+        </member>
+        <member name="M:Baltic.Server.Controllers.TaskController.GetJob(System.String)">
+            <summary>
+            [GetJob] Returns computation jobs with given id.
+            </summary>
+            <param name="computationJobId">Id of computation job.</param>
+            <returns>Single computation job with given id.</returns>
+        </member>
+    </members>
+</doc>

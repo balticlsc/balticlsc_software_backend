@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  balticlsc-front:
+    hostname: balticlsc-front
+    image: balticlsc/balticfrontend:latest
+    ports:
+      - 8080:8080
+    environment:
+      VUE_APP_SERVER_URL: localhost:8080
+      VUE_APP_REAL_SERVER_URL: https://balticlsc-server:5001
+    networks:
+      balticlsc-server:
+        aliases:
+          - balticlsc-front
+          - balticlsc-server.balticlsc-front
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: balticlsc-front
+
+networks:
+  balticlsc-server:
+    external: true

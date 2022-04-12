@@ -1,8 +1,8 @@
 namespace Baltic.DataModel.CAL {
 	public class CredentialParameter {
-		public string EnvironmentVariableName;
-		public string AccessCredentialName;
-		public string DefaultCredentialValue;
+		public string EnvironmentVariableName { get; set; }
+		public string AccessCredentialName { get; set; }
+		public string DefaultCredentialValue { get; set; }
 
 		public CredentialParameter(CredentialParameter source = null)
 		{

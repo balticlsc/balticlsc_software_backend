@@ -21,7 +21,7 @@ namespace Baltic.DataModel.CALMessages
 		
         public override string ToString()
         {
-           return "TokenMessage " + MsgUid+ " token=" + TokenNo + " pin=" + PinName + " data=" + DataSet.Values + " " + QueueSeqStack;
+           return "TokenMessage=" + MsgUid + " TokenNo=" + TokenNo + " PinName=" + PinName + " SenderUid=" + SenderUid + " DataSet=" + DataSet.Values + " " + QueueSeqStack;
         }
 
     }

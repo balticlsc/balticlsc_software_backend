@@ -8,27 +8,22 @@ namespace Baltic.DataModel.CALExecutable
 {
     public abstract partial class CJobBatchElement
     {
-        
         public CJobBatchElement()
         {
             CommandArguments = new List<string>();
             Parameters = new List<CParameter>();
         }
-        
-        public virtual BalticModuleBuild Build
+
+        protected BalticModuleBuild GetBaseBuild()
         {
-            get
+            BalticModuleBuild ret = new BalticModuleBuild()
             {
-                BalticModuleBuild ret = new BalticModuleBuild()
-                {
-                    Image = Image,
-                    Command = Command,
-                    CommandArguments = CommandArguments.Select(ca => new string(ca)).ToList()
-                };
-                ret.InitializeParameters(Parameters);
-                return ret;
-            }
+                Image = Image,
+                Command = Command,
+                CommandArguments = CommandArguments.Select(ca => new string(ca)).ToList()
+            };
+            ret.InitializeParameters(Parameters);
+            return ret;
         }
-        
     }
 }

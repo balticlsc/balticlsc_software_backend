@@ -6,8 +6,6 @@ using Baltic.DataModel.Types;
 namespace Baltic.DataModel.CALMessages {
 	public class PinsConfig : IComparable<PinsConfig>{
 		
-		public const string PinsConfigMountPath = "/app/configs/pins_config.json";
-		
 		public string PinName { get; set; }
 		public DataBinding PinType { get; set; }
 		public string AccessType { get; set; }
@@ -30,7 +28,8 @@ namespace Baltic.DataModel.CALMessages {
 			else
 			{
 				AccessCredential = token.AccessData?.Values;
-				AccessPath = token.Data?.Values;
+				if (DataBinding.Provided <= token.Binding) 
+					AccessPath = token.Data?.Values;
 			}
 		}
 
@@ -39,6 +38,7 @@ namespace Baltic.DataModel.CALMessages {
 			
 			Regex expression = new Regex("\\{\\s*\\\"PinName\\\":\\s*\\\"(.*)\\\",\\s*" +
 			                             "\\\"PinType\\\":\\s*\\\"(.*)\\\",\\s*" +
+			                             "\\\"IsRequired\\\":\\s*\\\"(.*)\\\",\\s*" +
 			                             "\\\"AccessType\\\":\\s*\\\"(.*)\\\",\\s*" +
 			                             "\\\"DataMultiplicity\\\":\\s*\\\"(.*)\\\"," +
 			                             "\\s*\\\"TokenMultiplicity\\\":\\s*\\\"(\\w*)\\\"\\s*" +
@@ -50,13 +50,15 @@ namespace Baltic.DataModel.CALMessages {
 			PinName = match.Groups[1].Value;
 			PinType = "output" == match.Groups[2].Value ? DataBinding.Provided : 
 				("external output" == match.Groups[2].Value ? DataBinding.ProvidedExternal : DataBinding.RequiredStrong);
-			AccessType = match.Groups[3].Value;
-			DataMultiplicity = string.Equals(CMultiplicity.Single.ToString(), match.Groups[4].Value,StringComparison.OrdinalIgnoreCase)
+			if (DataBinding.RequiredStrong == PinType && "false" == match.Groups[3].Value)
+				PinType = DataBinding.RequiredWeak;
+			AccessType = match.Groups[4].Value;
+			DataMultiplicity = string.Equals(CMultiplicity.Single.ToString(), match.Groups[5].Value,StringComparison.OrdinalIgnoreCase)
 				? CMultiplicity.Single : CMultiplicity.Multiple;
-			TokenMultiplicity = string.Equals(CMultiplicity.Single.ToString(), match.Groups[5].Value,StringComparison.OrdinalIgnoreCase)
+			TokenMultiplicity = string.Equals(CMultiplicity.Single.ToString(), match.Groups[6].Value,StringComparison.OrdinalIgnoreCase)
 				? CMultiplicity.Single : CMultiplicity.Multiple;
-			AccessCredential = match.Groups[7].Value;
-			AccessPath = match.Groups[9].Value;
+			AccessCredential = match.Groups[8].Value;
+			AccessPath = match.Groups[10].Value;
 		}
 
 		public static PinsConfig Parse(string pinsFile)
@@ -69,6 +71,7 @@ namespace Baltic.DataModel.CALMessages {
 			return $"{{\n" +
 			       $"\"PinName\": \"{PinName}\"," +
 			       $"\n\"PinType\": \"{(PinType >= DataBinding.Provided ? (PinType == DataBinding.ProvidedExternal ? "external output" : "output") : "input")}\"," +
+			       $"\n\"IsRequired\": \"{(PinType >= DataBinding.Provided ? "NA" : (PinType == DataBinding.RequiredStrong ? "true" : "false"))}\"," +
 			       $"\n\"AccessType\": \"{AccessType}\"," +
 			       $"\n\"DataMultiplicity\": \"{DataMultiplicity.ToString().ToLower()}\"," +
 			       $"\n\"TokenMultiplicity\": \"{TokenMultiplicity.ToString().ToLower()}\"" +
@@ -82,9 +85,9 @@ namespace Baltic.DataModel.CALMessages {
 			if (ReferenceEquals(this, other)) return 0;
 			if (ReferenceEquals(null, other)) return 1;
 			// TODO - compare in groups
-			var pinTypeComparison = PinType.CompareTo(other.PinType);
+			var pinTypeComparison = PinType.CompareTo(other?.PinType);
 			if (pinTypeComparison != 0) return pinTypeComparison;
-			return string.Compare(PinName, other.PinName, StringComparison.Ordinal);
+			return string.Compare(PinName, other?.PinName, StringComparison.Ordinal);
 		}
 	}
 }

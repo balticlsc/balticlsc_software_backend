@@ -3,7 +3,7 @@ namespace Baltic.Security.Auth
     public static class PoliciesLookup
     {
         public const string RequireAdmin = "Admin";
-        public const string RequireOrganisationAdmin = "Organisation Admin";
+        public const string RequireOrganisationOwner = "Organisation Admin";
         public const string RequireSupplier = "Supplier";
         public const string RequireDeveloper = "Developer";
         public const string RequireDemo = "Demo";
@@ -17,7 +17,7 @@ namespace Baltic.Security.Auth
 
         public static Policy OrganisationOwner { get; } = new Policy
         {
-            Name = RequireOrganisationAdmin,
+            Name = RequireOrganisationOwner,
             AllowedRoles = new[] {RoleLookup.OrganisationAdmin}
         };
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Baltic.CommonServices;
 using Baltic.DataModel.CAL;
 using Baltic.DataModel.CALExecutable;
 using Baltic.DataModel.CALMessages;
@@ -26,6 +27,7 @@ namespace Baltic.Engine.TaskManager
 		private IDiagram _diagramRegistry;
 		private IJobBroker _broker;
 		private INetworkBrokerage _networkRegistry;
+		private NodeManager _nodeManager;
 
 		/// 
 		/// <param name="ur"></param>
@@ -36,7 +38,7 @@ namespace Baltic.Engine.TaskManager
 		/// <param name="broker"></param>
 		/// <param name="nr"></param>
 		public TaskManager(IUnitProcessing ur, ITaskManagement tr, ITaskProcessor tp, IDataModelImplFactory dmf,
-			IDiagram diag, IJobBroker broker, INetworkBrokerage nr){
+			IDiagram diag, IJobBroker broker, INetworkBrokerage nr, NodeManager nm){
 			_unitRegistry = ur;
 			_taskRegistry = tr;
 			_taskProcessor = tp;
@@ -44,6 +46,7 @@ namespace Baltic.Engine.TaskManager
 			_diagramRegistry = diag;
 			_broker = broker;
 			_networkRegistry = nr;
+			_nodeManager = nm;
 		}
 
 		/// 
@@ -101,6 +104,7 @@ namespace Baltic.Engine.TaskManager
 		
 			foreach (DeclaredDataPin pin in release.DeclaredPins) {
 				pin.TokenNo = writer.GenerateNextToken();
+				pin.PrecedingTokenNo = pin.TokenNo;
 				if (DataBinding.Provided != pin.Binding && null != pin.Outgoing)
 					pin.Outgoing.Target.TokenNo = pin.TokenNo;
 				if ((DataBinding.Provided <= pin.Binding) && null != pin.Incoming)
@@ -243,12 +247,25 @@ namespace Baltic.Engine.TaskManager
 			return _taskProcessor.AbortTask(taskUid);
 		}
 
+		public short ArchiveTask(string taskUid)
+		{
+			CTask task = _taskRegistry.GetTask(taskUid);
+			if (null == task)
+				return -2;
+			if (ComputationStatus.Completed > task.Execution.Status || ComputationStatus.Aborted < task.Execution.Status)
+				return -1;
+			return _taskRegistry.ArchiveTask(taskUid);
+		}
+
 		public List<CCluster> GetCompatibleClusters(string appReleaseUid)
 		{
 			ComputationUnitRelease release = _unitRegistry.GetUnitRelease(appReleaseUid);
 			if (!(release is ComputationApplicationRelease))
 				return null;
-			return _networkRegistry.GetMatchingClusters(release.SupportedResourcesRange);
+			
+			List<CCluster> clusters = _networkRegistry.GetMatchingClusters(release.SupportedResourcesRange);
+			// return all clusters matching the reservation range and are also currently registered in the NodeManager (active)
+			return clusters.FindAll(c => null == c.NodeUid || _nodeManager.ContainsKey(c.NodeUid));
 		}
 
 		/// 
@@ -310,7 +327,14 @@ namespace Baltic.Engine.TaskManager
 				
 				// copy token numbers from the computed pins of the call to the app's declared pins 
 				foreach (ComputedDataPin pin in unitCall.Pins)
+				{
 					pin.Declared.TokenNo = pin.TokenNo;
+					DataPin previousPin = pin.Incoming?.Source;
+					if (null != previousPin)
+						pin.Declared.PrecedingTokenNo = previousPin is DeclaredDataPin
+						? ((DeclaredDataPin) previousPin).PrecedingTokenNo
+						: previousPin.TokenNo;
+				}
 				
 				foreach(UnitParameter par in release.Parameters){
 					if (null != (newParam = customParams.Find(inv => par.Uid == inv.InvariantUid))) // TODO - remove the 'invariant'
@@ -402,13 +426,19 @@ namespace Baltic.Engine.TaskManager
 				ComputationModuleRelease copyModule = null;
 				DataPin inputPin = null, outputPin = null;
 				bool isCopyOut = false;
-				if (null != pin.Incoming && pin.Incoming.Source.TokenNo != pin.TokenNo)
+				
+				// Check if a copy-in module need to be generated
+				if (null != pin.Incoming && 
+				    (pin.Incoming.Source is DeclaredDataPin ? 
+					    ((DeclaredDataPin) pin.Incoming.Source).PrecedingTokenNo : 
+					    pin.Incoming.Source.TokenNo) != pin.TokenNo)
 				{
 					inputPin = pin.Incoming.Source;
 					outputPin = pin;
 					outputService = service;
 					// TODO - find service from the previous batch (if inter-batch copier service)
 				}
+				// Check if a copy-out module needs to be generated
 				else if (null != pin.Outgoing && pin.Outgoing.Target.TokenNo < pin.TokenNo)
 				{
 					inputPin = pin;
@@ -417,10 +447,12 @@ namespace Baltic.Engine.TaskManager
 					isCopyOut = true;
 				}
 
+				// Find a proper copy(in/out) module if needed (input and output pin are set)
 				if (null != inputPin && null != outputPin)
 					copyModule =
 						_unitRegistry.FindSystemUnit("data-copier", inputPin, outputPin);
 
+				// Generate a copy(in/out) job if needed (copyModule is set)
 				if (null != copyModule)
 				{
 					DataPin modulePin = copyModule.DeclaredPins.Find(p => p.Binding == DataBinding.RequiredStrong);
@@ -455,7 +487,10 @@ namespace Baltic.Engine.TaskManager
 			bool addCopyInJobs, List<UnitCallParameter> pars, bool outermost)
 		{
 			foreach (DataFlow flow in release.Flows) {
+				// Is the target of the current flow a Computation Module?
 				bool isTargetModule = flow.Target is ComputedDataPin && ((ComputedDataPin) flow.Target).Call.Unit is ComputationModuleRelease;
+				
+				// If this is an "external" input flow 
 				if (flow.Source is DeclaredDataPin)
 				{
 					// check if we have just created a new CJobBatch and the current flow's source pin is not "direct"
@@ -466,6 +501,7 @@ namespace Baltic.Engine.TaskManager
 						// copy the token number from the app's declared pin to the computed pin of the flow's target
 						flow.Target.TokenNo = flow.Source.TokenNo;
 				}
+				// If this is an "external" output flow
 				else if (flow.Target is DeclaredDataPin)
 				{
 					if (!flow.Target.IsDirect && outermost)

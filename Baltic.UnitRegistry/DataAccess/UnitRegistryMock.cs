@@ -29,9 +29,26 @@ namespace Baltic.UnitRegistry.DataAccess
         public List<DataStructure> Dss = new List<DataStructure>();
         public List<AccessType> Ats = new List<AccessType>();
 
-        private IDataModelImplFactory _factory;
+        private string _tmpApp1DiagramUid;
+        private string _tmpRel1DiagramUid;
+        private string _tmpRel1InputPinUid;
+        private string _tmpRel1OutputPinUid;
+        private string _tmpApp2DiagramUid;
+        private string _tmpRel2DiagramUid;
+        private string _tmpRel2InputPinUid;
+        private string _tmpRel2OutputPinUid;
+        private string _tmpApp3DiagramUid;
+        private string _tmpRel3DiagramUid;
+        private string _tmpRel3InputPinUid;
+        private string _tmpRel3OutputPinUid;
+        private string _tmpRel3Output2PinUid;
+        private string _tmpApp4DiagramUid;
+        private string _tmpRel4DiagramUid;
+        private string _tmpRel4Input1PinUid;
+        private string _tmpRel4Input2PinUid;
+        private string _tmpRel4OutputPinUid;
 
-        private string _tmpMongoDbConnectionString;
+
         private Dictionary<string, string> _tmpFtpAccessCredential;
 
         private int _globalDelay = 1;
@@ -42,15 +59,35 @@ namespace Baltic.UnitRegistry.DataAccess
         {
             // IConfiguration uses appsettings.json from Baltic.Server project and environment variables
             // configuration from env variable
-            _tmpMongoDbConnectionString = configuration["tmpMongoDbConnectionString"];
+            _tmpApp1DiagramUid = configuration["tmpApp1DiagramUid"];
+            _tmpRel1DiagramUid = configuration["tmpRel1DiagramUid"];
+            _tmpRel1InputPinUid = configuration["tmpRel1InputPinUid"];
+            _tmpRel1OutputPinUid = configuration["tmpRel1OutputPinUid"];
+            _tmpApp2DiagramUid = configuration["tmpApp2DiagramUid"];
+            _tmpRel2DiagramUid = configuration["tmpRel2DiagramUid"];
+            _tmpRel2InputPinUid = configuration["tmpRel2InputPinUid"];
+            _tmpRel2OutputPinUid = configuration["tmpRel2OutputPinUid"];
+            _tmpApp3DiagramUid = configuration["tmpApp3DiagramUid"];
+            _tmpRel3DiagramUid = configuration["tmpRel3DiagramUid"];
+            _tmpRel3InputPinUid = configuration["tmpRel3InputPinUid"];
+            _tmpRel3OutputPinUid = configuration["tmpRel3OutputPinUid"];
+            _tmpRel3Output2PinUid = configuration["tmpRel3Output2PinUid"];
+            _tmpApp4DiagramUid = configuration["tmpApp4DiagramUid"];
+            _tmpRel4DiagramUid = configuration["tmpRel4DiagramUid"];
+            _tmpRel4Input1PinUid = configuration["tmpRel4Input1PinUid"];
+            _tmpRel4Input2PinUid = configuration["tmpRel4Input2PinUid"];
+            _tmpRel4OutputPinUid = configuration["tmpRel4OutputPinUid"];
+            
             _tmpFtpAccessCredential = new Dictionary<string, string>()
             {
                 {"FtpHost", configuration["tmpFtpHost"]},
                 {"FtpUser", configuration["tmpFtpUser"]},
-                {"FtpPass", configuration["tmpFtpPass"]}
+                {"FtpPass", configuration["tmpFtpPass"]},
+                {"FtpHost2", configuration["tmpFtpHost2"]},
+                {"FtpUser2", configuration["tmpFtpUser2"]},
+                {"FtpPass2", configuration["tmpFtpPass2"]}
             };
             
-            _factory = new DataModelImplFactory(configuration);
             AddDataTypes();
             AddDataStructures();
             AddServices();
@@ -68,132 +105,209 @@ namespace Baltic.UnitRegistry.DataAccess
 
         private void AddModules()
         {
+            AddFaceRecogniserModule(); // module by Jan Bielecki
+            
+            AddImageChannelSeparator(); // module by Marek Wdowiak
+            AddImageChannelJoiner(); // module by Marek Wdowiak
+            AddImageEdgerModule("9104", "01"); // module by Marek Wdowiak
+            AddImageEdgerModule("9107", "02");
+            AddImageEdgerModule("9108", "03");
+            
+            AddFaceDetectorModule(); // module by Adam Gawieńczuk
+            AddFaceContoursModule(); // module by Robert Mazurek
+            AddMoodRecogniserModule(); // module by Jena Smruti
+            AddDataSummarizerModule(); // module by Adam Gawieńczuk
+
+            AddImageClassificationTrainerModule(); // module by Michał Pawlikowski
+
+            // "Fake" modules
             AddDecisionModule();
             AddNeuralNetLearnerModule();
             AddNeuralNetRecognizerModule();
             AddMatrixOperationsModule();
             AddRegressionModule();
             AddSpectralModule();
-            AddFtp2MongoModule();
+            
+            // Deprecated modules
             AddRgb2GrayModule();
-            AddImageEdgerModule("9104", "01");
-            AddImageEdgerModule("9107", "02");
-            AddImageEdgerModule("9108", "03");
             AddMongo2FtpModule();
-            AddImageChannelSeparator();
-            AddImageChannelJoiner();
-            AddDataCopierModule();
-            AddFaceRecogniserModule();
+            AddFtp2MongoModule();
             AddCopyOutModule();
+            
+            // System modules
+            AddDataCopierModule();
+            
             AddModulesToToolbox();
         }
 
         private void AddApplications()
         {
-            AddYetAnotherImageProcessor();
             AddFaceRecognizer();
+            AddMoodRecognizer();
+            AddMarekImageProcessor2();
+            AddImageClassificationTrainer();
             AddHullOptimizer();
             AddWildlifeRecognizer();
             AddSimpleImageProcessor();
             AddCovid2Analyzer();
             AddMarekImageProcessor();
-            AddMarekImageProcessor2();
+            AddYetAnotherImageProcessor();
         }
 
         // ========================================================================================
 
         private void AddDataSets()
         {
+            // -------- User: user1 -------------------
+            
             List<TaskDataSet> tds1 = new List<TaskDataSet>();
 
-            TaskDataSet ds = GetNewDataSet("MyFirstFilm", "VideoFile", "films/film1.avi", 
-                "user1", CMultiplicity.Single);
+            TaskDataSet ds = GetNewEdgerDataSet("MyFirstFilm", "MyFirstFilm_001", "VideoFile", "films/film1.avi", 
+                "user1", "", CMultiplicity.Single);
             tds1.Add(ds);
-            ds = GetNewDataSet("MySecondFilm", "VideoFile", "films/film2.mov", 
-                "user1", CMultiplicity.Single);
+            ds = GetNewEdgerDataSet("MySecondFilm", "MySecondFilm_001", "VideoFile", "films/film2.mov", 
+                "user1", "", CMultiplicity.Single);
             tds1.Add(ds);
-            ds = GetNewDataSet("InputImages", "ImageFile", "in", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewEdgerDataSet("InputImages1", "InputImages_001", "ImageFile", "source1", 
+                "user1", "", CMultiplicity.Multiple);
             tds1.Add(ds);
-            ds = GetNewDataSet("OutputImages1", "ImageFile", "out1", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewEdgerDataSet("OutputImages1", "OutputImages1_001", "ImageFile", "target1", 
+                "user1", "", CMultiplicity.Multiple);
             tds1.Add(ds);
-            ds = GetNewDataSet("OutputImages2", "ImageFile", "out2", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewEdgerDataSet("OutputImages2", "OutputImages2_001", "ImageFile", "source2", 
+                "user1", "", CMultiplicity.Multiple);
             tds1.Add(ds);
-            ds = GetNewDataSet("OutputImages3", "ImageFile", "out3", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewEdgerDataSet("OutputImages3", "OutputImages3_001", "ImageFile", "target2", 
+                "user1", "", CMultiplicity.Multiple);
             tds1.Add(ds);
-            ds = GetNewDataSet("OutputImages4", "ImageFile", "out4", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewFaceDataSet("FaceInput1", "FaceInput1_001", "ImageFile", "source1", 
+                "user1", "", CMultiplicity.Multiple, true);
             tds1.Add(ds);
-            ds = GetNewDataSet("OutputImages5", "ImageFile", "out5", 
-                "user1", CMultiplicity.Multiple);
+            ds = GetNewFaceDataSet("FaceOutput1", "FaceOutput1_001", "ImageFile", "target1", 
+                "user1", "", CMultiplicity.Multiple, true);
             tds1.Add(ds);
-            ds = new TaskDataSet()
-            {
-                Name = "InputPhotos",
-                Uid = "InputPhotos_123",
-                Type = new DataType() {Name = "images"},
-                Structure = Dss.Find(s => "ConnectionString" == s.Name),
-                Data = new CDataSet()
-                {
-                    Values =
-                        "{\"connectionstring\" : \"ftp://K4liber:jfcXKuL8cYeTFzS@ftp.drivehq.com\"," +
-                        "\"dir\" : \"/baltic_test/input_folder\" }"
-                },
-                OwnerUid = "user1",
-                Access = Ats.Find(a => "ftp" == a.Name),
-                Multiplicity = CMultiplicity.Multiple
-            };
+            ds = GetNewFaceDataSet("FaceInput2", "FaceInput2_001", "ImageFile", "source2", 
+                "user1", "2", CMultiplicity.Multiple, true);
             tds1.Add(ds);
-            ds = new TaskDataSet()
-            {
-                Name = "OutputPhotos",
-                Uid = "OutputPhotos_123",
-                Type = new DataType() {Name = "images"},
-                Structure = Dss.Find(s => "ConnectionString" == s.Name),
-                Data = new CDataSet()
-                {
-                    Values =
-                        "{\"connectionstring\" : \"ftp://K4liber:jfcXKuL8cYeTFzS@ftp.drivehq.com\"," +
-                        "\"dir\" : \"/baltic_test/output_folder\" }"
-                },
-                OwnerUid = "user1",
-                Access = Ats.Find(a => "ftp" == a.Name),
-                Multiplicity = CMultiplicity.Multiple
-            };
+            ds = GetNewFaceDataSet("FaceOutput2", "FaceOutput2_001", "ImageFile", "target2", 
+                "user1", "2", CMultiplicity.Multiple, true);
+            tds1.Add(ds);
+            
+            ds = GetNewFaceDataSet("FaceInput3", "FaceInput3_001", "ImageFile", "source3", 
+                "user1", "", CMultiplicity.Multiple, true);
+            tds1.Add(ds);
+            
+            ds = GetNewFaceDataSet("FaceOutput3", "FaceOutput3_001", "ImageFile", "target3", 
+                "user1", "", CMultiplicity.Multiple, true);
+            tds1.Add(ds);
+            
+            ds = GetNewFaceDataSet("FaceInput4", "FaceInput4_001", "JSON", "metadata.json", 
+                "user1", "", CMultiplicity.Single, true);
+            tds1.Add(ds);
+            ds = GetNewFaceDataSet("FaceOutput4", "FaceInput3_001", "DataFile", "model.xml", 
+                "user1", "", CMultiplicity.Single, true);
             tds1.Add(ds);
 
+            // -------- User: demo -----------------
+            
             List<TaskDataSet> tds2 = new List<TaskDataSet>();
             
-            ds = GetNewDataSet("OutputImages", "ImageFile", "out", 
-                "user2", CMultiplicity.Multiple);
+            ds = GetNewEdgerDataSet("EdgerDemoInput1", "DefaultDataSet_001", "ImageFile", "source1", 
+                "demo", "", CMultiplicity.Multiple);
+            tds2.Add(ds);
+            ds = GetNewEdgerDataSet("EdgerDemoOutput1", "DefaultDataSet_002", "ImageFile", "target1", 
+                "demo", "", CMultiplicity.Multiple);
+            tds2.Add(ds);
+            ds = GetNewEdgerDataSet("EdgerDemoInput2", "DefaultDataSet_003", "ImageFile", "source2", 
+                "demo", "", CMultiplicity.Multiple);
+            tds2.Add(ds);
+            ds = GetNewEdgerDataSet("EdgerDemoOutput2", "DefaultDataSet_004", "ImageFile", "target2", 
+                "demo", "", CMultiplicity.Multiple);
             tds2.Add(ds);
             
+            ds = GetNewFaceDataSet("FaceDemoInput1", "DefaultDataSet_005", "ImageFile", "source1", 
+                "demo", "", CMultiplicity.Multiple, true);
+            tds2.Add(ds);
+            ds = GetNewFaceDataSet("FaceDemoOutput1", "DefaultDataSet_006", "ImageFile", "target1", 
+                "demo", "", CMultiplicity.Multiple, true);
+            tds2.Add(ds);
+            ds = GetNewFaceDataSet("FaceDemoInput2", "DefaultDataSet_007", "ImageFile", "source2", 
+                "demo", "", CMultiplicity.Multiple, true);
+            tds2.Add(ds);
+            ds = GetNewFaceDataSet("FaceDemoOutput2", "DefaultDataSet_008", "ImageFile", "source1/windows.jpg", 
+                "demo", "", CMultiplicity.Single, true);
+            tds2.Add(ds);
+            
+            // "{\n  \"connectionstring\" : \"ftp://K4liber:jfcXKuL8cYeTFzS@ftp.drivehq.com\"," +
+            //"\n  \"dir\" : \"/baltic_test/input_folder\"\n}"
+           
             DataShelf.Add("user1", tds1);
-            DataShelf.Add("user2", tds2);
+            DataShelf.Add("demo", tds2);
         }
         
-        private TaskDataSet GetNewDataSet(string name, string type, string folder, string user,
+        private TaskDataSet GetNewEdgerDataSet(string name, string uid, string type, string folder, string user, string postfix, 
             CMultiplicity mult)
         {
             return new TaskDataSet()
             {
                 Name = name,
-                Uid = name + "_123",
-                Type = new DataType(){Name = type},
+                Uid = uid,
+                Type = Dts.Find(dt => type == dt.Name),
                 Structure = null,
-                Access = new AccessType(){Name= "FTP"},
-                Data = new CDataSet() {Values = "{\"ResourcePath\" : \"/files/images/" + folder + "\"}"},
+                Access = Ats.Find(at => "FTP" == at.Name),
+                Data = new CDataSet() {Values = "{\n  \"ResourcePath\" : \"/files/edger/" + folder + "\"\n}"},
                 AccessData = new CDataSet()
                 {
                     Values = JsonSerializer.Serialize(new
                     {
-                        Host = _tmpFtpAccessCredential["FtpHost"],
-                        User = _tmpFtpAccessCredential["FtpUser"],
-                        Password = _tmpFtpAccessCredential["FtpPass"],
-                    })
+                        Host = _tmpFtpAccessCredential["FtpHost" + postfix],
+                        User = _tmpFtpAccessCredential["FtpUser" + postfix],
+                        Password = _tmpFtpAccessCredential["FtpPass" + postfix],
+                    }, new JsonSerializerOptions(){WriteIndented = true})
+                },
+                OwnerUid = user,
+                Multiplicity = mult
+            };
+        }
+        
+        private TaskDataSet GetNewFaceDataSet(string name, string uid, string type, string folder, string user,
+            string postfix, CMultiplicity mult, bool newVersion)
+        {
+            if (newVersion)
+                return new TaskDataSet()
+                {
+                    Name = name,
+                    Uid = uid,
+                    Type = Dts.Find(dt => type == dt.Name),
+                    Structure = null,
+                    Access = Ats.Find(at => "FTP" == at.Name),
+                    Data = new CDataSet() {Values = "{\n  \"ResourcePath\" : \"/files/recogniser/" + folder + "\"\n}"},
+                    AccessData = new CDataSet()
+                    {
+                        Values = JsonSerializer.Serialize(new
+                        {
+                            Host = _tmpFtpAccessCredential["FtpHost" + postfix],
+                            User = _tmpFtpAccessCredential["FtpUser" + postfix],
+                            Password = _tmpFtpAccessCredential["FtpPass" + postfix],
+                        }, new JsonSerializerOptions() {WriteIndented = true})
+                    },
+                    OwnerUid = user,
+                    Multiplicity = mult
+                };
+            
+            return new TaskDataSet()
+            {
+                Name = name,
+                Uid = uid,
+                Type = Dts.Find(dt => type == dt.Name),
+                Structure = null,
+                Access = Ats.Find(at => "ftp" == at.Name),
+                Data = new CDataSet()
+                {
+                    Values =
+                        $"{{\n  \"connectionstring\" : \"ftp://{_tmpFtpAccessCredential["FtpUser" + postfix]}:" +
+                        $"{_tmpFtpAccessCredential["FtpPass" + postfix]}@{_tmpFtpAccessCredential["FtpHost" + postfix]}\"," +
+                        "\n  \"dir\" : \"/files/recogniser/" + folder + "\"\n}"
                 },
                 OwnerUid = user,
                 Multiplicity = mult
@@ -204,6 +318,15 @@ namespace Baltic.UnitRegistry.DataAccess
         
         private void AddDataTypes()
         {
+            DataType dt = new DataType()
+            {
+                Name = "DirectData",
+                Version = "1.0",
+                Uid = "dd-999-000",
+                IsBuiltIn = true,
+                IsStructured = true
+            };
+            Dts.Add(dt);
             DataType dt0 = new DataType()
             {
                 Name = "DataFile",
@@ -213,7 +336,7 @@ namespace Baltic.UnitRegistry.DataAccess
                 IsStructured = true
             };
             Dts.Add(dt0);
-            DataType dt = new DataType()
+            dt = new DataType()
             {
                 Name = "JSON",
                 Version = "2.3.1",
@@ -240,7 +363,7 @@ namespace Baltic.UnitRegistry.DataAccess
                 Version = "1.0",
                 Uid = "dd-002-000",
                 IsBuiltIn = true,
-                IsStructured = true
+                IsStructured = false
             };
             Dts.Add(dt0);
             dt = new DataType()
@@ -270,7 +393,7 @@ namespace Baltic.UnitRegistry.DataAccess
                 Version = "1.0",
                 Uid = "dd-003-000",
                 IsBuiltIn = true,
-                IsStructured = true
+                IsStructured = false
             };
             Dts.Add(dt0);
             dt = new DataType()
@@ -444,7 +567,13 @@ namespace Baltic.UnitRegistry.DataAccess
                 Name = "ftp",
                 Version = "1.0",
                 Uid = "dd-010-000",
-                IsBuiltIn = true
+                IsBuiltIn = true,
+                AccessSchema = "{\n\"Host\" : \"string\"," +
+                               "\n\"Port\" : \"string\"," +
+                               "\n\"User\" : \"string\"," +
+                               "\n\"Password\" : \"string\"\n}",
+                PathSchema = "{\n\"ResourcePath\" : \"string\" }",
+                StorageUid = _ftpRelease.Uid
             };
             Ats.Add(at);
         }
@@ -467,7 +596,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Mongo Database",
                     Icon = "https://www.balticlsc.eu/model/_icons/mongo_001.png"
                 },
-                AuthorUid = "user1",
+                AuthorUid = "system",
                 IsService = true
             };
             Cms.Add(cm);
@@ -560,7 +689,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "FTP service",
                     Icon = "https://www.balticlsc.eu/model/_icons/ftp_001.png"
                 },
-                AuthorUid = "user1",
+                AuthorUid = "system",
                 IsService = true
             };
             Cms.Add(cm);
@@ -570,13 +699,83 @@ namespace Baltic.UnitRegistry.DataAccess
             ComputationModuleRelease cmr = new ComputationModuleRelease
             {
                 Uid = "FTP_rel_001",
-                Image = "ftp-mock:this-is-mock",
+                Image = "stilliard/pure-ftpd",
                 Parameters = new List<UnitParameter>()
                 {
                     new UnitParameter()
                     {
-                        NameOrPath = "Port",
-                        DefaultValue = "27017",
+                        // NameOrPath = "Port",
+                        DefaultValue = "21",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30000",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30001",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30002",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30003",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30004",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30005",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30006",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30007",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30008",
+                        Type = UnitParamType.Port,
+                        IsMandatory = true,
+                        Uid = Guid.NewGuid().ToString()
+                    },
+                    new UnitParameter()
+                    {
+                        DefaultValue = "30009",
                         Type = UnitParamType.Port,
                         IsMandatory = true,
                         Uid = Guid.NewGuid().ToString()
@@ -586,26 +785,49 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     new CredentialParameter()
                     {
-                        EnvironmentVariableName = "FTP_ROOT_USERNAME",
+                        EnvironmentVariableName = "FTP_USER_NAME",
                         AccessCredentialName = "User",
-                        DefaultCredentialValue = "someuser" // TODO - randomize elsewhere
+                        // DefaultCredentialValue = "someuser" // TODO - randomize elsewhere
+                        DefaultCredentialValue = _tmpFtpAccessCredential["FtpUser2"] // TODO - revert back to the above (FTP mocked)
                     },
                     new CredentialParameter()
                     {
-                        EnvironmentVariableName = "FTP_ROOT_PASSWORD",
+                        EnvironmentVariableName = "FTP_USER_PASS",
                         AccessCredentialName = "Password",
-                        DefaultCredentialValue = "somepass" // TODO - randomize elsewhere
+                        // DefaultCredentialValue = "somepass" // TODO - randomize elsewhere
+                        DefaultCredentialValue = _tmpFtpAccessCredential["FtpPass2"] // TODO - revert back to the above (FTP mocked)
                     },
                     new CredentialParameter()
                     {
-                        EnvironmentVariableName = "FTP_FOLDER",
-                        DefaultCredentialValue = "images" // TODO - change from "images" to something generic
+                        EnvironmentVariableName = "FTP_USER_HOME",
+                        // DefaultCredentialValue = "/home/someuser"
+                        DefaultCredentialValue = "/files/" // TODO - revert back to the above (FTP mocked)
                     },
                     new CredentialParameter()
+                    {
+                        EnvironmentVariableName = "FTP_MAX_CLIENTS",
+                        DefaultCredentialValue = "50" 
+                    },
+                    new CredentialParameter()
+                    {
+                        EnvironmentVariableName = "FTP_MAX_CONNECTIONS",
+                        DefaultCredentialValue = "50"
+                    },
+                    new CredentialParameter()
+                    {
+                        EnvironmentVariableName = "ADDED_FLAGS",
+                        DefaultCredentialValue = "-d"
+                    },
+                    new CredentialParameter()
+                    {
+                        AccessCredentialName = "Host", // TODO - remove this parameter (FTP mocked)
+                        DefaultCredentialValue = _tmpFtpAccessCredential["FtpHost2"]
+                    },
+                    /* new CredentialParameter()
                     {
                         AccessCredentialName = "Port",
-                        DefaultCredentialValue = "27017"
-                    }
+                        DefaultCredentialValue = "21"
+                    } */
                 },
                 Version = "4.2.3",
                 Descriptor = new ReleaseDescriptor()
@@ -669,7 +891,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -777,7 +999,7 @@ namespace Baltic.UnitRegistry.DataAccess
                         Description = "The initial version",
                         IsOpenSource = false,
                     },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation() {Memory = 50, Storage = 50, Cpus = 1, Gpus = 1},
@@ -847,7 +1069,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The second version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -942,7 +1164,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1048,7 +1270,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1143,7 +1365,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1238,7 +1460,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1331,7 +1553,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1422,7 +1644,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1518,11 +1740,11 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     MinReservation = new ResourceReservation()
                     {
-                        Memory = 2048, Storage = 1, Cpus = 1000, Gpus = 0
+                        Memory = 1024, Storage = 1, Cpus = 1000, Gpus = 0
                     },
                     MaxReservation = new ResourceReservation()
                     {
-                        Memory = 4096, Storage = 3, Cpus = 2000, Gpus = 0
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
                     }
                 }
             };
@@ -1615,7 +1837,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -1711,11 +1933,11 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     MinReservation = new ResourceReservation()
                     {
-                        Memory = 4096, Storage = 2, Cpus = 2000, Gpus = 1
+                        Memory = 1024, Storage = 1, Cpus = 1000, Gpus = 0
                     },
                     MaxReservation = new ResourceReservation()
                     {
-                        Memory = 8192, Storage = 4, Cpus = 4000, Gpus = 1
+                        Memory = 2048, Storage = 2, Cpus = 2000, Gpus = 0
                     }
                 }
             };
@@ -1824,11 +2046,11 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     MinReservation = new ResourceReservation()
                     {
-                        Memory = 4096, Storage = 2, Cpus = 2000, Gpus = 1
+                        Memory = 1024, Storage = 1, Cpus = 1000, Gpus = 0
                     },
                     MaxReservation = new ResourceReservation()
                     {
-                        Memory = 8192, Storage = 4, Cpus = 4000, Gpus = 1
+                        Memory = 2048, Storage = 2, Cpus = 2000, Gpus = 0
                     }
                 }
             };
@@ -1936,11 +2158,11 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     MinReservation = new ResourceReservation()
                     {
-                        Memory = 50, Storage = 10, Cpus = 1, Gpus = 0
+                        Memory = 512, Storage = 1, Cpus = 1000, Gpus = 0
                     },
                     MaxReservation = new ResourceReservation()
                     {
-                        Memory = 500, Storage = 20, Cpus = 100, Gpus = 0
+                        Memory = 1024, Storage = 2, Cpus = 2000, Gpus = 0
                     }
                 }
             };
@@ -1989,13 +2211,13 @@ namespace Baltic.UnitRegistry.DataAccess
             ComputationModule cm = new ComputationModule
             {
                 Name = "Face Recogniser",
-                Uid = "face_recogniser_rel_001",
+                Uid = "face_recogniser_001",
                 Releases = new List<ComputationUnitRelease>(),
                 Descriptor = new UnitDescriptor()
                 {
                     LongDescription = "Recognises faces in photo files.",
                     ShortDescription = "Recognises faces",
-                    Icon = "https://www.balticlsc.eu/model/_icons/default.png"
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
                 },
                 AuthorUid = "user1"
             };
@@ -2018,16 +2240,16 @@ namespace Baltic.UnitRegistry.DataAccess
                 {
                     MinReservation = new ResourceReservation()
                     {
-                        Memory = 50, Storage = 10, Cpus = 1, Gpus = 0
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
                     },
                     MaxReservation = new ResourceReservation()
                     {
-                        Memory = 500, Storage = 20, Cpus = 100, Gpus = 0
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
                     }
                 }
             };
             
-            cmr.Image = "k4liber/face_recognition:0.0.4";
+            cmr.Image = "k4liber/face_recognition:latest";
             cmr.Parameters.Add(new UnitParameter(){
                 NameOrPath = "SYS_APP_PORT", 
                 DefaultValue = "80",
@@ -2043,8 +2265,8 @@ namespace Baltic.UnitRegistry.DataAccess
                 Binding = DataBinding.RequiredStrong,
                 TokenMultiplicity = CMultiplicity.Single,
                 DataMultiplicity = CMultiplicity.Multiple,
-                Type = new DataType() {Name = "image"},
-                Access = null
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "FTP" == ac.Name)
             };
             DeclaredDataPin dp3 = new DeclaredDataPin
             {
@@ -2053,10 +2275,452 @@ namespace Baltic.UnitRegistry.DataAccess
                 Binding = DataBinding.Provided,
                 TokenMultiplicity = CMultiplicity.Single,
                 DataMultiplicity = CMultiplicity.Multiple,
-                Type = new DataType() {Name = "image"},
-                Access = null
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "FTP" == ac.Name)
             };
             cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp3);
+            cmr.Unit = cm;
+            cm.Releases.Add(cmr);
+
+            Cmrs.Add(cmr);
+        }
+        
+        private void AddFaceDetectorModule()
+        {
+            // #### Computation Module ##################
+
+            ComputationModule cm = new ComputationModule
+            {
+                Name = "Face Detector",
+                Uid = "face_detector_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "Recognises faces in photo files.",
+                    ShortDescription = "Recognises faces",
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
+                },
+                AuthorUid = "user1"
+            };
+            Cms.Add(cm);
+
+            // #### Computation Module Releases ##########
+
+            ComputationModuleRelease cmr = new ComputationModuleRelease
+            {
+                Uid = "face_detector_rel_001",
+                Version = "1.0",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 3, 29, 10, 00, 00),
+                    Description = "The initial version",
+                    IsOpenSource = false,
+                },
+                Status = UnitReleaseStatus.Approved,
+                SupportedResourcesRange = new ResourceReservationRange()
+                {
+                    MinReservation = new ResourceReservation()
+                    {
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
+                    },
+                    MaxReservation = new ResourceReservation()
+                    {
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
+                    }
+                }
+            };
+            
+            cmr.Image = "gawienczuka/facedetection";
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "SYS_APP_PORT", 
+                DefaultValue = "80",
+                Type = UnitParamType.Port,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            
+            DeclaredDataPin dp1 = new DeclaredDataPin
+            {
+                Name = "Input",
+                Uid = "fd_input001",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            DeclaredDataPin dp3 = new DeclaredDataPin
+            {
+                Name = "Output",
+                Uid = "fd_output001",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp3);
+            cmr.Unit = cm;
+            cm.Releases.Add(cmr);
+
+            Cmrs.Add(cmr);
+        }
+        
+        private void AddFaceContoursModule()
+        {
+            // #### Computation Module ##################
+
+            ComputationModule cm = new ComputationModule
+            {
+                Name = "Face Points",
+                Uid = "face_contours_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "Recognises face contours in photo files.",
+                    ShortDescription = "Recognises face contours",
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
+                },
+                AuthorUid = "user1"
+            };
+            Cms.Add(cm);
+
+            // #### Computation Module Releases ##########
+
+            ComputationModuleRelease cmr = new ComputationModuleRelease
+            {
+                Uid = "face_contours_rel_001",
+                Version = "1.0",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 3, 29, 10, 00, 00),
+                    Description = "The initial version",
+                    IsOpenSource = false,
+                },
+                Status = UnitReleaseStatus.Approved,
+                SupportedResourcesRange = new ResourceReservationRange()
+                {
+                    MinReservation = new ResourceReservation()
+                    {
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
+                    },
+                    MaxReservation = new ResourceReservation()
+                    {
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
+                    }
+                }
+            };
+            
+            cmr.Image = "robertinio223/pointfindingmodule";
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "SYS_APP_PORT", 
+                DefaultValue = "80",
+                Type = UnitParamType.Port,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            
+            DeclaredDataPin dp1 = new DeclaredDataPin
+            {
+                Name = "Input",
+                Uid = "fd_input001",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            DeclaredDataPin dp3 = new DeclaredDataPin
+            {
+                Name = "Output",
+                Uid = "fd_output001",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp3);
+            cmr.Unit = cm;
+            cm.Releases.Add(cmr);
+
+            Cmrs.Add(cmr);
+        }
+        
+        private void AddMoodRecogniserModule()
+        {
+            // #### Computation Module ##################
+
+            ComputationModule cm = new ComputationModule
+            {
+                Name = "Mood Recogniser",
+                Uid = "mood_recogniser_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "Recognises moods based on face points",
+                    ShortDescription = "Recognises moods",
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
+                },
+                AuthorUid = "user1"
+            };
+            Cms.Add(cm);
+
+            // #### Computation Module Releases ##########
+
+            ComputationModuleRelease cmr = new ComputationModuleRelease
+            {
+                Uid = "mood_recogniser_rel_001",
+                Version = "1.0",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 5, 12, 10, 48, 00),
+                    Description = "The initial version",
+                    IsOpenSource = false,
+                },
+                Status = UnitReleaseStatus.Approved,
+                SupportedResourcesRange = new ResourceReservationRange()
+                {
+                    MinReservation = new ResourceReservation()
+                    {
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
+                    },
+                    MaxReservation = new ResourceReservation()
+                    {
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
+                    }
+                }
+            };
+            
+            cmr.Image = "sanjeeta/emotiondetection";
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "SYS_APP_PORT", 
+                DefaultValue = "80",
+                Type = UnitParamType.Port,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            
+            DeclaredDataPin dp1 = new DeclaredDataPin
+            {
+                Name = "Input",
+                Uid = "mr_input001",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            DeclaredDataPin dp3 = new DeclaredDataPin
+            {
+                Name = "Output",
+                Uid = "mr_output001",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "DataFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp3);
+            cmr.Unit = cm;
+            cm.Releases.Add(cmr);
+
+            Cmrs.Add(cmr);
+        }
+        
+        private void AddDataSummarizerModule()
+        {
+            // #### Computation Module ##################
+
+            ComputationModule cm = new ComputationModule
+            {
+                Name = "Data Summarizer",
+                Uid = "data_summarizer__001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "Sends two files to outputs",
+                    ShortDescription = "Sends two files",
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
+                },
+                AuthorUid = "user1"
+            };
+            Cms.Add(cm);
+
+            // #### Computation Module Releases ##########
+
+            ComputationModuleRelease cmr = new ComputationModuleRelease
+            {
+                Uid = "file_summarizer_rel_001",
+                Version = "1.0",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 06, 10, 11, 55, 00),
+                    Description = "The initial version",
+                    IsOpenSource = false,
+                },
+                Status = UnitReleaseStatus.Approved,
+                SupportedResourcesRange = new ResourceReservationRange()
+                {
+                    MinReservation = new ResourceReservation()
+                    {
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
+                    },
+                    MaxReservation = new ResourceReservation()
+                    {
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
+                    }
+                }
+            };
+            
+            cmr.Image = "gawienczuka/datasummarizer";
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "SYS_APP_PORT", 
+                DefaultValue = "80",
+                Type = UnitParamType.Port,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            
+            DeclaredDataPin dp1 = new DeclaredDataPin
+            {
+                Name = "Input",
+                Uid = "ds_input001",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            DeclaredDataPin dp2 = new DeclaredDataPin
+            {
+                Name = "Output",
+                Uid = "ds_output001",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            DeclaredDataPin dp3 = new DeclaredDataPin
+            {
+                Name = "Output2",
+                Uid = "ds_output002",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "DataFile" == t.Name),
+                Access = Ats.Find(ac => "MongoDB" == ac.Name)
+            };
+            cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp2);
+            cmr.DeclaredPins.Add(dp3);
+            cmr.Unit = cm;
+            cm.Releases.Add(cmr);
+
+            Cmrs.Add(cmr);
+        }
+        
+        private void AddImageClassificationTrainerModule()
+        {
+            // #### Computation Module ##################
+
+            ComputationModule cm = new ComputationModule
+            {
+                Name = "Image Classification Trainer",
+                Uid = "image_class_trainer_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "A neural network model trainer for classification of images. " +
+                                      "Requires some input data for the process of learning and produces its neural network model to the output. " + 
+                                      "Output model can be used for various predictions, depending on input image data type.",
+                    ShortDescription = "A neural network model trainer for classification of images.",
+                    Icon = "https://www.balticlsc.eu/model/_icons/ict_001.png",
+                    Keywords = new List<string>(){"image classification trainer", "artificial intelligence", "neural network"}
+                },
+                AuthorUid = "user1"
+            };
+            Cms.Add(cm);
+
+            // #### Computation Module Releases ##########
+
+            ComputationModuleRelease cmr = new ComputationModuleRelease
+            {
+                Uid = "image_class_trainer_rel_001",
+                Version = "1.0",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 5, 12, 11, 03, 00),
+                    Description = "The initial version",
+                    IsOpenSource = false,
+                },
+                Status = UnitReleaseStatus.Approved,
+                SupportedResourcesRange = new ResourceReservationRange()
+                {
+                    MinReservation = new ResourceReservation()
+                    {
+                        Memory = 1024, Storage = 2, Cpus = 1000, Gpus = 0
+                    },
+                    MaxReservation = new ResourceReservation()
+                    {
+                        Memory = 2048, Storage = 3, Cpus = 2000, Gpus = 0
+                    }
+                }
+            };
+            
+            cmr.Image = "michalpw159/image_classification_trainer:latest";
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "SYS_APP_PORT", 
+                DefaultValue = "80",
+                Type = UnitParamType.Port,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            cmr.Parameters.Add(new UnitParameter(){
+                NameOrPath = "APP_ENVIRONMENT_FILENAME_EXPRESSION", 
+                DefaultValue = "BalticLSC-.{6}-{FILENAME}",
+                Type = UnitParamType.Variable,
+                IsMandatory = true,
+                Uid = Guid.NewGuid().ToString()
+            });
+            
+            DeclaredDataPin dp1 = new DeclaredDataPin
+            {
+                Name = "Images",
+                Uid = "ict_input001",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Multiple,
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(ac => "FTP" == ac.Name)
+            };
+            DeclaredDataPin dp2 = new DeclaredDataPin
+            {
+                Name = "Metadata",
+                Uid = "ict_input002",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "JSON" == t.Name),
+                Access = Ats.Find(ac => "FTP" == ac.Name)
+            };
+            DeclaredDataPin dp3 = new DeclaredDataPin
+            {
+                Name = "TrainedModel",
+                Uid = "ict_output001",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(t => "DataFile" == t.Name),
+                Access = Ats.Find(ac => "FTP" == ac.Name)
+            };
+            cmr.DeclaredPins.Add(dp1);
+            cmr.DeclaredPins.Add(dp2);
             cmr.DeclaredPins.Add(dp3);
             cmr.Unit = cm;
             cm.Releases.Add(cmr);
@@ -2095,7 +2759,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "The initial version",
                     IsOpenSource = false,
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -2148,19 +2812,19 @@ namespace Baltic.UnitRegistry.DataAccess
         {
             if (!Toolbox.ContainsKey("user1"))
                 Toolbox.Add("user1", new List<string>());
-            Toolbox["user1"].Add("ftp2mongodb_rel_001");
+            // Toolbox["user1"].Add("ftp2mongodb_rel_001");
             Toolbox["user1"].Add("grey2edge_rel_001");
             Toolbox["user1"].Add("grey2edge_rel_002");
             Toolbox["user1"].Add("grey2edge_rel_003");
-            Toolbox["user1"].Add("rgb2gray-mongo_rel_001");
-            Toolbox["user1"].Add("mongodb2ftp_rel_001");
+            // Toolbox["user1"].Add("rgb2gray-mongo_rel_001");
+            // Toolbox["user1"].Add("mongodb2ftp_rel_001");
             Toolbox["user1"].Add("imagechannelseparator_rel_001");
             Toolbox["user1"].Add("imagechanneljoiner_rel_001");
-            Toolbox["user1"].Add("fs001");
-            Toolbox["user1"].Add("is001");
-            Toolbox["user1"].Add("ip002");
-            Toolbox["user1"].Add("im003");
-            Toolbox["user1"].Add("face_recogniser_001");
+            // Toolbox["user1"].Add("fs001");
+            // Toolbox["user1"].Add("is001");
+            // Toolbox["user1"].Add("ip002");
+            // Toolbox["user1"].Add("im003");
+            Toolbox["user1"].Add("face_recogniser_rel_001");
         }
 
         //=========================================================================================
@@ -2180,8 +2844,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Edges out photos.",
                     Icon = "https://www.balticlsc.eu/model/_icons/yap_001.png"
                 },
-                AuthorUid = "user1",
-                DiagramUid = "35a5ff6a-31ae-4a56-b107-6a0996860a8b"
+                AuthorUid = "user1"
             };
             Cas.Add(capp);
 
@@ -2191,7 +2854,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "SimpleImageProcessor_rel_001",
                 Version = "0.1",
-                DiagramUid = "a5c3a1e2-32ca-422f-89b5-4e50e8469adc",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -2332,7 +2994,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "First version of the splitter",
                     IsOpenSource = false
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -2384,7 +3046,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "First version of the splitter",
                     IsOpenSource = false
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -2460,7 +3122,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "First version of the processor",
                     IsOpenSource = false
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -2513,7 +3175,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Description = "First version of the merger",
                     IsOpenSource = false
                 },
-                Status = UnitReleaseStatus.Approved,
+                Status = UnitReleaseStatus.Deprecated,
                 SupportedResourcesRange = new ResourceReservationRange()
                 {
                     MinReservation = new ResourceReservation()
@@ -2579,7 +3241,8 @@ namespace Baltic.UnitRegistry.DataAccess
             ComputationModuleRelease cm = new ComputationModuleRelease
             {
                 Uid = "is002",
-                Version = "0.1"
+                Version = "0.1",
+                Status = UnitReleaseStatus.Deprecated
             };
             cm.Image = "is002";
             DeclaredDataPin mdp1 = new DeclaredDataPin
@@ -2622,7 +3285,6 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Yet Another Image Processor",
                     Icon = "https://www.balticlsc.eu/model/_icons/yap_001.png"
                 },
-                DiagramUid = "d1234567-1234-1234-1234-1234567890ab",
                 AuthorUid = "user1"
             };
             Cas.Add(capp);
@@ -2660,7 +3322,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "YetAnotherImageProcessor_rel_001",
                 Version = "0.1",
-                DiagramUid = "d1234567-1234-1234-1234-1234567890ab",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -2696,7 +3357,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "DevSpecApp_rel_001",
                 Version = "0.1",
-                DiagramUid = "d1234567-1234-1234-1234-1234567890ab",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -3091,7 +3751,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
                 },
                 AuthorUid = "user1",
-                DiagramUid = "74fe91c6-a2e7-4eba-9f3f-545703dc75ec"
+                DiagramUid = _tmpApp1DiagramUid //"74fe91c6-a2e7-4eba-9f3f-545703dc75ec"
             };
             Cas.Add(capp);
 
@@ -3101,7 +3761,7 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "FaceRecognizer_rel_001",
                 Version = "0.1",
-                DiagramUid = "949a3ce7-c76d-4992-9b1d-c34ff2e04b40",
+                DiagramUid = _tmpRel1DiagramUid, // "949a3ce7-c76d-4992-9b1d-c34ff2e04b40",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -3116,28 +3776,111 @@ namespace Baltic.UnitRegistry.DataAccess
             DeclaredDataPin dp01 = new DeclaredDataPin
             {
                 Name = "Input Photos",
-                Uid = "4268565f-212a-46ee-a8a0-61f105615d4e",
+                Uid = _tmpRel1InputPinUid, //"4268565f-212a-46ee-a8a0-61f105615d4e",
                 Binding = DataBinding.RequiredStrong,
                 DataMultiplicity = CMultiplicity.Multiple,
                 TokenMultiplicity = CMultiplicity.Single,
-                Structure = Dss.Find(d => "ConnectionString" == d.Name),
-                Type = new DataType() {Name = "Direct"},
-                Access = Ats.Find(a => "ftp" == a.Name)
+                // Structure = Dss.Find(d => "ConnectionString" == d.Name),
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(a => "FTP" == a.Name)
             };
 
             DeclaredDataPin dp02 = new DeclaredDataPin
             {
                 Name = "Output Photos",
-                Uid = "194cc803-d28b-4eaa-ba72-8eea7cb2b098",
+                Uid = _tmpRel1OutputPinUid, // "194cc803-d28b-4eaa-ba72-8eea7cb2b098",
                 Binding = DataBinding.Provided,
                 DataMultiplicity = CMultiplicity.Multiple,
                 TokenMultiplicity = CMultiplicity.Single,
-                Structure = Dss.Find(d => "ConnectionString" == d.Name),
-                Type = new DataType() {Name = "Direct"},
-                Access = Ats.Find(a => "ftp" == a.Name)
+                // Structure = Dss.Find(d => "ConnectionString" == d.Name),
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(a => "FTP" == a.Name)
             };
             app.DeclaredPins.Add(dp01);
             app.DeclaredPins.Add(dp02);
+
+            Cars.Add(app);
+        }
+
+        //=========================================================================================
+        
+        private void AddMoodRecognizer()
+        {
+            // #### Computation Application ######################################
+
+            ComputationApplication capp = new ComputationApplication
+            {
+                Name = "MoodRecognizer",
+                Uid = "MoodRecognizer_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "Mood Recognition Application used to recognize face moods in the crowd",
+                    ShortDescription = "Recognizes face moods in the crowd",
+                    Icon = "https://www.balticlsc.eu/model/_icons/fcr_001.png"
+                },
+                AuthorUid = "user1",
+                DiagramUid = _tmpApp3DiagramUid //"74fe91c6-a2e7-4eba-9f3f-545703dc75ec"
+            };
+            Cas.Add(capp);
+
+            // #### Computation Application Releases + Declared Pins ##############################
+
+            ComputationApplicationRelease app = new ComputationApplicationRelease
+            {
+                Uid = "MoodRecognizer_rel_001",
+                Version = "0.1",
+                DiagramUid = _tmpRel3DiagramUid, // "949a3ce7-c76d-4992-9b1d-c34ff2e04b40",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 03, 4, 12, 0, 0),
+                    Description = "First version of the mood recognizer",
+                    IsOpenSource = false
+                },
+                Status = UnitReleaseStatus.Approved
+            };
+            app.Unit = capp;
+            capp.Releases.Add(app);
+
+            DeclaredDataPin dp01 = new DeclaredDataPin
+            {
+                Name = "Input",
+                Uid = _tmpRel3InputPinUid, //"4268565f-212a-46ee-a8a0-61f105615d4e",
+                Binding = DataBinding.RequiredStrong,
+                DataMultiplicity = CMultiplicity.Multiple,
+                TokenMultiplicity = CMultiplicity.Single,
+                // Structure = Dss.Find(d => "ConnectionString" == d.Name),
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(a => "FTP" == a.Name)
+            };
+
+            DeclaredDataPin dp02 = new DeclaredDataPin
+            {
+                Name = "Output",
+                Uid = _tmpRel3OutputPinUid, // "194cc803-d28b-4eaa-ba72-8eea7cb2b098",
+                Binding = DataBinding.Provided,
+                DataMultiplicity = CMultiplicity.Multiple,
+                TokenMultiplicity = CMultiplicity.Single,
+                // Structure = Dss.Find(d => "ConnectionString" == d.Name),
+                Type = Dts.Find(t => "ImageFile" == t.Name),
+                Access = Ats.Find(a => "FTP" == a.Name)
+            };
+            
+            DeclaredDataPin dp03 = new DeclaredDataPin
+            {
+                Name = "Output2",
+                Uid = _tmpRel3Output2PinUid, // "194cc803-d28b-4eaa-ba72-8eea7cb2b098",
+                Binding = DataBinding.Provided,
+                DataMultiplicity = CMultiplicity.Multiple,
+                TokenMultiplicity = CMultiplicity.Single,
+                // Structure = Dss.Find(d => "ConnectionString" == d.Name),
+                Type = Dts.Find(t => "DataFile" == t.Name),
+                Access = Ats.Find(a => "FTP" == a.Name)
+            };
+            
+            app.DeclaredPins.Add(dp01);
+            app.DeclaredPins.Add(dp02);
+            app.DeclaredPins.Add(dp03);
 
             Cars.Add(app);
         }
@@ -3160,8 +3903,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Optimizes ship hulls.",
                     Icon = "https://www.balticlsc.eu/model/_icons/hlo_001.png"
                 },
-                AuthorUid = "user1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab"
+                AuthorUid = "user1"
             };
             Cas.Add(capp);
 
@@ -3171,7 +3913,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "HullOptimizer_rel_001",
                 Version = "0.1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -3236,8 +3977,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Recognizes animals",
                     Icon = "https://www.balticlsc.eu/model/_icons/wlr_001.png"
                 },
-                AuthorUid = "user1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab"
+                AuthorUid = "user1"
             };
             Cas.Add(capp);
 
@@ -3247,7 +3987,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "WildlifeRecognizer_rel_001",
                 Version = "0.1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -3312,8 +4051,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     ShortDescription = "Analysis of Covid-2",
                     Icon = "https://www.balticlsc.eu/model/_icons/cva_001.png"
                 },
-                AuthorUid = "user1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab",
+                AuthorUid = "user1"
             };
             Cas.Add(capp);
 
@@ -3323,7 +4061,6 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "Covid2Analyzer_rel_001",
                 Version = "0.1",
-                DiagramUid = "d2234567-1234-1234-1234-1234567890ab",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2019, 12, 4, 12, 0, 0),
@@ -3387,7 +4124,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Icon = "https://www.balticlsc.eu/model/_icons/yap_001.png"
                 },
                 AuthorUid = "user1",
-                DiagramUid = "2b17d401-440b-4e78-acf3-2f055a6182a0",
+                // DiagramUid = "2b17d401-440b-4e78-acf3-2f055a6182a0",
             };
             Cas.Add(capp);
 
@@ -3397,7 +4134,7 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "MarekImageProcessor_rel_001",
                 Version = "0.1",
-                DiagramUid = "fc9d3cb3-5aa0-4d2c-8e17-bf1acccbfdea",
+                // DiagramUid = "fc9d3cb3-5aa0-4d2c-8e17-bf1acccbfdea",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2020, 07, 17, 12, 0, 0),
@@ -3450,7 +4187,7 @@ namespace Baltic.UnitRegistry.DataAccess
                     Icon = "https://www.balticlsc.eu/model/_icons/yap_001.png"
                 },
                 AuthorUid = "user1",
-                DiagramUid = "7fc58d9f-387c-4be2-8e71-99c54e5d1134",
+                DiagramUid = _tmpApp2DiagramUid // "7fc58d9f-387c-4be2-8e71-99c54e5d1134",
             };
             Cas.Add(capp);
 
@@ -3460,7 +4197,7 @@ namespace Baltic.UnitRegistry.DataAccess
             {
                 Uid = "MarekImageProcessor2_rel_001",
                 Version = "0.1",
-                DiagramUid = "54b8e49f-2b07-4ab2-91e7-2fe6637a8ec7",
+                DiagramUid = _tmpRel2DiagramUid, // "54b8e49f-2b07-4ab2-91e7-2fe6637a8ec7",
                 Descriptor = new ReleaseDescriptor()
                 {
                     Date = new DateTime(2020, 07, 17, 12, 0, 0),
@@ -3475,7 +4212,7 @@ namespace Baltic.UnitRegistry.DataAccess
             DeclaredDataPin dp01 = new DeclaredDataPin
             {
                 Name = "InputImages",
-                Uid = "a5301f9e-305a-4fab-beba-bfa1ba7ab0ee",
+                Uid = _tmpRel2InputPinUid, // "a5301f9e-305a-4fab-beba-bfa1ba7ab0ee",
                 Binding = DataBinding.RequiredStrong,
                 TokenMultiplicity = CMultiplicity.Single,
                 DataMultiplicity = CMultiplicity.Multiple,
@@ -3486,7 +4223,7 @@ namespace Baltic.UnitRegistry.DataAccess
             DeclaredDataPin dp03 = new DeclaredDataPin
             {
                 Name = "OutputImages",
-                Uid = "6a6b05da-cfae-4047-90cb-c711c71205f0",
+                Uid = _tmpRel2OutputPinUid, // "6a6b05da-cfae-4047-90cb-c711c71205f0",
                 Binding = DataBinding.Provided,
                 TokenMultiplicity = CMultiplicity.Single,
                 DataMultiplicity = CMultiplicity.Multiple,
@@ -3494,6 +4231,85 @@ namespace Baltic.UnitRegistry.DataAccess
                 Access = Ats.Find(a => a.Name == "FTP")
             };
             app.DeclaredPins.Add(dp01);
+            app.DeclaredPins.Add(dp03);
+
+            Cars.Add(app);
+        }
+        
+         private void AddImageClassificationTrainer()
+        {
+            // #### Computation Application ######################################
+
+            ComputationApplication capp = new ComputationApplication
+            {
+                Name = "Image Classification Trainer",
+                Uid = "ImageClassTrainer_001",
+                Releases = new List<ComputationUnitRelease>(),
+                Descriptor = new UnitDescriptor()
+                {
+                    LongDescription = "A neural network model trainer for classification of images. " + 
+                                      "Requires some input data for the process of learning and produces its neural network model to the output. " + 
+                                      "Output model can be used for various predictions, depending on input image data type. ",
+                    ShortDescription = "A neural network model trainer for classification of images.",
+                    Icon = "https://www.balticlsc.eu/model/_icons/ict_001.png"
+                },
+                AuthorUid = "user1",
+                DiagramUid = _tmpApp4DiagramUid // "7fc58d9f-387c-4be2-8e71-99c54e5d1134",
+            };
+            Cas.Add(capp);
+
+            // #### Computation Application Releases + Declared Pins ##############################
+
+            ComputationApplicationRelease app = new ComputationApplicationRelease
+            {
+                Uid = "ImageClassTrainer_rel_001",
+                Version = "0.1",
+                DiagramUid = _tmpRel4DiagramUid, // "54b8e49f-2b07-4ab2-91e7-2fe6637a8ec7",
+                Descriptor = new ReleaseDescriptor()
+                {
+                    Date = new DateTime(2021, 05, 13, 15, 16, 0),
+                    Description = "First version of the classifier",
+                    IsOpenSource = false
+                },
+                Status = UnitReleaseStatus.Approved
+            };
+            app.Unit = capp;
+            capp.Releases.Add(app);
+
+            DeclaredDataPin dp01 = new DeclaredDataPin
+            {
+                Name = "Images",
+                Uid = _tmpRel4Input1PinUid, // "a5301f9e-305a-4fab-beba-bfa1ba7ab0ee",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Multiple,
+                Type = Dts.Find(d => d.Name == "ImageFile"),
+                Access = Ats.Find(a => a.Name == "FTP")
+            };
+            
+            DeclaredDataPin dp02 = new DeclaredDataPin
+            {
+                Name = "Metadata",
+                Uid = _tmpRel4Input2PinUid, // "a5301f9e-305a-4fab-beba-bfa1ba7ab0ee",
+                Binding = DataBinding.RequiredStrong,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Single,
+                Type = Dts.Find(d => d.Name == "JSON"),
+                Access = Ats.Find(a => a.Name == "FTP")
+            };
+
+            DeclaredDataPin dp03 = new DeclaredDataPin
+            {
+                Name = "TrainedModel",
+                Uid = _tmpRel4OutputPinUid, // "6a6b05da-cfae-4047-90cb-c711c71205f0",
+                Binding = DataBinding.Provided,
+                TokenMultiplicity = CMultiplicity.Single,
+                DataMultiplicity = CMultiplicity.Multiple,
+                Type = Dts.Find(d => d.Name == "DataFile"),
+                Access = Ats.Find(a => a.Name == "FTP")
+            };
+            app.DeclaredPins.Add(dp01);
+            app.DeclaredPins.Add(dp02);
             app.DeclaredPins.Add(dp03);
 
             Cars.Add(app);

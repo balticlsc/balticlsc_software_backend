@@ -1,8 +1,10 @@
+using System;
+using Baltic.DataModel.Accounts;
 using Baltic.DataModel.Types;
 
 namespace Baltic.TaskManager.Models
 {
-    public class XTaskDataSet
+    public class XTaskDataSet : IComparable<XTaskDataSet>
     {
         public string Uid { get; set; }
         public string Name { get; set; }
@@ -23,5 +25,10 @@ namespace Baltic.TaskManager.Models
         
         public string Values { get; set; }
         public string AccessValues { get; set; }
+        
+        public int CompareTo(XTaskDataSet other)
+        {
+            return String.Compare(Name, other?.Name, StringComparison.Ordinal);
+        }
     }
 }

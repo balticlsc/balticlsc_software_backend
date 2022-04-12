@@ -46,10 +46,11 @@
             <param name="diagramUid"></param>
             <param name="userUid"></param>
         </member>
-        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease)">
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease,System.String)">
             
             <param name="unitUid"></param>
             <param name="release"></param>
+            <param name="releaseUid"></param>
         </member>
         <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImpl.CreateModule(System.String,System.String)">
             
@@ -97,10 +98,11 @@
             <param name="moduleName"></param>
             <param name="userUid"></param>
         </member>
-        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease)">
+        <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.AddReleaseToUnit(System.String,Baltic.DataModel.CAL.ComputationUnitRelease,System.String)">
             
             <param name="unitUid"></param>
             <param name="release"></param>
+            <param name="releaseUid"></param>
         </member>
         <member name="M:Baltic.UnitRegistry.DataAccess.UnitManagementDaoImplMock.FindUnits(Baltic.DataModel.Accounts.UnitQuery)">
             

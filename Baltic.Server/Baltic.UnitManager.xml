@@ -126,7 +126,7 @@
             <param name="unit">The new ComputationUnit data.</param>
             <returns></returns>
         </member>
-        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.UpdateAppRelease(Baltic.UnitManager.Models.XUnitReleaseCrude)">
+        <member name="M:Baltic.UnitManager.Controllers.DevelopmentController.UpdateAppRelease(Baltic.UnitManager.Models.XApplicationReleaseCrude)">
             <summary>
             [UpdateAppRelease] Update data for a given ComputationApplicationRelease.
             </summary>

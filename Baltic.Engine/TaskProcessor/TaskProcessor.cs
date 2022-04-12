@@ -27,6 +27,7 @@ namespace Baltic.Engine.TaskProcessor
 		private static readonly ConcurrentDictionary<string,SemaphoreSlim> TaskLocks = new ConcurrentDictionary<string, SemaphoreSlim>();
 
 		private short _logLevel;
+		private string _pinsConfigMountPath;
 
 		/// 
 		/// <param name="q"></param>
@@ -39,6 +40,7 @@ namespace Baltic.Engine.TaskProcessor
 			_taskRegistry = tr;
 			_broker = b;
 			_logLevel = short.Parse(configuration["LogLevel"]);
+			_pinsConfigMountPath = configuration["PinsConfigMountPath"];
 		}
 
 		/// 
@@ -92,7 +94,7 @@ namespace Baltic.Engine.TaskProcessor
 							JobQueueIds = currentBatch.Jobs
 								.Select(j => new QueueId(mainQueueName, currentBatch, j.Uid)).ToList(),
 							DepthLevel = currentBatch.DepthLevel,
-							ServiceBuilds = currentBatch.Services.Select(s => s.Build).ToList()
+							ServiceBuilds = currentBatch.Services.Select(s => s.GetBuild()).ToList()
 						};
 
 						ret += _broker.ActivateJobBatch(currentBatch, bm, ReadyFirst == batchReady);
@@ -243,7 +245,7 @@ namespace Baltic.Engine.TaskProcessor
 				// makes a list of all distinct Access Types for non-direct tokens 
 				RequiredAccessTypes = job.Tokens.FindAll(t => /*!t.Direct &&*/ null != t.AccessType).
 					Select(t=> t.AccessType).Distinct().ToList(),
-				Build = job.Build
+				Build = job.GetBuild(_pinsConfigMountPath)
 			};
 
 			QueueId qname;
@@ -362,7 +364,8 @@ namespace Baltic.Engine.TaskProcessor
 				if (null == job)
 					return -4;
 
-				if (isFinal || job.IsSimple || anyQueueRemoved)
+				FailureHandlingPolicy fhPolicy = _taskRegistry.GetTaskFHPolicy(taskUid);
+				if ((isFinal || job.IsSimple || anyQueueRemoved) && (!isFailed || FailureHandlingPolicy.Freeze != fhPolicy))
 				{
 					// job reports being finished or any of the queues has been removed?
 					if (0 > TryCloseJob(taskUid, jobInstanceUid, job, isFinal, successorQueueRemoved))
@@ -372,6 +375,9 @@ namespace Baltic.Engine.TaskProcessor
 					}
 				}
 
+				// Abort the whole task when a job execution fails (depending on the failure handling policy)
+				if (isFailed && FailureHandlingPolicy.Break == fhPolicy)
+					_broker.AbortTask(taskUid, true);
 				return ret;
 			}
 			finally

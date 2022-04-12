@@ -7,6 +7,7 @@ namespace Baltic.TaskManager.Models {
 		public int Priority { get; set; }
 		public string ClusterAllocation { get; set; }
 		public string ClusterUid { get; set; }
+		public string FHPolicy { get; set; }
 		public float ReservedCredits { get; set; }
 		public float AuxStorageCredits { get; set; }
 		public bool IsPrivate { get; set; }

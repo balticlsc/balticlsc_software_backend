@@ -31,7 +31,9 @@ namespace Baltic.UnitManager.Models {
 			
 			SupportedResourcesRange = new XReservationRange(release.SupportedResourcesRange);
 			
-			Pins = release.DeclaredPins.Select(p => new XDeclaredPin(p)).ToList();
+			List<XDeclaredPin> tmpPins = release.DeclaredPins.Select(p => new XDeclaredPin(p)).ToList();
+			tmpPins.Sort();
+			Pins = tmpPins;
 		}
 
 		public abstract ComputationUnitRelease ToModelObject(IUnitManagement unitRegistry, ComputationUnit unit);
@@ -41,7 +43,7 @@ namespace Baltic.UnitManager.Models {
 			DBMapper.Map<ComputationUnitRelease>(this, release);
 			release.Descriptor = DBMapper.Map<ReleaseDescriptor>(this, new ReleaseDescriptor());
 			release.SupportedResourcesRange = SupportedResourcesRange?.ToModelObject();
-			release.DeclaredPins = Pins.Select(p => p.ToModelObject(unitRegistry)).ToList();
+			release.DeclaredPins = Pins?.Select(p => p.ToModelObject(unitRegistry)).ToList();
 			return release;
 		}
 	}

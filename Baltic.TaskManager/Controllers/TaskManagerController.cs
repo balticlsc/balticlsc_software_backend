@@ -58,8 +58,12 @@ namespace Baltic.TaskManager.Controllers {
 				//var taskParameters = _mapper.Map<TaskParameters>(par);
 				var taskParameters = DBMapper.Map<TaskParameters>(par, new TaskParameters()
 				{
-					ClusterAllocation = "strong" == par.ClusterAllocation.ToLower() ? UnitStrength.Strong : UnitStrength.Weak
+					ClusterAllocation = "strong" == par.ClusterAllocation.ToLower() ? UnitStrength.Strong : UnitStrength.Weak,
+					FHPolicy = "continue" != par.FHPolicy?.ToLower() ?
+						("freeze" != par.FHPolicy?.ToLower() ? FailureHandlingPolicy.Break : FailureHandlingPolicy.Freeze)
+						: FailureHandlingPolicy.Continue
 				});
+				
 				var taskUid = _taskManager.InitiateTask(releaseUid,taskParameters,userUid);
 				if (string.IsNullOrEmpty(taskUid))
 					return HandleError("Corrupted application release", HttpStatusCode.InternalServerError);
@@ -188,7 +192,7 @@ namespace Baltic.TaskManager.Controllers {
 		}
 
 		/// <summary>
-		/// [AbortTask] Change the ComputationStatus of CTask to "Aborted".
+		/// [AbortTask] Change the ComputationStatus of CTask execution to "Aborted".
 		/// </summary>
 		/// <param name="taskUid">The Uid of the CTask.</param>
 		[HttpDelete("abort")]
@@ -201,6 +205,30 @@ namespace Baltic.TaskManager.Controllers {
 				if (0 == _taskManager.AbortTask(taskUid))
 					return Ok();
 				return HandleError("Task could not be aborted", HttpStatusCode.InternalServerError);
+			}
+			catch (Exception e)
+			{
+				return HandleError(e);
+			}
+		}
+		
+		/// <summary>
+		/// [ArchiveTask] Mark CTask execution as "IsArchived".
+		/// </summary>
+		/// <param name="taskUid">The Uid of the CTask.</param>
+		[HttpDelete]
+		public IActionResult ArchiveTask([FromQuery] string taskUid) {
+			try
+			{
+				string userUid = UserName;
+				if (!CheckTaskOwnership(taskUid, userUid))
+					return HandleError("Task not available for the user", HttpStatusCode.Unauthorized);
+				short ret = _taskManager.ArchiveTask(taskUid);
+				if (0 == ret)
+					return Ok();
+				if (-1 == ret)
+					return HandleError("Task could not be archived", HttpStatusCode.BadRequest);
+				return HandleError("Task could not be archived", HttpStatusCode.InternalServerError);
 			}
 			catch (Exception e)
 			{
@@ -398,8 +426,13 @@ namespace Baltic.TaskManager.Controllers {
 		private XTask MapTask(CTask task) {
 			var xTask = DBMapper.Map<XTask>(task, new XTask());
 			DBMapper.Map<XTask>(task.Execution, xTask);
-			if (null != task.Execution.Parameters) 
+			if (null != task.Execution.Parameters)
+			{
 				xTask.Parameters = DBMapper.Map<XTaskParameters>(task.Execution.Parameters, new XTaskParameters());
+				xTask.Parameters.ClusterAllocation = task.Execution.Parameters.ClusterAllocation.ToString();
+				xTask.Parameters.FHPolicy = task.Execution.Parameters.FHPolicy.ToString();
+			}
+
 			// TODO: substitute with - xTask.Batches = task.Batches.Select(b => MapBatches(b)).Aggregate().ToList();
 			List<XBatch> lb = new List<XBatch>();
 			foreach (CJobBatch batch in task.Batches)
@@ -423,21 +456,27 @@ namespace Baltic.TaskManager.Controllers {
 					})
 				)).ToList();
 		}
-		
-		private IEnumerable<XJob> MapJobs(BatchExecution exec){
+
+		private IEnumerable<XJob> MapJobs(BatchExecution exec)
+		{
 			return exec.JobExecutions.Select(i => DBMapper.Map<XJob>(
-				i, null != i.Job ? DBMapper.Map<XJob>(
-					i.Job, new XJob()) : new XJob()
-				{
-					CallName = "copy (system)"
-				}
+				i, DBMapper.Map<XJob>(
+					i.Job, new XJob()
+					{
+						ModuleName = _unitRegistry.GetUnitRelease(i.Job.ModuleReleaseUid).Name,
+						JobInstanceUid = i.Instance?.InstanceUid
+					})
 			)).ToList();
 		}
 
 		private IEnumerable<XJob> MapJobs(CJob job){
 			return job.JobExecutions.Select(i => DBMapper.Map<XJob>(
 				i, DBMapper.Map<XJob>(
-					job, new XJob())
+					job, new XJob()
+					{
+						ModuleName = _unitRegistry.GetUnitRelease(i.Job.ModuleReleaseUid).Name,
+						JobInstanceUid = i.Instance?.InstanceUid
+					})
 				)).ToList();
 		}
 		

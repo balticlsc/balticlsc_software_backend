@@ -12,6 +12,7 @@ namespace Baltic.DataModel.Execution
         public bool IsPrivate { get; set; }
         public UnitStrength ClusterAllocation { get; set; }
         public string ClusterUid { get; set; }
+        public FailureHandlingPolicy FHPolicy { get; set; }
         public ResourceReservationRange ReservationRange { get; set; }
         public List<UnitCallParameter> CustomParameters { get; set; }
 

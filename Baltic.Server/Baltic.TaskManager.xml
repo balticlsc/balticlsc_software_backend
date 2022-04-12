@@ -118,7 +118,13 @@
         </member>
         <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.AbortTask(System.String)">
             <summary>
-            [AbortTask] Change the ComputationStatus of CTask to "Aborted".
+            [AbortTask] Change the ComputationStatus of CTask execution to "Aborted".
+            </summary>
+            <param name="taskUid">The Uid of the CTask.</param>
+        </member>
+        <member name="M:Baltic.TaskManager.Controllers.TaskManagerController.ArchiveTask(System.String)">
+            <summary>
+            [ArchiveTask] Mark CTask execution as "IsArchived".
             </summary>
             <param name="taskUid">The Uid of the CTask.</param>
         </member>

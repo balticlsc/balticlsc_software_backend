@@ -36,6 +36,7 @@ namespace Baltic.TaskRegistry.DataAccess
         /// <param name="dataTokenUid"></param>
         public short UpdateDataSet(CDataSet data, CDataSet accessData, string dataTokenUid)
         {
+            bool tokenUpdated = false;
             
             foreach (var task in _storedTasks)
             {
@@ -70,13 +71,14 @@ namespace Baltic.TaskRegistry.DataAccess
                                         jobToken.AccessData = accessData;
                                         Log.Debug($"Set access parameters for job TokenNo=" +
                                                   $"{jobToken.TokenNo} to: {jobToken.AccessData?.Values}");
-                                        return 0;
+                                        tokenUpdated = true;
                                     }
                             }
                         }
                 }
             }
-            return -1;
+
+            return tokenUpdated ? (short)0 : (short)-1;
         }
 
         public IEnumerable<ResourceUsage> GetResourceUsage(UsageQuery query)
@@ -111,6 +113,8 @@ namespace Baltic.TaskRegistry.DataAccess
         public IEnumerable<CTask> FindTasks(TaskQuery query)
         {
             List<CTask> result = _storedTasks;
+            if (!query.IncludeArchived)
+                result = result.FindAll(t => !t.Execution.IsArchived);
             if (!string.IsNullOrEmpty(query.AppUid))
                 result = result.FindAll(t => t.ReleaseUid == query.AppUid);
             if (query.IsPrivate)
@@ -121,6 +125,15 @@ namespace Baltic.TaskRegistry.DataAccess
                 result = result.FindAll(t => null != t.Execution && query.Statuses.Contains(t.Execution.Status));
             // TODO
             return result;
+        }
+
+        public short ArchiveTask(string taskUid)
+        {
+            CTask task = _storedTasks.Find(t => t.Uid == taskUid);
+            if (null == task)
+                return -1;
+            task.Execution.IsArchived = true;
+            return 0;
         }
     }
 }

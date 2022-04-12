@@ -13,6 +13,7 @@ namespace Baltic.DataModel.Execution
         //from: TaskExecution
         public int Priority { get; set; }
         public bool IsPrivate { get; set; }
+        public bool IncludeArchived { get; set; }
 
         //from: ExecutionRecord
         public List<ComputationStatus> Statuses { get; set; }

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{B2738024-85CB-4CB3-AD5A-F8FC17863147}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Baltic.Engine</RootNamespace>
+    <AssemblyName>Baltic.Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cluster\BatchManager\AccessUtility.cs" />
+    <Compile Include="Cluster\BatchManager\BatchesAPI.cs" />
+    <Compile Include="Cluster\BatchManager\BatchManager.cs" />
+    <Compile Include="Cluster\BatchManager\IBatches.cs" />
+    <Compile Include="Cluster\BatchManager\IJobRequestMQAck.cs" />
+    <Compile Include="Cluster\BatchManager\JobRequestMQAckProxy.cs" />
+    <Compile Include="Cluster\BatchManager\JobsProxy.cs" />
+    <Compile Include="Cluster\Cluster\ClusterProxy.cs" />
+    <Compile Include="Cluster\Cluster\ICluster.cs" />
+    <Compile Include="Cluster\JobManager\IJob.cs" />
+    <Compile Include="Cluster\JobManager\IJobs.cs" />
+    <Compile Include="Cluster\JobManager\ITokenMQ.cs" />
+    <Compile Include="Cluster\JobManager\ITokens.cs" />
+    <Compile Include="Cluster\JobManager\JobManager.cs" />
+    <Compile Include="Cluster\JobManager\JobProxy.cs" />
+    <Compile Include="Cluster\JobManager\JobsAdapter.cs" />
+    <Compile Include="Cluster\JobManager\TokenMQProxy.cs" />
+    <Compile Include="Cluster\JobManager\TokenUtility.cs" />
+    <Compile Include="Cluster\Job\Job.cs" />
+    <Compile Include="Cluster\Common\IQueueConsumer.cs" />
+    <Compile Include="JobBroker\ClusterNodeAccessFactory.cs" />
+    <Compile Include="JobBroker\IClusterNodeAccessFactory.cs" />
+    <Compile Include="JobBroker\IJobBroker.cs" />
+    <Compile Include="JobBroker\JobBroker.cs" />
+    <Compile Include="MultiQueue\IJobRequestMQ.cs" />
+    <Compile Include="MultiQueue\ITokenMQDirect.cs" />
+    <Compile Include="MultiQueue\JobRequestMQAckAdapter.cs" />
+    <Compile Include="MultiQueue\JobRequestMQAckAPI.cs" />
+    <Compile Include="MultiQueue\JobRequestMQProxy.cs" />
+    <Compile Include="MultiQueue\MultiQueueMock.cs" />
+    <Compile Include="MultiQueue\TokenMQDirectProxy.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskManager\CTaskWriter.cs" />
+    <Compile Include="TaskManager\DiagramUtility.cs" />
+    <Compile Include="TaskManager\ICALTranslation.cs" />
+    <Compile Include="TaskManager\ITaskManager.cs" />
+    <Compile Include="TaskManager\TaskManager.cs" />
+    <Compile Include="TaskProcessor\ITaskProcessor.cs" />
+    <Compile Include="TaskProcessor\TaskMessageUtility.cs" />
+    <Compile Include="TaskProcessor\TaskProcessor.cs" />
+    <Compile Include="TaskProcessor\TaskProcessorAPI.cs" />
+    <Compile Include="TaskProcessor\TokenMQAdapter.cs" />
+    <Compile Include="TaskProcessor\TokenMQAPI.cs" />
+    <Compile Include="UnitManager\IUnitDevManager.cs" />
+    <Compile Include="UnitManager\UnitDevManager.cs" />
+    <Compile Include="Utilities\YAMLUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cluster" />
+    <Folder Include="Cluster\BatchManager" />
+    <Folder Include="Cluster\Cluster" />
+    <Folder Include="Cluster\Job" />
+    <Folder Include="Cluster\JobManager" />
+    <Folder Include="Cluster\Common" />
+    <Folder Include="JobBroker" />
+    <Folder Include="MultiQueue" />
+    <Folder Include="Utilities" />
+    <Folder Include="UnitManager" />
+    <Folder Include="TaskManager" />
+    <Folder Include="TaskProcessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Baltic.Database\Baltic.Database.csproj">
+      <Project>{53ee267a-1129-48d1-aead-d378185f33c3}</Project>
+      <Name>Baltic.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baltic.DataModel\Baltic.DataModel.csproj">
+      <Project>{8f369788-5baa-4862-9238-c3a5178fee88}</Project>
+      <Name>Baltic.DataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

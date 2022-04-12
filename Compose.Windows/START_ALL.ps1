@@ -1,0 +1,10 @@
+invoke-expression -Command "./check_docker_network.ps1 -networkName balticlsc-server"
+invoke-expression -Command "./check_docker_network.ps1 -networkName balticlsc-node"
+invoke-expression -Command "./check_docker_network.ps1 -networkName balticlsc-batch-manager"
+invoke-expression -Command "./check_docker_network.ps1 -networkName balticlsc-logging"
+
+invoke-expression -Command "./start-logging.ps1"
+invoke-expression -Command "./start-server-infrastructure.ps1"
+invoke-expression -Command "./start-server-main.ps1"
+invoke-expression -Command "./start-node-main.ps1"
+invoke-expression -Command "./start-front.ps1"

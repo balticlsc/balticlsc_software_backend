@@ -12,9 +12,9 @@ namespace Baltic.UnitRegistry
     {
         public void AddModule(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment = null)
         {
-            services.AddScoped<IUnitProcessing, UnitProcessingDaoImplMock>(); // TODO (not Mock)
-            services.AddScoped<IUnitManagement, UnitManagementDaoImplMock>(); // TODO (not Mock)
-            services.AddSingleton<UnitRegistryMock, UnitRegistryMock>(); // TODO (remove in the final version of the TaskRegistry)
+            services.AddScoped<IUnitProcessing, UnitProcessingDaoImpl>(); // TODO (not Mock)
+            services.AddScoped<IUnitManagement, UnitManagementDaoImpl>(); // TODO (not Mock)
+            //services.AddSingleton<UnitRegistryMock, UnitRegistryMock>(); // TODO (remove in the final version of the TaskRegistry)
         }
 
         public void UseModule(IApplicationBuilder app)

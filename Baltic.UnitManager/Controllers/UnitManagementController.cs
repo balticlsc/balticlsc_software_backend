@@ -34,6 +34,7 @@ namespace Baltic.UnitManager.Controllers {
                 var xUnits = new List<XComputationUnit>();
                 foreach (var unit in units)
                     xUnits.Add(MapUnit(unit));
+                xUnits.Sort();
                 return Ok(xUnits);
             }
 
@@ -56,6 +57,7 @@ namespace Baltic.UnitManager.Controllers {
                 var xReleases = new List<XUnitRelease>();
                 foreach (var release in releases)
                     xReleases.Add(MapUnitRelease(release));
+                xReleases.Sort();
                 return Ok(xReleases);
             }
 
